@@ -1,0 +1,171 @@
+<?php
+/**
+ * Common Header
+ * Included at the top of every page. Contains HTML head, Bootstrap 5, and responsive navigation.
+ * Set $current_page before including this file to highlight the active nav link.
+ */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EKEA — Premium Scandinavian-inspired furniture for modern living. Shop sofas, beds, dining sets and more.">
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') . ' | EKEA' : 'EKEA — Modern Furniture'; ?></title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <?php
+// Determine the base path for CSS/JS depending on directory depth
+$base_path = '';
+if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
+    $base_path = '../';
+}
+?>
+    <link rel="stylesheet" href="<?php echo $base_path; ?>css/style.css">
+</head>
+<body>
+
+    <!-- Skip to Content (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ekea-navbar" aria-label="Main navigation">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand fw-bold" href="<?php echo $base_path; ?>index.php">
+                <span class="brand-text">EKEA</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Nav Links -->
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo(isset($current_page) && $current_page === 'home') ? 'active' : ''; ?>"
+                           href="<?php echo $base_path; ?>index.php">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo(isset($current_page) && $current_page === 'products') ? 'active' : ''; ?>"
+                           href="<?php echo $base_path; ?>product.php">
+                            <i class="bi bi-grid me-1"></i>Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo(isset($current_page) && $current_page === 'about') ? 'active' : ''; ?>"
+                           href="<?php echo $base_path; ?>about.php">
+                            <i class="bi bi-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo(isset($current_page) && $current_page === 'news') ? 'active' : ''; ?>"
+                           href="<?php echo $base_path; ?>news.php">
+                            <i class="bi bi-chat-quote me-1"></i>Reviews
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Right Side Nav -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <!-- Logged In -->
+                        <?php if ($_SESSION['user']['role'] === 'admin'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?php echo(isset($current_page) && $current_page === 'admin') ? 'active' : ''; ?>"
+                                   href="<?php echo $base_path; ?>admin/admin.php">
+                                    <i class="bi bi-speedometer2 me-1"></i>Admin Panel
+                                </a>
+                            </li>
+                        <?php
+    endif; ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo(isset($current_page) && $current_page === 'cart') ? 'active' : ''; ?>"
+                               href="<?php echo $base_path; ?>cart.php">
+                                <i class="bi bi-cart3 me-1"></i>Cart
+                                <?php if (!empty($_SESSION['cart'])): ?>
+                                    <span class="badge bg-accent rounded-pill"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
+                                <?php
+    endif; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i><?php echo htmlspecialchars($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="<?php echo $base_path; ?>profile.php"><i class="bi bi-person me-2"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_path; ?>history.php"><i class="bi bi-clock-history me-2"></i>Order History</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_path; ?>logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    <?php
+else: ?>
+                        <!-- Guest -->
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo(isset($current_page) && $current_page === 'login') ? 'active' : ''; ?>"
+                               href="<?php echo $base_path; ?>login.php">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-accent btn-sm ms-2 px-3 <?php echo(isset($current_page) && $current_page === 'register') ? 'active' : ''; ?>"
+                               href="<?php echo $base_path; ?>register.php">
+                                <i class="bi bi-person-plus me-1"></i>Register
+                            </a>
+                        </li>
+                    <?php
+endif; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Spacer for fixed navbar -->
+    <div class="navbar-spacer"></div>
+
+    <!-- Flash Messages -->
+    <?php if (isset($_SESSION['flash_message'])): ?>
+        <div class="container mt-3">
+            <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash_type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show" role="alert">
+                <i class="bi bi-<?php
+    $icon = 'info-circle';
+    if (($_SESSION['flash_type'] ?? '') === 'success')
+        $icon = 'check-circle';
+    elseif (($_SESSION['flash_type'] ?? '') === 'danger')
+        $icon = 'exclamation-triangle';
+    elseif (($_SESSION['flash_type'] ?? '') === 'warning')
+        $icon = 'exclamation-circle';
+    echo $icon;
+?> me-2"></i>
+                <?php echo htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <?php unset($_SESSION['flash_message'], $_SESSION['flash_type']); ?>
+    <?php
+endif; ?>
+
+    <!-- Main Content -->
+    <main id="main-content">
