@@ -16,37 +16,30 @@ require_once 'includes/header.php';
 ?>
 
 <!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-pattern"></div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 hero-content">
-                <p class="text-uppercase letter-spacing-1 mb-3" style="color: var(--color-accent); font-weight: 600;">
-                    <i class="bi bi-stars me-1"></i> Scandinavian Design
-                </p>
-                <h1>Furniture That Feels Like Home</h1>
-                <p class="mb-4">
-                    Discover EKEA's curated collection of modern, sustainable furniture. 
-                    Crafted with care, designed for life.
-                </p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="product.php" class="btn btn-primary-ekea btn-lg">
-                        <i class="bi bi-grid me-2"></i>Shop Now
-                    </a>
-                    <a href="about.php" class="btn btn-outline-ekea btn-lg">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 d-none d-lg-block text-center">
-                <div style="padding: 3rem;">
-                    <i class="bi bi-house-heart" style="font-size: 15rem; color: rgba(255,255,255,0.1);"></i>
-                </div>
+<section class="hero-section hero-fixed">
+    <!-- Slideshow images -->
+        <div class="hero-slide active" style="background-image: url('./uploads/spacejoy-unsplash1.jpg'); background-position: center center;"></div>
+        <div class="hero-slide" style="background-image: url('./uploads/spacejoy-unsplash2.jpg'); background-position: center center; "></div>
+        <div class="hero-slide" style="background-image: url('./uploads/spacejoy-unsplash-row1.jpg'); background-position: center center;"></div>
+
+        <div class="hero-overlay">
+        <div class="hero-content fade-in-up visible">
+            <h1 class="hero-title">Elevate Your Living Space</h1>
+            <p class="hero-subtitle">Discover thoughtfully designed furniture that blends Scandinavian simplicity with modern comfort.</p>
+            <div class="hero-buttons">
+                <a href="product.php" class="btn btn-primary-ekea btn-lg">Shop Collection</a>
             </div>
         </div>
     </div>
+        <!-- 3 dot indicators -->
+        <div class="hero-dots">
+            <button class="hero-dot active" data-index="0"></button>
+            <button class="hero-dot" data-index="1"></button>
+            <button class="hero-dot" data-index="2"></button>
+        </div>
 </section>
 
+<div class="content-layer">
 <!-- Categories Section -->
 <section class="section-padding">
     <div class="container">
@@ -174,5 +167,5 @@ endforeach; ?>
         </div>
     </div>
 </section>
-
+</div>
 <?php require_once 'includes/footer.php'; ?>
