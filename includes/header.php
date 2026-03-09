@@ -98,7 +98,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
                                 </a>
                             </li>
                         <?php
-    endif; ?>
+                        endif; ?>
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'cart') ? 'active' : ''; ?>"
                                href="<?php echo $base_path; ?>cart.php">
@@ -106,7 +106,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
                                 <?php if (!empty($_SESSION['cart'])): ?>
                                     <span class="badge bg-accent rounded-pill"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
                                 <?php
-    endif; ?>
+                                endif; ?>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -120,8 +120,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
                                 <li><a class="dropdown-item" href="<?php echo $base_path; ?>logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                             </ul>
                         </li>
-                    <?php
-else: ?>
+                    <?php else: ?>
                         <!-- Guest -->
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'login') ? 'active' : ''; ?>"
@@ -136,7 +135,7 @@ else: ?>
                             </a>
                         </li>
                     <?php
-endif; ?>
+                    endif; ?>
                 </ul>
             </div>
         </div>
@@ -150,14 +149,15 @@ endif; ?>
         <div class="container mt-3">
             <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash_type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show" role="alert">
                 <i class="bi bi-<?php
-    $icon = 'info-circle';
-    if (($_SESSION['flash_type'] ?? '') === 'success')
-        $icon = 'check-circle';
-    elseif (($_SESSION['flash_type'] ?? '') === 'danger')
-        $icon = 'exclamation-triangle';
-    elseif (($_SESSION['flash_type'] ?? '') === 'warning')
-        $icon = 'exclamation-circle';
-    echo $icon;
+                        $icon = 'info-circle';
+        if (($_SESSION['flash_type'] ?? '') === 'success') {
+            $icon = 'check-circle';
+        } elseif (($_SESSION['flash_type'] ?? '') === 'danger') {
+            $icon = 'exclamation-triangle';
+        } elseif (($_SESSION['flash_type'] ?? '') === 'warning') {
+            $icon = 'exclamation-circle';
+        }
+echo $icon;
 ?> me-2"></i>
                 <?php echo htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

@@ -426,3 +426,52 @@
 [2026-03-02 16:21:11] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
 [2026-03-02 16:21:20] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
 [2026-03-02 16:21:23] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:08] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:35] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:41] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:34] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:25:37] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:16] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:16] [DEBUG] [register.php:7] Register page accessed
+[2026-03-09 14:26:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:39] [DEBUG] [register.php:7] Register page accessed
+[2026-03-09 14:26:39] [INFO] [register.php:75] Creating new user account | Context: {"email":"adrian@test.com"}
+[2026-03-09 14:26:39] [INFO] [register.php:87] User account created successfully | Context: {"email":"adrian@test.com","user_id":"7"}
+[2026-03-09 14:26:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:39] [DEBUG] [login.php:7] Login page accessed
+[2026-03-09 15:54:33] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:34] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:35] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:36] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:38] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:39] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:42] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:58:25] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:53] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:57] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:58] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:06] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:08] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:10] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:18] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:18] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:22] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:25] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:36] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:52] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:52] [INFO] [checkout.php:119] [User: test@test.com (ID:5)] Starting checkout transaction | Context: {"user_id":5,"total":95}
+[2026-03-09 16:02:52] [INFO] [checkout.php:145] [User: test@test.com (ID:5)] Order placed successfully | Context: {"order_id":"2","total":95,"items":1}
+[2026-03-09 16:02:52] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:04] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:06] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:09] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:10] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:14] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:17] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:22] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:26] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:30] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
