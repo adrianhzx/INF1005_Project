@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Mission & Values -->
-<section class="section-padding bg-light-ekea">
+<section id="values" class="section-padding bg-light-ekea">
     <div class="container">
         <div class="section-header fade-in-up">
             <h2>Our Values</h2>
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </section>
 
 <!-- Team Section -->
-<section class="section-padding">
+<section id="team" class="section-padding">
     <div class="container">
         <div class="section-header fade-in-up">
             <h2>Meet Our Team</h2>

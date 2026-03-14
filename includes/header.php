@@ -7,6 +7,12 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Content-Security-Policy header (XSS protection)
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: SAMEORIGIN");
+header("Referrer-Policy: strict-origin-when-cross-origin");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,7 +153,7 @@ endif; ?>
 
     <!-- Flash Messages -->
     <?php if (isset($_SESSION['flash_message'])): ?>
-        <div class="container mt-3">
+        <div class="container mt-3" aria-live="assertive" aria-atomic="true">
             <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash_type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show" role="alert">
                 <i class="bi bi-<?php
     $icon = 'info-circle';

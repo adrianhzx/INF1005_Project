@@ -1,240 +1,101 @@
-# EKEA Furniture E-Commerce Website
+# EKEA Complete Project Report
 
-A full-stack e-commerce web application for EKEA Furniture, built with PHP, MySQL, and Bootstrap 5. Features a public storefront, user accounts with order history, and a complete admin portal.
-
----
-
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Database Setup](#database-setup)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Test Accounts](#test-accounts)
-- [Project Structure](#project-structure)
-- [Features](#features)
-- [Security](#security)
-- [External APIs and Libraries](#external-apis-and-libraries)
-- [Notes](#notes)
+This document provides a comprehensive breakdown of all features, security hardening, UI/UX polish, and flow mechanics implemented in the EKEA e-commerce website. 
 
 ---
 
-## Prerequisites
+## 1. Detailed Changes & Enhancements
 
-- **XAMPP** (or any local stack with Apache + PHP 7.4+ and MySQL 5.7+)
-- PHP extensions: `pdo_mysql`, `finfo`, `mbstring`, `json`
-- A modern web browser (Chrome, Firefox, Edge, Safari)
+### 🛡️ Security & Session Management
+- **Single-Session Enforcement**: Implemented database-backed session management (`user_sessions` table). A user can only log in from one location at a time. A new login automatically invalidates any existing session for that account.
+- **Session Validation**: Every page load (via `db_connect.php`) checks the active token against the database. If hijacked or replaced, the session is killed.
+- **Admin Control**: The **Manage Users** panel displays real-time session status (Online/Offline, Last Active time, IPv4 address like `127.0.0.1` instead of `::1`). Admins can force-logout any user.
+- **HTTP Headers**: Added strict `Content-Security-Policy` (CSP) whitelisting CDNs (Stripe, Chart.js, Bootstrap, Leaflet), `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, from XSS and clickjacking.
+- **Cookie Hardening**: Configured PHP session cookies with `HttpOnly`, `SameSite=Strict`, and `use_strict_mode` enabled.
+- **IDOR & XSS Protection**: Database queries strictly use `$_SESSION['user']['id']` for user ownership validation. Output is escaped uniformly using `htmlspecialchars(... ENT_QUOTES, 'UTF-8')`.
 
----
+### 🎨 UI/UX & Accessibility Polish
+- **WCAG AA Compliance**: Fixed contrast ratios. The `.text-accent` color was darkened to `#7A5A10` (6.3:1 contrast ratio passing both AA and AAA).
+- **Material Design Standards**: Enforced a minimum **48×48dp** touch target for interactive elements. Button text labels ("Remove", "Search", "Lookup", "Promote/Delete") were added alongside all icons.
+- **Focus Indicators**: Added highly visible outlines (`focus-visible`) for smooth keyboard navigation.
+- **Cart & Quantity Experience**: 
+  - Standardized `+/-` quantity buttons across the entire site (`cart.php` and `product_detail.php`), hiding default browser number spinners on `readonly` numerical inputs.
+  - Adding an item triggers a **cart shake animation** (0.6s keyframe) in the navbar.
+  - Decreasing quantity to `1` and clicking `-` triggers a **Bootstrap confirmation modal** asking if the user wants to remove the item (replacing native browser dialogues).
+  - The "Clear Cart" button also uses a themed Bootstrap modal.
+- **Visual Aesthetics (Von Restorff Effect)**: On the homepage, the first two featured products are rendered larger while the rest are smaller, creating visual hierarchy.
+- **Product Filtering**: Added the ability to sort by "Oldest First", customized the dropdown styling, and added a dynamic "All Products" badge. Auto-fill logic supports populating the coupon code via URL parameters in checkout.
+- **Footer Revamp**: Removed dead links. The "Company" and "Account" links are now mapped securely. The footer proudly displays: **"Built by P4-Team 12 in Singapore"**.
 
-## Installation
-
-1. Clone or copy the `ekea/` folder into your XAMPP `htdocs` directory:
-
-   ```
-   C:\xampp\htdocs\ekea\
-   ```
-
-2. Ensure the `uploads/` directory exists and is writable by the web server. This is where product images are stored.
-
-3. Ensure the `logs/` directory exists. The application writes debug and error logs to `logs/ekea.log`. The included `.htaccess` file blocks direct web access to log files.
-
----
-
-## Database Setup
-
-1. Start **Apache** and **MySQL** from the XAMPP Control Panel.
-
-2. Open **phpMyAdmin** at `http://localhost/phpmyadmin`.
-
-3. Import the database schema and seed data:
-   - Click **Import** in the top navigation.
-   - Select the file `database/ekea_db.sql`.
-   - Click **Go** to execute.
-
-   This will create the `ekea_db` database with the following tables:
-   - `users` -- user accounts and roles
-   - `categories` -- product categories
-   - `products` -- product catalog
-   - `reviews` -- customer reviews (purchase-gated)
-   - `orders` -- order records
-   - `order_items` -- line items for each order
-   - `coupons` -- discount coupon codes
+### 📊 Admin capabilities (Chart.js Integration)
+- **Admin Dashboard**: Visualized operations with 5 distinct charts:
+  - **Revenue by Category** (Doughnut Chart)
+  - **Order Status Distribution** (Pie Chart)
+  - **Sales Trend** (Line Chart tracking daily revenue)
+  - **Stock Levels** (Bar Chart highlighting low stock)
+  - **Top Selling Products** (Horizontal Bar Chart)
+- **Public Analytics**: Implemented a "Rating Distribution" bar chart on the `news.php` reviews page and a "Spending Trend" line chart on the `history.php` order history page.
 
 ---
 
-## Configuration
+## 2. User Flow
 
-Database credentials are stored in `includes/db_config.ini`:
+The platform guides users through an intuitive, e-commerce lifecycle:
 
-```ini
-[database]
-host = localhost
-dbname = ekea_db
-username = root
-password =
+1. **Discovery**: A guest navigates to `index.php` and browses the "Featured Collection" showcasing the Von Restorff visual hierarchy. They hover over an item and click "View Details" to reach `product_detail.php`.
+2. **Evaluation**: On the product page, the user views product info, checks the "In Stock" badge, and reads existing reviews.
+3. **Action (Cart)**: The user clicks `+` to update the quantity (native input spinner is hidden) and clicks **"Add to Cart"**. 
+   - *Feedback*: A flash message appears, and the cart icon in the navbar shakes.
+4. **Checkout Prep**: Navigating to `cart.php`, the user can further manage quantities. If they decrement an item below 1 or click "Remove", a customized modal asks for confirmation. They then proceed to `checkout.php`.
+5. **Authentication Intervention**: If not logged in, `auth_guard.php` redirects the user to `login.php`. Upon successful login, their new session invalidates any old ones, and an IPv4 footprint is logged.
+6. **Checkout & History**: The user completes payment/shipping info in checkout. They can track the order in `history.php`, which visually displays their spending trend via a Chart.js graph.
+7. **Post-Purchase**: Once an order status is marked "Delivered" by an admin, the user is authorized to leave a star rating on `news.php` or the product page.
+
+---
+
+## 3. Code Flow
+
+The structure utilizes a clean, procedural MVC-lite pattern in PHP:
+
+- **Routing & Entry**: Requests hit specific `.php` pages (e.g., `cart.php`).
+- **Bootstrap / Initialization**: 
+  - Every page begins by importing `includes/db_connect.php`, which starts the session, sets strict cookies, initializes the secure `$pdo` connection, and checks the `$user_sessions` table to enforce single-session validity.
+  - `includes/auth_guard.php` is required on protected routes to verify `$_SESSION['user']`.
+- **Controller Logic**: At the top of the file, PHP processes any `POST` requests (e.g., `isset($_POST['add_to_cart'])`). CSRF tokens (`$_POST['csrf_token']`) are validated immediately. Success/failure states trigger `$_SESSION['flash_message']` and a `header('Location: ...')` redirect (PRG pattern).
+- **Data Fetching**: The mid-section prepares SQL statements via `$pdo->prepare()` to fetch the necessary data for the view (e.g., `$stmt->fetchAll()`).
+- **View Rendering**: The UI is rendered at the bottom. 
+  - `includes/header.php` injects the CSP headers and output layout. 
+  - The DOM uses `htmlspecialchars()` to safely render the fetched data.
+  - `includes/footer.php` closes the structure and conditionally loads `chart.umd.min.js` or `main.js`.
+- **Client-Side execution**: Once the DOM loads, `js/main.js` attaches listeners for quantity control logic, auto-submits forms during cart edits, activates Bootstrap modal integrations, and controls scroll animations.
+
+---
+
+## 4. Data Flow
+
+Data integrity and security are at the core of the database schema:
+
+```mermaid
+graph TD
+    User((User)) -->|Logs in| Auth[login.php]
+    Auth -->|Creates Token| Sessions[(user_sessions)]
+    Auth -->|Sets Cookie| Browser[Client Session]
+    
+    Browser -->|Requests Page| Middleware[db_connect.php]
+    Middleware -->|Validates Token against| Sessions
+    
+    User -->|Interacts| UI[product.php / cart.php]
+    UI -->|POST Request + CSRF| Server[PHP Controller]
+    
+    Server -->|Read/Write Data| DB[(MySQL Database)]
+    DB -->|Products table| Server
+    DB -->|Orders table| Server
+    DB -->|Reviews table| Server
+    
+    Server -->|Sanitized Output| View[HTML View]
+    View -->|Displays| User
 ```
 
-Update these values if your MySQL setup uses different credentials. The default XAMPP configuration uses `root` with no password.
-
----
-
-## Running the Application
-
-1. Start Apache and MySQL from XAMPP Control Panel.
-2. Open a browser and navigate to:
-
-   ```
-   http://localhost/ekea/
-   ```
-
-3. The homepage should load with the navigation bar, hero section, and featured products.
-
----
-
-## Test Accounts
-
-The database seed includes the following test accounts:
-
-| Email               | Password     | Role  |
-|---------------------|-------------|-------|
-| admin@ekea.com      | Admin@123   | Admin |
-| manager@ekea.com    | Manager@123 | Admin |
-| john@example.com    | User@123    | User  |
-| jane@example.com    | User@123    | User  |
-
-If login fails, visit `http://localhost/ekea/diagnostics.php` to verify password hashes and database connectivity. **Delete `diagnostics.php` before any production deployment.**
-
----
-
-## Project Structure
-
-```
-ekea/
-|-- admin/
-|   |-- admin.php           # Admin dashboard with stats
-|   |-- inventory.php       # Product CRUD (add, edit, delete)
-|   |-- orders.php          # Order management and status updates
-|   |-- users.php           # User management and review moderation
-|
-|-- css/
-|   |-- style.css           # Design system and all component styles
-|
-|-- database/
-|   |-- ekea_db.sql         # Database schema and seed data
-|
-|-- includes/
-|   |-- auth_guard.php      # Login/admin guards, CSRF token helpers
-|   |-- db_config.ini       # Database credentials (do not commit)
-|   |-- db_connect.php      # PDO connection, session start, logger init
-|   |-- footer.php          # Footer partial, chatbot widget
-|   |-- header.php          # Header partial, navbar, flash messages
-|   |-- logger.php          # Backend logger (writes to logs/ekea.log)
-|
-|-- js/
-|   |-- main.js             # Client-side interactions and animations
-|
-|-- logs/
-|   |-- ekea.log            # Application log (auto-created)
-|   |-- .htaccess           # Blocks web access to log files
-|
-|-- uploads/                # Product images (uploaded via admin)
-|
-|-- index.php               # Homepage
-|-- product.php             # Product catalog with filters and pagination
-|-- product_detail.php      # Single product view with reviews
-|-- cart.php                 # Shopping cart
-|-- checkout.php            # Checkout with Stripe, OneMap, coupon apply
-|-- summary.php             # Order confirmation page
-|-- login.php               # User login
-|-- register.php            # User registration
-|-- profile.php             # User profile management
-|-- history.php             # Order history
-|-- news.php                # Community reviews page
-|-- about.php               # About us with interactive map
-|-- logout.php              # Session destroy and redirect
-|-- chatbot.php             # AJAX chatbot endpoint
-|-- diagnostics.php         # Health check (delete in production)
-```
-
----
-
-## Features
-
-### Public Pages
-- Homepage with hero section, category browsing, and featured products
-- Product catalog with category filtering, search, sorting, and pagination
-- Product detail page with image, stock status, add-to-cart, and customer reviews
-- About Us page with company info and interactive OpenStreetMap
-- Community reviews page with aggregate statistics
-
-### User Features
-- Registration and login with secure password hashing
-- Profile management (email locked for non-admin users)
-- Shopping cart with quantity controls
-- Checkout with structured address input (postal code + unit number)
-- OneMap API integration for Singapore address lookup
-- Stripe test mode for credit/debit card payments
-- Coupon application with AJAX validation and live price update
-- Order history with detailed order view
-
-### Admin Portal
-- Dashboard with statistics (products, orders, unique customers, revenue)
-- Inventory management (add, edit, delete products with image upload)
-- Order management (view orders, update statuses)
-- User management (view all users, toggle roles, delete accounts)
-- Review moderation (view and remove any review)
-
-### Chatbot
-- Floating chat widget on all pages
-- Keyword-based search across products, categories, and site pages
-- Rate limiting (20 requests/minute per session)
-- Input sanitisation and SQL injection pattern blocking
-
-### Purchase-Gated Reviews
-- Users can only review products from delivered orders
-- Backend validation prevents bypassing the restriction
-- Admins can moderate and delete reviews
-
----
-
-## Security
-
-- **SQL Injection**: All database queries use PDO prepared statements.
-- **XSS**: All user-facing output is escaped with `htmlspecialchars()`.
-- **CSRF**: All state-changing forms include a CSRF token validated server-side.
-- **Password Storage**: Passwords are hashed with `password_hash()` (bcrypt).
-- **Session Management**: `session_start()` is called at application entry. `session_regenerate_id()` is used on login.
-- **File Upload Validation**: MIME type checked with `finfo`, size limited to 5MB, restricted to image types.
-- **Rate Limiting**: Chatbot endpoint limits to 20 requests per minute per session.
-- **Access Control**: Admin pages are protected with `require_admin()`.
-- **Log Protection**: `.htaccess` in `logs/` prevents web access to log files.
-
----
-
-## External APIs and Libraries
-
-| Dependency          | Purpose                            | Requires API Key |
-|---------------------|------------------------------------|------------------|
-| Bootstrap 5.3.2     | CSS framework and components       | No               |
-| Bootstrap Icons     | Icon library                       | No               |
-| Google Fonts (Inter)| Typography                         | No               |
-| Leaflet 1.9.4       | Interactive map on About Us page   | No               |
-| OpenStreetMap       | Map tiles for Leaflet              | No               |
-| OneMap Singapore    | Postal code address lookup         | No               |
-| Stripe.js v3        | Test mode card payment input       | No (uses test key) |
-
-**Stripe Test Card**: Use `4242 4242 4242 4242` with any future expiry date and any 3-digit CVC.
-
-**Available Coupon Codes**: `SAVE10` (10%), `SAVE20` (20%), `EKEA50` (50%)
-
----
-
-## Notes
-
-- The Stripe integration uses a **test publishable key** (`pk_test_TYooMQauvdEDq54NiTphI7jx`). No real payments are processed.
-- Product images should be placed in the `uploads/` directory. The admin inventory page handles image uploads automatically.
-- The application logs errors and key events to `logs/ekea.log`. Check this file for debugging.
-- `diagnostics.php` is provided for development health checks. Remove it before going live.
-- The `db_config.ini` file contains database credentials. Do not commit it to version control.
+1. **Authentication Flow**: User credentials verify against standard password hashes. A 64-byte CSRF token securely ties their temporary active window to their `$_SESSION`. Simultaneously, a `session_token` securely ties the server `$_SESSION` to the MySQL `user_sessions` table, preventing cookie cloning.
+2. **Transaction Flow**: Cart data is stored transiently in `$_SESSION['cart']`. Upon checkout, the server maps this array to persistent `orders` and `order_items` tables inside a single database transaction.
+3. **Reporting Flow**: The `admin/api/chart_data.php` endpoint queries aggregate data (e.g., `SUM(total)`, `COUNT(status)`), packages it into JSON format, and pipes it directly into the client-side Chart.js instances for visual dashboarding.

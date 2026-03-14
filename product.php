@@ -40,6 +40,9 @@ switch ($sort_by) {
     case 'name':
         $order = 'p.name ASC';
         break;
+    case 'oldest':
+        $order = 'p.created_at ASC';
+        break;
     default:
         $order = 'p.created_at DESC';
         $sort_by = 'newest';
@@ -67,6 +70,9 @@ $products = $stmt->fetchAll();
 $stmt = $pdo->query('SELECT c.*, COUNT(p.id) AS product_count FROM categories c LEFT JOIN products p ON c.id = p.category_id GROUP BY c.id ORDER BY c.name');
 $categories = $stmt->fetchAll();
 
+// Total unfiltered product count for "All Products" badge
+$total_all = $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
+
 require_once 'includes/header.php';
 ?>
 
@@ -91,25 +97,33 @@ require_once 'includes/header.php';
                 <div class="summary-card mb-4">
                     <h5 class="mb-3"><i class="bi bi-funnel me-2"></i>Filters</h5>
 
-                    <!-- Search -->
+                    <!-- Search & Sort Forms -->
                     <form method="GET" action="product.php" class="mb-4">
-                        <label for="search" class="form-label fw-semibold">Search</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="search" name="search"
-                                   value="<?php echo htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8'); ?>"
-                                   placeholder="Search furniture...">
-                            <button class="btn btn-dark-ekea" type="submit" aria-label="Search products">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
                         <?php if ($category_filter): ?>
                             <input type="hidden" name="category" value="<?php echo $category_filter; ?>">
                         <?php
 endif; ?>
-                        <?php if ($sort_by !== 'newest'): ?>
-                            <input type="hidden" name="sort" value="<?php echo htmlspecialchars($sort_by, ENT_QUOTES, 'UTF-8'); ?>">
-                        <?php
-endif; ?>
+                        
+                        <div class="mb-4">
+                            <label for="search" class="form-label fw-semibold">Search</label>
+                            <input type="text" class="form-control mb-2" id="search" name="search"
+                                   value="<?php echo htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8'); ?>"
+                                   placeholder="Search products...">
+                            <button class="btn btn-dark-ekea w-100" type="submit" aria-label="Search products">
+                                <i class="bi bi-search me-1"></i>Search
+                            </button>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="sort" class="form-label fw-semibold">Sort by</label>
+                            <select class="form-select" id="sort" name="sort" onchange="this.form.submit()">
+                                <option value="newest"     <?php echo $sort_by === 'newest' ? 'selected' : ''; ?>>Newest First</option>
+                                <option value="oldest"     <?php echo $sort_by === 'oldest' ? 'selected' : ''; ?>>Oldest First</option>
+                                <option value="price_asc"  <?php echo $sort_by === 'price_asc' ? 'selected' : ''; ?>>Price: Low &rarr; High</option>
+                                <option value="price_desc" <?php echo $sort_by === 'price_desc' ? 'selected' : ''; ?>>Price: High &rarr; Low</option>
+                                <option value="name"       <?php echo $sort_by === 'name' ? 'selected' : ''; ?>>Name A-Z</option>
+                            </select>
+                        </div>
                     </form>
 
                     <!-- Categories -->
@@ -119,7 +133,7 @@ endif; ?>
                             <a href="product.php<?php echo $search_query ? '?search=' . urlencode($search_query) : ''; ?>"
                                class="d-flex justify-content-between align-items-center py-1 <?php echo $category_filter === 0 ? 'fw-bold text-accent' : ''; ?>">
                                 <span>All Products</span>
-                                <span class="badge bg-secondary rounded-pill"><?php echo $total; ?></span>
+                                <span class="badge bg-secondary rounded-pill"><?php echo $total_all; ?></span>
                             </a>
                         </li>
                         <?php foreach ($categories as $cat): ?>
@@ -138,28 +152,18 @@ endforeach; ?>
 
             <!-- Product Grid -->
             <div class="col-lg-9">
-                <!-- Sort Bar -->
-                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                    <p class="mb-0 text-muted-ekea">
-                        Showing <strong><?php echo count($products); ?></strong> of <strong><?php echo $total; ?></strong> products
-                    </p>
-                    <div class="d-flex align-items-center gap-2">
-                        <label for="sort" class="form-label mb-0 fw-semibold small">Sort by:</label>
-                        <select class="form-select form-select-sm" id="sort" style="width: auto;"
-                                onchange="window.location.href=this.value;">
-                            <?php
+                <?php
 $base_url = 'product.php?';
 if ($category_filter)
     $base_url .= 'category=' . $category_filter . '&';
 if ($search_query)
     $base_url .= 'search=' . urlencode($search_query) . '&';
 ?>
-                            <option value="<?php echo $base_url; ?>sort=newest"   <?php echo $sort_by === 'newest' ? 'selected' : ''; ?>>Newest</option>
-                            <option value="<?php echo $base_url; ?>sort=price_asc"  <?php echo $sort_by === 'price_asc' ? 'selected' : ''; ?>>Price: Low → High</option>
-                            <option value="<?php echo $base_url; ?>sort=price_desc" <?php echo $sort_by === 'price_desc' ? 'selected' : ''; ?>>Price: High → Low</option>
-                            <option value="<?php echo $base_url; ?>sort=name"     <?php echo $sort_by === 'name' ? 'selected' : ''; ?>>Name A-Z</option>
-                        </select>
-                    </div>
+                <!-- Count Bar -->
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <p class="mb-0 text-muted-ekea">
+                        Showing <strong><?php echo count($products); ?></strong> of <strong><?php echo $total; ?></strong> products
+                    </p>
                 </div>
 
                 <?php if (empty($products)): ?>

@@ -138,8 +138,12 @@ $pages = [
     ['keywords' => ['dining', 'table', 'chair'], 'title' => 'Dining Furniture', 'url' => 'product.php?category=3', 'icon' => 'bi-cup-hot', 'subtitle' => 'Tables, chairs and sets'],
     ['keywords' => ['office', 'desk', 'work'], 'title' => 'Office Furniture', 'url' => 'product.php?category=4', 'icon' => 'bi-laptop', 'subtitle' => 'Desks, chairs and accessories'],
     ['keywords' => ['storage', 'shelf', 'cabinet', 'organis'], 'title' => 'Storage Solutions', 'url' => 'product.php?category=5', 'icon' => 'bi-archive', 'subtitle' => 'Shelves, cabinets and more'],
-    ['keywords' => ['coupon', 'discount', 'promo', 'deal', 'sale'], 'title' => 'Coupon Codes', 'url' => 'checkout.php', 'icon' => 'bi-tag', 'subtitle' => 'Try: SAVE10, SAVE20, EKEA50'],
+    ['keywords' => ['coupon', 'discount', 'promo', 'deal', 'sale', 'voucher'], 'title' => 'Coupon: SAVE10 (10% Off)', 'url' => 'checkout.php?coupon=SAVE10', 'icon' => 'bi-tag', 'subtitle' => '10% discount — auto-filled at checkout'],
+    ['keywords' => ['coupon', 'discount', 'promo', 'deal', 'sale', 'voucher'], 'title' => 'Coupon: SAVE20 (20% Off)', 'url' => 'checkout.php?coupon=SAVE20', 'icon' => 'bi-tag', 'subtitle' => '20% discount — auto-filled at checkout'],
+    ['keywords' => ['coupon', 'discount', 'promo', 'deal', 'sale', 'voucher'], 'title' => 'Coupon: EKEA50 (50% Off)', 'url' => 'checkout.php?coupon=EKEA50', 'icon' => 'bi-tag', 'subtitle' => '50% discount — auto-filled at checkout'],
     ['keywords' => ['deliver', 'shipping', 'address'], 'title' => 'Delivery Info', 'url' => 'checkout.php', 'icon' => 'bi-truck', 'subtitle' => 'Free shipping on orders over $200'],
+    ['keywords' => ['cheap', 'cheaper', 'cheapest', 'budget', 'affordable', 'lowest price'], 'title' => 'Budget Friendly', 'url' => 'product.php?sort=price_asc', 'icon' => 'bi-sort-up', 'subtitle' => 'Sort products by lowest price'],
+    ['keywords' => ['new', 'latest', 'arrival', 'recent'], 'title' => 'New Arrivals', 'url' => 'product.php?sort=newest', 'icon' => 'bi-stars', 'subtitle' => 'View our newest products'],
 ];
 
 $lower_query = strtolower($query);

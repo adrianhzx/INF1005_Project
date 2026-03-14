@@ -1,13 +1,11 @@
 /**
- * EKEA — Custom JavaScript
- * Client-side form validation, UI interactions, and cart functionality.
+ * EKEA — Client-side logic
+ * Form validation, quantity controls, and UI interactions.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ============================================================
-    // 1. Navbar Scroll Effect
-    // ============================================================
+    // Navbar scroll effect
     const navbar = document.querySelector('.ekea-navbar');
     if (navbar) {
         window.addEventListener('scroll', function () {
@@ -15,9 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ============================================================
-    // 2. Scroll Animations (Fade-in-up)
-    // ============================================================
+    // Scroll fade-in animations
     const fadeElements = document.querySelectorAll('.fade-in-up');
     if (fadeElements.length > 0) {
         const observer = new IntersectionObserver(function (entries) {
@@ -262,41 +258,70 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ============================================================
-    // 9. Quantity Controls (Cart Page)
-    // ============================================================
+    // Quantity controls (+/- buttons)
     document.querySelectorAll('.quantity-control').forEach(function (control) {
-        const minusBtn = control.querySelector('.qty-minus');
-        const plusBtn = control.querySelector('.qty-plus');
-        const input = control.querySelector('.qty-input');
+        var minusBtn = control.querySelector('.qty-minus');
+        var plusBtn = control.querySelector('.qty-plus');
+        var input = control.querySelector('.qty-input');
+        var autoSubmit = control.hasAttribute('data-auto-submit');
 
         if (minusBtn && plusBtn && input) {
-            minusBtn.addEventListener('click', function () {
-                let val = parseInt(input.value) || 1;
+            minusBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var val = parseInt(input.value) || 1;
                 if (val > 1) {
                     input.value = val - 1;
-                    input.form.submit();
+                    if (autoSubmit && input.form && input.form.className.includes('cart-update-form')) {
+                        input.form.submit();
+                    }
+                } else if (val === 1 && autoSubmit) {
+                    // At qty 1, ask if user wants to remove the item
+                    var row = control.closest('tr');
+                    if (row) {
+                        var removeBtn = row.querySelector('.btn-cart-remove');
+                        if (removeBtn) {
+                            removeBtn.dispatchEvent(new Event('click'));
+                        }
+                    }
                 }
             });
 
-            plusBtn.addEventListener('click', function () {
-                let val = parseInt(input.value) || 1;
-                input.value = val + 1;
-                input.form.submit();
+            plusBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var val = parseInt(input.value) || 1;
+                var max = parseInt(input.getAttribute('max'));
+                if (!max || val < max) {
+                    input.value = val + 1;
+                    if (autoSubmit && input.form && input.form.className.includes('cart-update-form')) {
+                        input.form.submit();
+                    }
+                }
             });
         }
     });
 
-    // ============================================================
-    // 10. Confirm Deletion Dialogs
-    // ============================================================
+    // Admin delete confirmation (non-cart pages)
     document.querySelectorAll('.btn-delete-confirm').forEach(function (btn) {
         btn.addEventListener('click', function (e) {
-            if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
+            if (!confirm('Are you sure? This cannot be undone.')) {
                 e.preventDefault();
             }
         });
     });
+
+    // Cart navbar shake animation when item is added
+    (function() {
+        var flashEl = document.querySelector('.alert');
+        if (flashEl && flashEl.textContent.indexOf('added to your cart') !== -1) {
+            var cartLink = document.querySelector('a[href*="cart.php"]');
+            if (cartLink) {
+                cartLink.classList.add('cart-shake');
+                setTimeout(function() {
+                    cartLink.classList.remove('cart-shake');
+                }, 800);
+            }
+        }
+    })();
 
     // ============================================================
     // 11. Interactive Star Rating Selector

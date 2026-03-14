@@ -1,5 +1,6 @@
 <?php
 $current_page = 'products';
+$use_chartjs = true;
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 
@@ -142,6 +143,13 @@ if (count($reviews) > 0) {
     $avg_rating = array_sum(array_column($reviews, 'rating')) / count($reviews);
 }
 
+// Rating distribution for chart.js
+$rating_dist = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+foreach ($reviews as $rev) {
+    $r = (int)$rev['rating'];
+    if (isset($rating_dist[$r])) $rating_dist[$r]++;
+}
+
 // Related products (same category, exclude current)
 $stmt = $pdo->prepare('SELECT p.*, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.category_id = :cat AND p.id != :id LIMIT 4');
 $stmt->execute([':cat' => $product['category_id'], ':id' => $product_id]);
@@ -222,13 +230,18 @@ endif; ?>
                     <form method="POST" class="mt-3">
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="add_to_cart" value="1">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-end gap-3">
                             <div>
                                 <label for="quantity" class="form-label fw-semibold">Quantity</label>
-                                <input type="number" class="form-control" id="quantity" name="quantity"
-                                       value="1" min="1" max="<?php echo (int)$product['stock']; ?>" style="width: 80px;">
+                                <div class="quantity-control">
+                                    <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
+                                    <input type="number" class="qty-input" id="quantity" name="quantity"
+                                           value="1" min="1" max="<?php echo (int)$product['stock']; ?>" readonly
+                                           aria-label="Quantity">
+                                    <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
+                                </div>
                             </div>
-                            <div class="mt-4">
+                            <div>
                                 <button type="submit" class="btn btn-primary-ekea btn-lg">
                                     <i class="bi bi-cart-plus me-2"></i>Add to Cart
                                 </button>
@@ -309,6 +322,70 @@ else: ?>
             </div>
         <?php
 endif; ?>
+
+        <!-- Rating Distribution Chart -->
+        <?php if (!empty($reviews)): ?>
+            <div class="row mb-4">
+                <div class="col-lg-6 mx-auto">
+                    <div class="rating-chart-container">
+                        <h5 class="mb-3"><i class="bi bi-bar-chart me-2 text-accent"></i>Rating Distribution</h5>
+                        <div class="chart-wrapper">
+                            <canvas id="ratingDistChart" role="img" aria-label="Horizontal bar chart showing the distribution of review ratings from 1 to 5 stars">
+                                <p>Rating distribution chart. Data loaded from reviews.</p>
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new Chart(document.getElementById('ratingDistChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['5 ★', '4 ★', '3 ★', '2 ★', '1 ★'],
+                        datasets: [{
+                            label: 'Reviews',
+                            data: [<?php echo $rating_dist[5]; ?>, <?php echo $rating_dist[4]; ?>, <?php echo $rating_dist[3]; ?>, <?php echo $rating_dist[2]; ?>, <?php echo $rating_dist[1]; ?>],
+                            backgroundColor: [
+                                'rgba(46, 125, 50, 0.8)',
+                                'rgba(0, 77, 153, 0.8)',
+                                'rgba(196, 147, 43, 0.8)',
+                                'rgba(230, 81, 0, 0.8)',
+                                'rgba(198, 40, 40, 0.8)'
+                            ],
+                            borderColor: ['#2E7D32','#004d99','#C4932B','#E65100','#C62828'],
+                            borderWidth: 2,
+                            borderRadius: 6,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: { duration: 1000, easing: 'easeOutQuart' },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 34, 68, 0.9)',
+                                cornerRadius: 8,
+                                padding: 12,
+                                callbacks: {
+                                    label: function(ctx) {
+                                        return ' ' + ctx.parsed.x + ' review' + (ctx.parsed.x !== 1 ? 's' : '');
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: 'rgba(0,0,0,0.06)' } },
+                            y: { grid: { display: false }, ticks: { font: { weight: '600', size: 14 } } }
+                        }
+                    }
+                });
+            });
+            </script>
+        <?php endif; ?>
 
         <!-- Reviews List -->
         <?php if (empty($reviews)): ?>

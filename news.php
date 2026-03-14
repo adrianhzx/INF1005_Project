@@ -1,6 +1,7 @@
 <?php
 $page_title = 'Community Reviews';
 $current_page = 'news';
+$use_chartjs = true;
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 
@@ -17,6 +18,13 @@ $reviews = $stmt->fetchAll();
 // Overall stats
 $stmt = $pdo->query('SELECT COUNT(*) AS total, AVG(rating) AS avg_rating FROM reviews');
 $stats = $stmt->fetch();
+
+// Rating distribution for chart
+$rating_dist = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
+foreach ($reviews as $rev) {
+    $r = (int)$rev['rating'];
+    if (isset($rating_dist[$r])) $rating_dist[$r]++;
+}
 
 require_once 'includes/header.php';
 ?>
@@ -63,6 +71,66 @@ echo (int)$stmt2->fetchColumn();
                 </div>
             </div>
         </div>
+
+        <!-- Ratings Breakdown Chart -->
+        <?php if (!empty($reviews)): ?>
+            <div class="row mb-5">
+                <div class="col-md-6 col-lg-4 mx-auto fade-in-up">
+                    <div class="rating-chart-container">
+                        <h5 class="mb-3"><i class="bi bi-pie-chart-fill me-2" style="color: var(--color-accent);"></i>Ratings Breakdown</h5>
+                        <div class="chart-wrapper" style="min-height: 260px;">
+                            <canvas id="ratingsBreakdown" role="img" aria-label="Doughnut chart showing the breakdown of all review ratings from 1 to 5 stars">
+                                <p>Ratings breakdown chart. Data loaded from reviews.</p>
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                new Chart(document.getElementById('ratingsBreakdown'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],
+                        datasets: [{
+                            data: [<?php echo $rating_dist[5]; ?>, <?php echo $rating_dist[4]; ?>, <?php echo $rating_dist[3]; ?>, <?php echo $rating_dist[2]; ?>, <?php echo $rating_dist[1]; ?>],
+                            backgroundColor: [
+                                'rgba(46, 125, 50, 0.85)',
+                                'rgba(0, 77, 153, 0.85)',
+                                'rgba(196, 147, 43, 0.85)',
+                                'rgba(230, 81, 0, 0.85)',
+                                'rgba(198, 40, 40, 0.85)'
+                            ],
+                            borderColor: '#FFFFFF',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '55%',
+                        animation: { animateRotate: true, duration: 1200, easing: 'easeOutQuart' },
+                        plugins: {
+                            legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 34, 68, 0.9)',
+                                cornerRadius: 8,
+                                padding: 12,
+                                callbacks: {
+                                    label: function(ctx) {
+                                        var total = ctx.dataset.data.reduce(function(a,b){return a+b;}, 0);
+                                        var pct = total>0 ? ((ctx.parsed / total)*100).toFixed(1) : 0;
+                                        return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+            </script>
+        <?php endif; ?>
 
         <h2 class="mb-4">Latest Reviews</h2>
 

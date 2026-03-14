@@ -10,10 +10,9 @@
                     <h5 class="footer-brand">EKEA</h5>
                     <p class="footer-text">Premium Scandinavian-inspired furniture designed for modern living. Quality craftsmanship meets timeless design.</p>
                     <div class="social-links mt-3">
-                        <a href="#" class="social-link" aria-label="Follow us on Facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Twitter"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-link" aria-label="Follow us on Pinterest"><i class="bi bi-pinterest"></i></a>
+                        <a href="<?php echo $base_path ?? ''; ?>about.php" class="social-link" aria-label="Learn more about EKEA"><i class="bi bi-info-circle"></i></a>
+                        <a href="<?php echo $base_path ?? ''; ?>news.php" class="social-link" aria-label="Read community reviews"><i class="bi bi-chat-square-text"></i></a>
+                        <a href="<?php echo $base_path ?? ''; ?>product.php" class="social-link" aria-label="Browse products"><i class="bi bi-grid"></i></a>
                     </div>
                 </div>
 
@@ -35,19 +34,23 @@
                     <ul class="footer-links list-unstyled">
                         <li><a href="<?php echo $base_path ?? ''; ?>about.php">About Us</a></li>
                         <li><a href="<?php echo $base_path ?? ''; ?>news.php">Reviews</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="<?php echo $base_path ?? ''; ?>about.php#values">Our Values</a></li>
+                        <li><a href="<?php echo $base_path ?? ''; ?>about.php#team">Our Team</a></li>
                     </ul>
                 </div>
 
                 <!-- Support Links -->
                 <div class="col-lg-2 col-md-6">
-                    <h6 class="footer-heading">Support</h6>
+                    <h6 class="footer-heading">Account</h6>
                     <ul class="footer-links list-unstyled">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping Info</a></li>
-                        <li><a href="#">Returns Policy</a></li>
+                        <?php if (isset($_SESSION['user'])): ?>
+                            <li><a href="<?php echo $base_path ?? ''; ?>profile.php">My Profile</a></li>
+                            <li><a href="<?php echo $base_path ?? ''; ?>history.php">Order History</a></li>
+                            <li><a href="<?php echo $base_path ?? ''; ?>cart.php">Shopping Cart</a></li>
+                        <?php else: ?>
+                            <li><a href="<?php echo $base_path ?? ''; ?>login.php">Sign In</a></li>
+                            <li><a href="<?php echo $base_path ?? ''; ?>register.php">Create Account</a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -69,12 +72,17 @@
                         <p class="mb-0">&copy; <?php echo date('Y'); ?> EKEA Furniture. All rights reserved.</p>
                     </div>
                     <div class="col-md-6 text-md-end">
-                        <p class="mb-0 small">Designed with <i class="bi bi-heart-fill text-danger"></i> in Singapore</p>
+                        <p class="mb-0 small">Built by P4-Team 12 in Singapore</p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Chart.js (loaded conditionally) -->
+    <?php if (!empty($use_chartjs)): ?>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <?php endif; ?>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

@@ -86,9 +86,9 @@ endforeach; ?>
             <p>Our most popular pieces, chosen by our community</p>
         </div>
         <div class="row g-4">
-            <?php foreach ($featured_products as $product): ?>
-                <div class="col-lg-3 col-md-6 fade-in-up">
-                    <div class="product-card">
+            <?php foreach ($featured_products as $fi => $product): ?>
+                <div class="<?php echo $fi < 2 ? 'col-lg-6 col-md-6' : 'col-lg-3 col-md-6'; ?> fade-in-up">
+                    <div class="product-card <?php echo $fi < 2 ? 'product-card-featured' : ''; ?>">
                         <a href="product_detail.php?id=<?php echo (int)$product['id']; ?>">
                             <div class="card-img-wrapper">
                                 <img src="uploads/<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"

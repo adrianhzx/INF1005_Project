@@ -124,14 +124,14 @@ else: ?>
                                         </td>
                                         <td>$<?php echo number_format($item['price'], 2); ?></td>
                                         <td>
-                                            <form method="POST" class="d-inline">
+                                            <form method="POST" class="d-inline cart-update-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                 <input type="hidden" name="product_id" value="<?php echo (int)$item['product_id']; ?>">
                                                 <input type="hidden" name="update_qty" value="1">
-                                                <div class="quantity-control">
-                                                    <button type="button" class="qty-minus" aria-label="Decrease quantity">−</button>
+                                                <div class="quantity-control" data-auto-submit="true">
+                                                    <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
                                                     <input type="number" class="qty-input" name="quantity"
-                                                           value="<?php echo (int)$item['quantity']; ?>" min="1"
+                                                           value="<?php echo (int)$item['quantity']; ?>" min="1" readonly
                                                            aria-label="Quantity for <?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                                     <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
                                                 </div>
@@ -139,12 +139,14 @@ else: ?>
                                         </td>
                                         <td><strong>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong></td>
                                         <td>
-                                            <form method="POST" class="d-inline">
+                                            <form method="POST" class="d-inline cart-remove-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                 <input type="hidden" name="product_id" value="<?php echo (int)$item['product_id']; ?>">
                                                 <input type="hidden" name="remove_item" value="1">
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" aria-label="Remove <?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="button" class="btn btn-sm btn-outline-danger btn-cart-remove"
+                                                        data-item-name="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
+                                                        aria-label="Remove <?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                                                    <i class="bi bi-trash me-1"></i>Remove
                                                 </button>
                                             </form>
                                         </td>
@@ -159,10 +161,10 @@ else: ?>
                         <a href="product.php" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-1"></i>Continue Shopping
                         </a>
-                        <form method="POST" class="d-inline">
+                        <form method="POST" class="d-inline" id="clearCartForm">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                             <input type="hidden" name="clear_cart" value="1">
-                            <button type="submit" class="btn btn-outline-danger btn-delete-confirm">
+                            <button type="button" class="btn btn-outline-danger" id="btnClearCart">
                                 <i class="bi bi-trash me-1"></i>Clear Cart
                             </button>
                         </form>
@@ -203,4 +205,69 @@ endif; ?>
     </div>
 </section>
 
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: var(--color-primary-dark); color: #fff;">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="confirmModalBody">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmModalAction">Yes, Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require_once 'includes/footer.php'; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var confirmModalEl = document.getElementById('confirmModal');
+    if (!confirmModalEl) return;
+
+    var pendingForm = null;
+    var modal = new bootstrap.Modal(confirmModalEl);
+    var modalBody = document.getElementById('confirmModalBody');
+    var modalAction = document.getElementById('confirmModalAction');
+    var modalLabel = document.getElementById('confirmModalLabel');
+
+    // Remove item confirmation
+    document.querySelectorAll('.btn-cart-remove').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var name = this.getAttribute('data-item-name');
+            pendingForm = this.closest('form');
+            modalLabel.textContent = 'Remove Item';
+            modalBody.textContent = 'Remove "' + name + '" from your cart?';
+            modalAction.textContent = 'Yes, Remove';
+            modalAction.className = 'btn btn-danger';
+            modal.show();
+        });
+    });
+
+    // Clear cart confirmation
+    var clearBtn = document.getElementById('btnClearCart');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            pendingForm = document.getElementById('clearCartForm');
+            modalLabel.textContent = 'Clear Cart';
+            modalBody.textContent = 'This will remove all items from your cart. Continue?';
+            modalAction.textContent = 'Yes, Clear All';
+            modalAction.className = 'btn btn-danger';
+            modal.show();
+        });
+    }
+
+    // Confirm action
+    modalAction.addEventListener('click', function() {
+        if (pendingForm) {
+            pendingForm.submit();
+        }
+    });
+});
+</script>
