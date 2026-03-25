@@ -1,6 +1,7 @@
 <?php
 $page_title = 'Order History';
 $current_page = 'history';
+$use_chartjs = true;
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 require_login();
@@ -9,6 +10,19 @@ require_login();
 $stmt = $pdo->prepare('SELECT * FROM orders WHERE user_id = :uid ORDER BY created_at DESC');
 $stmt->execute([':uid' => $_SESSION['user']['id']]);
 $orders = $stmt->fetchAll();
+
+// Compute monthly spending for chart
+$spending_by_month = [];
+foreach ($orders as $o) {
+    if ($o['status'] !== 'cancelled') {
+        $month_key = date('M Y', strtotime($o['created_at']));
+        if (!isset($spending_by_month[$month_key])) {
+            $spending_by_month[$month_key] = 0;
+        }
+        $spending_by_month[$month_key] += (float)$o['total'];
+    }
+}
+$spending_by_month = array_reverse($spending_by_month, true);
 
 // If viewing a specific order
 $order_detail = null;
@@ -143,7 +157,7 @@ require_once 'includes/header.php';
 
         <?php
 else: ?>
-            <!-- Orders List -->
+            <!-- Orders List with Spending Chart -->
             <?php if (empty($orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-bag-x"></i></div>
@@ -155,6 +169,68 @@ else: ?>
                 </div>
             <?php
     else: ?>
+                <!-- Spending Trend Chart -->
+                <?php if (count($spending_by_month) > 0): ?>
+                    <div class="spending-chart-container fade-in-up">
+                        <h5 class="mb-3"><i class="bi bi-graph-up-arrow me-2" style="color: var(--color-accent);"></i>Your Spending Trend</h5>
+                        <div class="chart-wrapper">
+                            <canvas id="spendingTrend" role="img" aria-label="Line chart showing your monthly spending over time">
+                                <p>Spending trend chart. Data loaded from your order history.</p>
+                            </canvas>
+                        </div>
+                    </div>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        new Chart(document.getElementById('spendingTrend'), {
+                            type: 'line',
+                            data: {
+                                labels: <?php echo json_encode(array_keys($spending_by_month)); ?>,
+                                datasets: [{
+                                    label: 'Spending ($)',
+                                    data: <?php echo json_encode(array_values($spending_by_month)); ?>,
+                                    borderColor: '#C4932B',
+                                    backgroundColor: 'rgba(196, 147, 43, 0.12)',
+                                    fill: true,
+                                    tension: 0.4,
+                                    borderWidth: 3,
+                                    pointBackgroundColor: '#C4932B',
+                                    pointBorderColor: '#FFFFFF',
+                                    pointBorderWidth: 2,
+                                    pointRadius: 6,
+                                    pointHoverRadius: 9
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                animation: { duration: 1200, easing: 'easeOutQuart' },
+                                plugins: {
+                                    legend: { display: false },
+                                    tooltip: {
+                                        backgroundColor: 'rgba(0, 34, 68, 0.9)',
+                                        cornerRadius: 8,
+                                        padding: 12,
+                                        callbacks: {
+                                            label: function(ctx) {
+                                                return ' $' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits: 2});
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: { callback: function(v) { return '$' + v.toLocaleString(); } },
+                                        grid: { color: 'rgba(0,0,0,0.06)' }
+                                    },
+                                    x: { grid: { display: false } }
+                                }
+                            }
+                        });
+                    });
+                    </script>
+                <?php endif; ?>
+
                 <div class="row g-4">
                     <?php foreach ($orders as $order): ?>
                         <div class="col-lg-6 fade-in-up">

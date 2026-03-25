@@ -1,8 +1,20 @@
 <?php
 /**
- * Logout — Destroys session and redirects to homepage.
+ * Logout — Cleans up session record, destroys session, and redirects to homepage.
  */
-session_start();
+require_once 'includes/db_connect.php';
+
+// Delete session record from DB (single-session cleanup)
+if (isset($_SESSION['user'], $_SESSION['session_token'])) {
+    try {
+        $pdo->prepare('DELETE FROM user_sessions WHERE user_id = :uid AND session_token = :token')
+            ->execute([':uid' => $_SESSION['user']['id'], ':token' => $_SESSION['session_token']]);
+        ekea_log('User logged out', 'INFO', ['user_id' => $_SESSION['user']['id']]);
+    } catch (Exception $e) {
+        ekea_log('Failed to delete session record on logout: ' . $e->getMessage(), 'WARNING');
+    }
+}
+
 $_SESSION = [];
 
 if (ini_get('session.use_cookies')) {

@@ -56,6 +56,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
     }
 }
 
+// Handle force-logout (single-session management)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['force_logout'])) {
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        $errors[] = 'Invalid request.';
+    }
+    else {
+        $uid = (int)$_POST['user_id'];
+        $pdo->prepare('DELETE FROM user_sessions WHERE user_id = :uid')->execute([':uid' => $uid]);
+        ekea_log('Admin force-logged out user', 'WARNING', ['target_user_id' => $uid, 'admin_id' => $_SESSION['user']['id']]);
+        $_SESSION['flash_message'] = 'User session terminated. They will be logged out on their next page load.';
+        $_SESSION['flash_type'] = 'success';
+        header('Location: users.php');
+        exit;
+    }
+}
+
 // Handle delete review (admin moderation)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_review'])) {
     if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
@@ -86,6 +102,14 @@ $stmt = $pdo->query('
     ORDER BY u.created_at DESC
 ');
 $users = $stmt->fetchAll();
+
+// Fetch active sessions for each user
+$sess_stmt = $pdo->query('SELECT user_id, ip_address, last_active, user_agent FROM user_sessions');
+$sessions_raw = $sess_stmt->fetchAll();
+$active_sessions = [];
+foreach ($sessions_raw as $s) {
+    $active_sessions[$s['user_id']] = $s;
+}
 
 // Fetch all reviews for moderation tab
 $stmt = $pdo->query('
@@ -146,6 +170,11 @@ endif; ?>
         <div class="tab-content" id="adminTabsContent">
             <!-- Users Tab -->
             <div class="tab-pane fade show active" id="users-panel" role="tabpanel" aria-labelledby="users-tab">
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="users.php" class="btn btn-sm btn-dark-ekea" title="Refresh session data">
+                        <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                    </a>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
@@ -155,9 +184,9 @@ endif; ?>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Role</th>
+                                <th scope="col">Session</th>
                                 <th scope="col">Orders</th>
                                 <th scope="col">Spent</th>
-                                <th scope="col">Reviews</th>
                                 <th scope="col">Joined</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -178,12 +207,28 @@ endif; ?>
                                         <?php
     endif; ?>
                                     </td>
+                                    <td>
+                                        <?php if (isset($active_sessions[$u['id']])): ?>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="session-dot session-online" title="Active session"></span>
+                                                <div>
+                                                    <span class="fw-semibold text-success" style="font-size: 0.85rem;">Online</span>
+                                                    <br><small class="text-muted-ekea"><?php $ip = $active_sessions[$u['id']]['ip_address']; echo htmlspecialchars($ip === '::1' ? '127.0.0.1' : $ip, ENT_QUOTES, 'UTF-8'); ?></small>
+                                                    <br><small class="text-muted-ekea"><i class="bi bi-clock me-1"></i><?php echo date('H:i', strtotime($active_sessions[$u['id']]['last_active'])); ?></small>
+                                                </div>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="session-dot session-offline" title="No active session"></span>
+                                                <span class="text-muted-ekea" style="font-size: 0.85rem;">Offline</span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo (int)$u['order_count']; ?></td>
                                     <td>$<?php echo number_format($u['total_spent'], 2); ?></td>
-                                    <td><?php echo (int)$u['review_count']; ?></td>
                                     <td><?php echo date('d M Y', strtotime($u['created_at'])); ?></td>
                                     <td>
-                                        <div class="d-flex gap-1">
+                                        <div class="d-flex gap-1 flex-wrap">
                                             <!-- Toggle Role -->
                                             <form method="POST" class="d-inline">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
@@ -191,21 +236,31 @@ endif; ?>
                                                 <input type="hidden" name="new_role" value="<?php echo $u['role'] === 'admin' ? 'user' : 'admin'; ?>">
                                                 <input type="hidden" name="update_role" value="1">
                                                 <button type="submit" class="btn btn-sm btn-dark-ekea" title="Toggle role to <?php echo $u['role'] === 'admin' ? 'User' : 'Admin'; ?>">
-                                                    <i class="bi bi-<?php echo $u['role'] === 'admin' ? 'person' : 'shield-lock'; ?>"></i>
+                                                    <i class="bi bi-<?php echo $u['role'] === 'admin' ? 'person' : 'shield-lock'; ?> me-1"></i><?php echo $u['role'] === 'admin' ? 'Demote' : 'Promote'; ?>
                                                 </button>
                                             </form>
-                                            <!-- Delete User -->
                                             <?php if ($u['id'] !== $_SESSION['user']['id']): ?>
+                                                <!-- Force Logout -->
+                                                <?php if (isset($active_sessions[$u['id']])): ?>
+                                                    <form method="POST" class="d-inline">
+                                                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+                                                        <input type="hidden" name="user_id" value="<?php echo (int)$u['id']; ?>">
+                                                        <input type="hidden" name="force_logout" value="1">
+                                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Force logout this user">
+                                                            <i class="bi bi-box-arrow-right me-1"></i>Logout
+                                                        </button>
+                                                    </form>
+                                                <?php endif; ?>
+                                                <!-- Delete User -->
                                                 <form method="POST" class="d-inline">
                                                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                     <input type="hidden" name="user_id" value="<?php echo (int)$u['id']; ?>">
                                                     <input type="hidden" name="delete_user" value="1">
                                                     <button type="submit" class="btn btn-sm btn-outline-danger btn-delete-confirm" title="Delete user">
-                                                        <i class="bi bi-trash"></i>
+                                                        <i class="bi bi-trash me-1"></i>Delete
                                                     </button>
                                                 </form>
-                                            <?php
-    endif; ?>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>

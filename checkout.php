@@ -228,7 +228,7 @@ endforeach; ?>
                                     <input type="text" class="form-control" id="postal_code" name="postal_code"
                                            maxlength="6" pattern="\d{6}" placeholder="e.g. 828608" required aria-required="true">
                                     <button type="button" class="btn btn-dark-ekea" id="lookupPostalBtn" aria-label="Look up address">
-                                        <i class="bi bi-search"></i>
+                                        <i class="bi bi-search me-1"></i>Lookup
                                     </button>
                                 </div>
                                 <div class="form-text">Enter 6-digit postal code, then click search</div>
@@ -474,6 +474,14 @@ document.addEventListener('DOMContentLoaded', function() {
         couponFeedback.style.display = 'block';
         couponFeedback.className = 'mt-2 small ' + (success ? 'text-success' : 'text-danger');
         couponFeedback.innerHTML = '<i class="bi bi-' + (success ? 'check-circle' : 'x-circle') + ' me-1"></i>' + msg;
+    }
+
+    // Auto-fill coupon from URL param (e.g. chatbot redirect)
+    var urlParams = new URLSearchParams(window.location.search);
+    var couponParam = urlParams.get('coupon');
+    if (couponParam && couponInput) {
+        couponInput.value = couponParam.toUpperCase();
+        showCouponFeedback('Coupon code pre-filled. Click "Apply" to validate.', true);
     }
 });
 </script>
