@@ -30,7 +30,9 @@ $page_title = $product['name'];
 
 // Handle Add to Cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    if (!isset($_SESSION['user'])) {
+    
+    // Updated Auth Check
+    if (!$auth->isLoggedIn()) {
         $_SESSION['flash_message'] = 'Please log in to add items to your cart.';
         $_SESSION['flash_type'] = 'warning';
         header('Location: login.php');
@@ -79,7 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
 
 // Handle Review Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
-    if (!isset($_SESSION['user'])) {
+    
+    // Updated Auth Check
+    if (!$auth->isLoggedIn()) {
         $_SESSION['flash_message'] = 'Please log in to leave a review.';
         $_SESSION['flash_type'] = 'warning';
         header('Location: login.php');
@@ -93,9 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
         exit;
     }
 
-    // Verify the user has purchased this product (delivered orders only)
+    // Verify the user has purchased this product (using the library's User ID)
     $stmt = $pdo->prepare('SELECT COUNT(*) FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = :uid AND oi.product_id = :pid AND o.status = "delivered"');
-    $stmt->execute([':uid' => $_SESSION['user']['id'], ':pid' => $product_id]);
+    $stmt->execute([':uid' => $auth->getUserId(), ':pid' => $product_id]);
+    
     if ($stmt->fetchColumn() == 0) {
         $_SESSION['flash_message'] = 'You must purchase and receive this product before leaving a review.';
         $_SESSION['flash_type'] = 'danger';
@@ -115,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     if (empty($errors)) {
         $stmt = $pdo->prepare('INSERT INTO reviews (user_id, product_id, rating, comment) VALUES (:uid, :pid, :rating, :comment)');
         $stmt->execute([
-            ':uid' => $_SESSION['user']['id'],
+            ':uid' => $auth->getUserId(),
             ':pid' => $product_id,
             ':rating' => $rating,
             ':comment' => $comment,
@@ -132,8 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
     }
 }
 
-// Fetch reviews
-$stmt = $pdo->prepare('SELECT r.*, u.first_name, u.last_name FROM reviews r JOIN users u ON r.user_id = u.id WHERE r.product_id = :pid ORDER BY r.created_at DESC');
+// Fetch reviews (Updated to JOIN with your new user_profiles table)
+$stmt = $pdo->prepare('SELECT r.*, up.first_name, up.last_name FROM reviews r JOIN user_profiles up ON r.user_id = up.user_id WHERE r.product_id = :pid ORDER BY r.created_at DESC');
 $stmt->execute([':pid' => $product_id]);
 $reviews = $stmt->fetchAll();
 
@@ -157,9 +162,9 @@ $related = $stmt->fetchAll();
 
 // Check if user has purchased this product (for review gating)
 $has_purchased = false;
-if (isset($_SESSION['user'])) {
+if ($auth->isLoggedIn()) {
     $stmt = $pdo->prepare('SELECT COUNT(*) FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = :uid AND oi.product_id = :pid AND o.status = "delivered"');
-    $stmt->execute([':uid' => $_SESSION['user']['id'], ':pid' => $product_id]);
+    $stmt->execute([':uid' => $auth->getUserId(), ':pid' => $product_id]);
     $has_purchased = $stmt->fetchColumn() > 0;
 }
 
@@ -167,7 +172,6 @@ $csrf_token = generate_csrf_token();
 require_once 'includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h1>
@@ -182,29 +186,24 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<!-- Product Detail -->
 <section class="section-padding">
     <div class="container">
         <div class="row g-5">
-            <!-- Product Image -->
             <div class="col-lg-6 fade-in-up">
                 <img src="uploads/<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                      alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
                      class="product-detail-img">
             </div>
 
-            <!-- Product Info -->
             <div class="col-lg-6 product-detail-info fade-in-up">
                 <span class="category-badge mb-3"><?php echo htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8'); ?></span>
                 <h1 class="mt-2"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h1>
 
-                <!-- Rating -->
                 <div class="d-flex align-items-center gap-2 mb-3">
                     <div class="star-rating">
                         <?php for ($i = 1; $i <= 5; $i++): ?>
                             <i class="bi <?php echo $i <= round($avg_rating) ? 'bi-star-fill' : 'bi-star'; ?>"></i>
-                        <?php
-endfor; ?>
+                        <?php endfor; ?>
                     </div>
                     <span class="text-muted-ekea">(<?php echo count($reviews); ?> review<?php echo count($reviews) !== 1 ? 's' : ''; ?>)</span>
                 </div>
@@ -213,19 +212,14 @@ endfor; ?>
 
                 <p class="text-muted-ekea mb-4"><?php echo htmlspecialchars($product['description'], ENT_QUOTES, 'UTF-8'); ?></p>
 
-                <!-- Stock Status -->
                 <?php if ($product['stock'] > 10): ?>
                     <p><span class="stock-badge stock-in"><i class="bi bi-check-circle me-1"></i>In Stock</span></p>
-                <?php
-elseif ($product['stock'] > 0): ?>
+                <?php elseif ($product['stock'] > 0): ?>
                     <p><span class="stock-badge stock-low"><i class="bi bi-exclamation-circle me-1"></i>Only <?php echo (int)$product['stock']; ?> left</span></p>
-                <?php
-else: ?>
+                <?php else: ?>
                     <p><span class="stock-badge stock-out"><i class="bi bi-x-circle me-1"></i>Out of Stock</span></p>
-                <?php
-endif; ?>
+                <?php endif; ?>
 
-                <!-- Add to Cart -->
                 <?php if ($product['stock'] > 0): ?>
                     <form method="POST" class="mt-3">
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
@@ -248,10 +242,8 @@ endif; ?>
                             </div>
                         </div>
                     </form>
-                <?php
-endif; ?>
+                <?php endif; ?>
 
-                <!-- Product Details List -->
                 <div class="mt-4 pt-4 border-top">
                     <div class="row g-3">
                         <div class="col-6">
@@ -269,7 +261,6 @@ endif; ?>
     </div>
 </section>
 
-<!-- Reviews Section -->
 <section class="section-padding bg-light-ekea">
     <div class="container">
         <div class="section-header">
@@ -277,8 +268,7 @@ endif; ?>
             <p><?php echo count($reviews); ?> review<?php echo count($reviews) !== 1 ? 's' : ''; ?> for this product</p>
         </div>
 
-        <!-- Write a Review -->
-        <?php if (isset($_SESSION['user']) && $has_purchased): ?>
+        <?php if ($auth->isLoggedIn() && $has_purchased): ?>
             <div class="summary-card mb-4">
                 <h5><i class="bi bi-pen me-2"></i>Write a Review</h5>
                 <form id="reviewForm" method="POST" class="ekea-form mt-3" novalidate>
@@ -308,22 +298,18 @@ endif; ?>
                     </button>
                 </form>
             </div>
-        <?php
-elseif (isset($_SESSION['user']) && !$has_purchased): ?>
+        <?php elseif ($auth->isLoggedIn() && !$has_purchased): ?>
             <div class="alert alert-warning mb-4">
                 <i class="bi bi-bag-check me-2"></i>
                 You must purchase and receive this product before leaving a review.
             </div>
-        <?php
-else: ?>
+        <?php else: ?>
             <div class="alert alert-info mb-4">
                 <i class="bi bi-info-circle me-2"></i>
                 <a href="login.php" class="fw-semibold">Log in</a> to leave a review.
             </div>
-        <?php
-endif; ?>
+        <?php endif; ?>
 
-        <!-- Rating Distribution Chart -->
         <?php if (!empty($reviews)): ?>
             <div class="row mb-4">
                 <div class="col-lg-6 mx-auto">
@@ -387,15 +373,13 @@ endif; ?>
             </script>
         <?php endif; ?>
 
-        <!-- Reviews List -->
         <?php if (empty($reviews)): ?>
             <div class="empty-state">
                 <div class="empty-icon"><i class="bi bi-chat-square-text"></i></div>
                 <h3>No Reviews Yet</h3>
                 <p class="text-muted-ekea">Be the first to review this product!</p>
             </div>
-        <?php
-else: ?>
+        <?php else: ?>
             <div class="row g-3">
                 <?php foreach ($reviews as $review): ?>
                     <div class="col-12">
@@ -408,8 +392,7 @@ else: ?>
                                     <div class="star-rating mt-1">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                             <i class="bi <?php echo $i <= $review['rating'] ? 'bi-star-fill' : 'bi-star'; ?>"></i>
-                                        <?php
-        endfor; ?>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                                 <span class="review-date">
@@ -420,15 +403,12 @@ else: ?>
                             <p class="mt-3 mb-0"><?php echo htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8'); ?></p>
                         </div>
                     </div>
-                <?php
-    endforeach; ?>
+                <?php endforeach; ?>
             </div>
-        <?php
-endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 
-<!-- Related Products -->
 <?php if (!empty($related)): ?>
 <section class="section-padding">
     <div class="container">
@@ -455,12 +435,10 @@ endif; ?>
                         </div>
                     </div>
                 </div>
-            <?php
-    endforeach; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
-<?php
-endif; ?>
+<?php endif; ?>
 
 <?php require_once 'includes/footer.php'; ?>

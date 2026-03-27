@@ -3,7 +3,14 @@ $page_title = 'Inventory';
 $current_page = 'admin';
 require_once '../includes/db_connect.php';
 require_once '../includes/auth_guard.php';
-require_admin();
+
+// 1. Global Admin Guard
+if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+    $_SESSION['flash_message'] = 'Access denied. Administrator privileges required.';
+    $_SESSION['flash_type'] = 'danger';
+    header('Location: ../login.php');
+    exit;
+}
 
 $errors = [];
 $edit_product = null;
@@ -136,7 +143,6 @@ require_once '../includes/header.php';
             </div>
         <?php endif; ?>
 
-        <!-- Toolbar -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="mb-0">
                 <i class="bi bi-list-ul me-2"></i>All Products
@@ -148,7 +154,6 @@ require_once '../includes/header.php';
         </div>
 
         <?php if ($edit_product): ?>
-        <!-- Inline Edit Form -->
         <div class="summary-card mb-4">
             <h5 class="mb-3">
                 <i class="bi bi-pencil-square text-accent me-2"></i>Edit Product
@@ -216,7 +221,6 @@ require_once '../includes/header.php';
         </div>
         <?php endif; ?>
 
-        <!-- Product Table -->
         <?php if (empty($products)): ?>
             <div class="empty-state">
                 <div class="empty-icon"><i class="bi bi-box-seam"></i></div>

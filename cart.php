@@ -3,7 +3,14 @@ $page_title = 'Shopping Cart';
 $current_page = 'cart';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
-require_login();
+
+// 1. Replaced require_login() with the Auth library check
+if (!$auth->isLoggedIn()) {
+    $_SESSION['flash_message'] = 'Please log in to view your cart.';
+    $_SESSION['flash_type'] = 'warning';
+    header('Location: login.php');
+    exit;
+}
 
 // Handle cart actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,7 +75,6 @@ $csrf_token = generate_csrf_token();
 require_once 'includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-cart3 me-2"></i>Shopping Cart</h1>
@@ -92,10 +98,8 @@ require_once 'includes/header.php';
                     <i class="bi bi-grid me-2"></i>Browse Products
                 </a>
             </div>
-        <?php
-else: ?>
+        <?php else: ?>
             <div class="row g-4">
-                <!-- Cart Items -->
                 <div class="col-lg-8">
                     <div class="table-responsive">
                         <table class="table cart-table align-middle">
@@ -151,8 +155,7 @@ else: ?>
                                             </form>
                                         </td>
                                     </tr>
-                                <?php
-    endforeach; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -171,7 +174,6 @@ else: ?>
                     </div>
                 </div>
 
-                <!-- Order Summary Sidebar -->
                 <div class="col-lg-4">
                     <div class="summary-card">
                         <h4 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h4>
@@ -192,20 +194,17 @@ else: ?>
                             <p class="small text-muted-ekea mt-2">
                                 <i class="bi bi-info-circle me-1"></i>Add $<?php echo number_format(200 - $subtotal, 2); ?> more for free shipping!
                             </p>
-                        <?php
-    endif; ?>
+                        <?php endif; ?>
                         <a href="checkout.php" class="btn btn-primary-ekea w-100 mt-3">
                             <i class="bi bi-lock me-2"></i>Proceed to Checkout
                         </a>
                     </div>
                 </div>
             </div>
-        <?php
-endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 
-<!-- Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

@@ -1,35 +1,28 @@
 <?php
-/**
- * Logout — Cleans up session record, destroys session, and redirects to homepage.
- */
 require_once 'includes/db_connect.php';
 
-// Delete session record from DB (single-session cleanup)
-if (isset($_SESSION['user'], $_SESSION['session_token'])) {
-    try {
-        $pdo->prepare('DELETE FROM user_sessions WHERE user_id = :uid AND session_token = :token')
-            ->execute([':uid' => $_SESSION['user']['id'], ':token' => $_SESSION['session_token']]);
-        ekea_log('User logged out', 'INFO', ['user_id' => $_SESSION['user']['id']]);
-    } catch (Exception $e) {
-        ekea_log('Failed to delete session record on logout: ' . $e->getMessage(), 'WARNING');
-    }
+try {
+    // 1. The core secure logout function
+    // This destroys the Auth session variables and deletes the "Remember Me" cookie from the browser
+    $auth->logOut();
+    
+    // 2. Clear out our custom cached profile data
+    unset($_SESSION['cached_first_name']);
+    
+    // Optional: If you want to completely wipe their shopping cart when they log out too, 
+    // you would uncomment the line below:
+    // unset($_SESSION['cart']);
+
+    // 3. Set a friendly goodbye message
+    $_SESSION['flash_message'] = 'You have been safely logged out. See you next time!';
+    $_SESSION['flash_type'] = 'success';
+
+} catch (\Delight\Auth\NotLoggedInException $e) {
+    // If a guest accidentally navigates to logout.php, we just ignore it
+} catch (Exception $e) {
+    ekea_log_exception($e, 'Unexpected error during logout');
 }
 
-$_SESSION = [];
-
-if (ini_get('session.use_cookies')) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params['path'], $params['domain'],
-        $params['secure'], $params['httponly']
-    );
-}
-
-session_destroy();
-
-// Redirect with flash message via a new session
-session_start();
-$_SESSION['flash_message'] = 'You have been logged out successfully.';
-$_SESSION['flash_type'] = 'info';
-header('Location: index.php');
+// 4. Send them back to the login page
+header('Location: login.php');
 exit;

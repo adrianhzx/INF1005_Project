@@ -4,7 +4,14 @@ $current_page = 'admin';
 $use_chartjs = true;
 require_once '../includes/db_connect.php';
 require_once '../includes/auth_guard.php';
-require_admin();
+
+// 1. Global Admin Guard
+if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+    $_SESSION['flash_message'] = 'Access denied. Administrator privileges required.';
+    $_SESSION['flash_type'] = 'danger';
+    header('Location: ../login.php');
+    exit;
+}
 
 // Dashboard stats
 $total_products = $pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
@@ -13,11 +20,11 @@ $total_customers = $pdo->query('SELECT COUNT(DISTINCT user_id) FROM orders')->fe
 $total_revenue = $pdo->query('SELECT COALESCE(SUM(total), 0) FROM orders WHERE status != "cancelled"')->fetchColumn();
 $total_reviews = $pdo->query('SELECT COUNT(*) FROM reviews')->fetchColumn();
 
-// Recent orders
+// 2. Recent orders (Updated to JOIN with user_profiles)
 $stmt = $pdo->query('
-    SELECT o.*, u.first_name, u.last_name 
+    SELECT o.*, up.first_name, up.last_name 
     FROM orders o 
-    JOIN users u ON o.user_id = u.id 
+    LEFT JOIN user_profiles up ON o.user_id = up.user_id 
     ORDER BY o.created_at DESC 
     LIMIT 10
 ');
@@ -26,7 +33,6 @@ $recent_orders = $stmt->fetchAll();
 require_once '../includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
@@ -41,7 +47,6 @@ require_once '../includes/header.php';
 
 <section class="section-padding">
     <div class="container">
-        <!-- Stats Cards -->
         <div class="row g-4 mb-5">
             <div class="col-lg-3 col-md-6 fade-in-up">
                 <div class="stat-card">
@@ -73,11 +78,9 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- Analytics Charts Section -->
         <div class="mb-5">
             <h3 class="chart-section-title mb-4"><i class="bi bi-graph-up"></i> Analytics Overview</h3>
 
-            <!-- Row 1: Revenue by Category + Order Status -->
             <div class="row g-4 mb-4">
                 <div class="col-lg-7 fade-in-up">
                     <div class="chart-container" id="chart-revenue-category">
@@ -101,7 +104,6 @@ require_once '../includes/header.php';
                 </div>
             </div>
 
-            <!-- Row 2: Monthly Sales Trend (full width) -->
             <div class="row g-4 mb-4">
                 <div class="col-12 fade-in-up">
                     <div class="chart-container chart-container-wide" id="chart-monthly-sales">
@@ -115,7 +117,6 @@ require_once '../includes/header.php';
                 </div>
             </div>
 
-            <!-- Row 3: Stock Levels + Top Products -->
             <div class="row g-4 mb-4">
                 <div class="col-lg-5 fade-in-up">
                     <div class="chart-container" id="chart-stock-levels">
@@ -140,7 +141,6 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- Quick Actions -->
         <div class="row g-4 mb-5">
             <div class="col-md-4 fade-in-up">
                 <a href="inventory.php" class="text-decoration-none">
@@ -169,7 +169,7 @@ require_once '../includes/header.php';
                 </a>
             </div>
             <div class="col-md-4 fade-in-up">
-                <a href="users.php" class="text-decoration-none">
+                <a href="admin.php" class="text-decoration-none">
                     <div class="summary-card d-flex align-items-center gap-3">
                         <div style="width: 60px; height: 60px; background: var(--color-accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-people" style="font-size: 1.5rem; color: var(--color-primary);"></i>
@@ -183,7 +183,6 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <!-- Recent Orders -->
         <div class="fade-in-up">
             <h3 class="mb-3"><i class="bi bi-clock-history me-2"></i>Recent Orders</h3>
             <?php if (empty($recent_orders)): ?>
@@ -192,8 +191,7 @@ require_once '../includes/header.php';
                     <h3>No Orders Yet</h3>
                     <p class="text-muted-ekea">Orders will appear here once customers start purchasing.</p>
                 </div>
-            <?php
-else: ?>
+            <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
@@ -213,7 +211,7 @@ else: ?>
                                             <strong>#<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></strong>
                                         </a>
                                     </td>
-                                    <td><?php echo htmlspecialchars($order['first_name'] . ' ' . $order['last_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars(($order['first_name'] ?? 'Unknown') . ' ' . ($order['last_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td>$<?php echo number_format($order['total'], 2); ?></td>
                                     <td>
                                         <span class="status-badge status-<?php echo htmlspecialchars($order['status'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -222,18 +220,15 @@ else: ?>
                                     </td>
                                     <td><?php echo date('d M Y', strtotime($order['created_at'])); ?></td>
                                 </tr>
-                            <?php
-    endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
-            <?php
-endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 
-<!-- Chart.js Initialisation -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // ── EKEA colour palette ──────────────────────────────────
@@ -298,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── 1. Revenue by Category — Bar Chart ───────────────────
     fetchChartData('revenue_by_category', function(data) {
+        if (!data || !data.labels) return; // Prevent crash if API isn't ready
         new Chart(document.getElementById('revenueByCategory'), {
             type: 'bar',
             data: {
@@ -347,6 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── 2. Order Status Distribution — Doughnut Chart ────────
     fetchChartData('order_status', function(data) {
+        if (!data || !data.labels) return;
         var statusColors = {
             'Pending':    COLORS.warning,
             'Processing': COLORS.info,
@@ -401,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── 3. Monthly Sales Trend — Line Chart ──────────────────
     fetchChartData('monthly_sales', function(data) {
+        if (!data || !data.labels) return;
         new Chart(document.getElementById('monthlySales'), {
             type: 'line',
             data: {
@@ -510,6 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── 4. Stock Levels by Category — Polar Area Chart ────────
     fetchChartData('stock_by_category', function(data) {
+        if (!data || !data.labels) return;
         new Chart(document.getElementById('stockByCategory'), {
             type: 'polarArea',
             data: {
@@ -570,6 +569,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ── 5. Top 5 Selling Products — Horizontal Bar Chart ─────
     fetchChartData('top_products', function(data) {
+        if (!data || !data.labels) return;
         new Chart(document.getElementById('topProducts'), {
             type: 'bar',
             data: {

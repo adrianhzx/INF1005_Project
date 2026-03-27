@@ -3,7 +3,14 @@ $page_title = 'Manage Orders';
 $current_page = 'admin';
 require_once '../includes/db_connect.php';
 require_once '../includes/auth_guard.php';
-require_admin();
+
+// 1. Global Admin Guard
+if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+    $_SESSION['flash_message'] = 'Access denied. Administrator privileges required.';
+    $_SESSION['flash_type'] = 'danger';
+    header('Location: ../login.php');
+    exit;
+}
 
 // Handle status update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
@@ -32,7 +39,15 @@ $order_detail = null;
 $order_items = [];
 if (isset($_GET['view'])) {
     $view_id = (int)$_GET['view'];
-    $stmt = $pdo->prepare('SELECT o.*, u.first_name, u.last_name, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = :id');
+    
+    // 2. Fetch order details, joining both users (for email) and user_profiles (for names)
+    $stmt = $pdo->prepare('
+        SELECT o.*, up.first_name, up.last_name, u.email 
+        FROM orders o 
+        JOIN users u ON o.user_id = u.id 
+        LEFT JOIN user_profiles up ON o.user_id = up.user_id
+        WHERE o.id = :id
+    ');
     $stmt->execute([':id' => $view_id]);
     $order_detail = $stmt->fetch();
 
@@ -43,11 +58,11 @@ if (isset($_GET['view'])) {
     }
 }
 
-// Fetch all orders
+// 3. Fetch all orders (Joined with user_profiles for the customer name)
 $stmt = $pdo->query('
-    SELECT o.*, u.first_name, u.last_name 
+    SELECT o.*, up.first_name, up.last_name 
     FROM orders o 
-    JOIN users u ON o.user_id = u.id 
+    LEFT JOIN user_profiles up ON o.user_id = up.user_id 
     ORDER BY o.created_at DESC
 ');
 $orders = $stmt->fetchAll();
@@ -56,7 +71,6 @@ $csrf_token = generate_csrf_token();
 require_once '../includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-receipt me-2"></i>Manage Orders</h1>
@@ -73,7 +87,6 @@ require_once '../includes/header.php';
 <section class="section-padding">
     <div class="container">
         <?php if ($order_detail): ?>
-            <!-- Order Detail View -->
             <div class="mb-4">
                 <a href="orders.php" class="btn btn-outline-secondary">
                     <i class="bi bi-arrow-left me-1"></i>Back to Orders
@@ -84,7 +97,7 @@ require_once '../includes/header.php';
                 <div class="row g-4">
                     <div class="col-md-6">
                         <h4>Order #<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></h4>
-                        <p class="mb-1"><strong>Customer:</strong> <?php echo htmlspecialchars($order_detail['first_name'] . ' ' . $order_detail['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="mb-1"><strong>Customer:</strong> <?php echo htmlspecialchars(($order_detail['first_name'] ?? 'Unknown') . ' ' . ($order_detail['last_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="mb-1"><strong>Email:</strong> <?php echo htmlspecialchars($order_detail['email'], ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="mb-1"><strong>Date:</strong> <?php echo date('d M Y, h:i A', strtotime($order_detail['created_at'])); ?></p>
                         <p class="mb-1"><strong>Payment:</strong> <?php echo htmlspecialchars(ucfirst(str_replace('_', ' ', $order_detail['payment_method'])), ENT_QUOTES, 'UTF-8'); ?></p>
@@ -99,14 +112,12 @@ require_once '../includes/header.php';
                         </p>
                         <?php if ($order_detail['coupon_code']): ?>
                             <p class="mb-1"><strong>Coupon:</strong> <?php echo htmlspecialchars($order_detail['coupon_code'], ENT_QUOTES, 'UTF-8'); ?> (-$<?php echo number_format($order_detail['discount'], 2); ?>)</p>
-                        <?php
-    endif; ?>
+                        <?php endif; ?>
                         <p class="mb-0"><strong>Total: $<?php echo number_format($order_detail['total'], 2); ?></strong></p>
                     </div>
                 </div>
             </div>
 
-            <!-- Order Items -->
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead>
@@ -131,13 +142,11 @@ require_once '../includes/header.php';
                                 <td><?php echo (int)$item['quantity']; ?></td>
                                 <td>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
                             </tr>
-                        <?php
-    endforeach; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Update Status -->
             <div class="summary-card mt-4">
                 <h5><i class="bi bi-arrow-clockwise me-2"></i>Update Status</h5>
                 <form method="POST" class="d-flex gap-3 align-items-end mt-3">
@@ -151,8 +160,7 @@ require_once '../includes/header.php';
                                 <option value="<?php echo $s; ?>" <?php echo $order_detail['status'] === $s ? 'selected' : ''; ?>>
                                     <?php echo ucfirst($s); ?>
                                 </option>
-                            <?php
-    endforeach; ?>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary-ekea">
@@ -161,17 +169,14 @@ require_once '../includes/header.php';
                 </form>
             </div>
 
-        <?php
-else: ?>
-            <!-- All Orders List -->
+        <?php else: ?>
             <?php if (empty($orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-receipt"></i></div>
                     <h3>No Orders Yet</h3>
                     <p class="text-muted-ekea">Orders will appear here once customers start purchasing.</p>
                 </div>
-            <?php
-    else: ?>
+            <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
@@ -188,7 +193,7 @@ else: ?>
                             <?php foreach ($orders as $order): ?>
                                 <tr>
                                     <td><strong>#<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></strong></td>
-                                    <td><?php echo htmlspecialchars($order['first_name'] . ' ' . $order['last_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars(($order['first_name'] ?? 'Unknown') . ' ' . ($order['last_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td>$<?php echo number_format($order['total'], 2); ?></td>
                                     <td>
                                         <span class="status-badge status-<?php echo htmlspecialchars($order['status'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -203,15 +208,12 @@ else: ?>
                                         </a>
                                     </td>
                                 </tr>
-                            <?php
-        endforeach; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
-            <?php
-    endif; ?>
-        <?php
-endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 
