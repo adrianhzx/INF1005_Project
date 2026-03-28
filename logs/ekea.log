@@ -2895,6 +2895,7 @@
 [2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:07] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:09] [DEBUG] [db_connect.php:44] Database connection established
+<<<<<<< HEAD
 [2026-03-28 12:00:28] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-28 12:00:28] [DEBUG] [register.php:14] Register page accessed
 [2026-03-28 12:00:30] [DEBUG] [db_connect.php:44] Database connection established
@@ -3019,3 +3020,10 @@
 [2026-03-28 12:14:34] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-28 12:14:37] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-28 12:14:39] [DEBUG] [db_connect.php:44] Database connection established
+=======
+[2026-03-28 09:40:29] [CRITICAL] [db_connect.php:72] Database connection failed: could not find driver | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-28 09:40:29] [CRITICAL] [db_connect.php:72] Database connection failed: could not find driver | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+>>>>>>> 1e46533064c499232abf68dd32f7226d282f307d
+[2026-03-28 12:39:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:39:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:39:39] [DEBUG] [db_connect.php:44] Database connection established
