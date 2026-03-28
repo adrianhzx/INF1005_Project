@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_payment_intent
     $result = stripe_post('payment_intents', [
         'amount'            => $amount_cents,
         'currency'          => 'sgd',
-        'metadata[user_id]' => $_SESSION['user']['id'],
+        'metadata[user_id]' => $auth->getUserId(),
     ], $stripe_secret_key);
 
     if ($result['status'] !== 200 || isset($result['data']['error'])) {

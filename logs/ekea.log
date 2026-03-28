@@ -2895,3 +2895,127 @@
 [2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:07] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:00:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:00:28] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:00:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:00:30] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:00:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:00:30] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:00:54] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:00:54] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:02:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:16] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:02:16] [DEBUG] [register.php:73] Registration working
+[2026-03-28 12:02:16] [DEBUG] [register.php:77] Generated verification URL: http://localhost/ekea/emailverification.php?selector=Y3BwCCB9tw3BNmV6&token=HwG9CUs3D9ErQ62N
+[2026-03-28 12:02:20] [INFO] [register.php:83] Verification email successfully sent to aqif@aqifnoorazman.com
+[2026-03-28 12:02:20] [INFO] [register.php:97] User account created successfully | Context: {"email":"aqif@aqifnoorazman.com","user_id":14}
+[2026-03-28 12:02:20] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:25] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:02:44] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:44] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:02:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:02:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:02] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:07] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:09] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:03:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:24] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:03:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:51] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:03:51] [DEBUG] [register.php:73] Registration working
+[2026-03-28 12:03:51] [DEBUG] [register.php:77] Generated verification URL: http://localhost/ekea/emailverification.php?selector=gQ_woEIS3gYdhmHq&token=ieR-qjPBP1tfi1CX
+[2026-03-28 12:03:55] [INFO] [register.php:83] Verification email successfully sent to aqif@aqifnoorazman.com
+[2026-03-28 12:03:55] [INFO] [register.php:97] User account created successfully | Context: {"email":"aqif@aqifnoorazman.com","user_id":16}
+[2026-03-28 12:03:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:03:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:31] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:33] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:36] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:39] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:39] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:04:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:04:57] [DEBUG] [register.php:14] Register page accessed
+[2026-03-28 12:04:57] [DEBUG] [register.php:73] Registration working
+[2026-03-28 12:04:57] [DEBUG] [register.php:77] Generated verification URL: http://localhost/ekea/emailverification.php?selector=iDQfsPsw-7aDV3NU&token=EV3yW4aiB_mKt_1_
+[2026-03-28 12:05:00] [INFO] [register.php:83] Verification email successfully sent to aqif@aqifnoorazman.com
+[2026-03-28 12:05:00] [INFO] [register.php:97] User account created successfully | Context: {"email":"aqif@aqifnoorazman.com","user_id":17}
+[2026-03-28 12:05:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:05:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:04] [INFO] [emailverification.php:7] Email verified successfully
+[2026-03-28 12:06:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:17] [DEBUG] [login.php:52] [User: aqif@aqifnoorazman.com (ID:17)] Login successful
+[2026-03-28 12:06:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:22] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:06:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:29] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:33] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:40] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:43] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:07:52] [INFO] [checkout.php:208] [User: aqif@aqifnoorazman.com (ID:17)] Starting checkout transaction | Context: {"user_id":17,"total":809.1}
+[2026-03-28 12:07:52] [INFO] [checkout.php:235] [User: aqif@aqifnoorazman.com (ID:17)] Order placed successfully | Context: {"order_id":"10","total":809.1,"items":1}
+[2026-03-28 12:07:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:02] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:13] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:15] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:08:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:09:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:17] [DEBUG] [login.php:52] [User: aqif@aqifnoorazman.com (ID:17)] Login successful
+[2026-03-28 12:13:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:20] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:20] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:13:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:02] [INFO] [checkout.php:208] [User: aqif@aqifnoorazman.com (ID:17)] Starting checkout transaction | Context: {"user_id":17,"total":131.1}
+[2026-03-28 12:14:02] [INFO] [checkout.php:235] [User: aqif@aqifnoorazman.com (ID:17)] Order placed successfully | Context: {"order_id":"11","total":131.1,"items":1}
+[2026-03-28 12:14:02] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:31] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:31] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 12:14:39] [DEBUG] [db_connect.php:44] Database connection established
