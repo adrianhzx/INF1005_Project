@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Content-Security-Policy header (XSS protection)
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: SAMEORIGIN");
 header("Referrer-Policy: strict-origin-when-cross-origin");
@@ -22,10 +22,7 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <meta name="description" content="EKEA — Premium Scandinavian-inspired furniture for modern living. Shop sofas, beds, dining sets and more.">
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') . ' | EKEA' : 'EKEA — Modern Furniture'; ?></title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Visby CF (self-hosted via @font-face in style.css) -->
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -161,15 +158,14 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
         <div class="container mt-3" aria-live="assertive" aria-atomic="true">
             <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash_type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show" role="alert">
                 <i class="bi bi-<?php
-                        $icon = 'info-circle';
-        if (($_SESSION['flash_type'] ?? '') === 'success') {
-            $icon = 'check-circle';
-        } elseif (($_SESSION['flash_type'] ?? '') === 'danger') {
-            $icon = 'exclamation-triangle';
-        } elseif (($_SESSION['flash_type'] ?? '') === 'warning') {
-            $icon = 'exclamation-circle';
-        }
-echo $icon;
+    $icon = 'info-circle';
+    if (($_SESSION['flash_type'] ?? '') === 'success')
+        $icon = 'check-circle';
+    elseif (($_SESSION['flash_type'] ?? '') === 'danger')
+        $icon = 'exclamation-triangle';
+    elseif (($_SESSION['flash_type'] ?? '') === 'warning')
+        $icon = 'exclamation-circle';
+    echo $icon;
 ?> me-2"></i>
                 <?php echo htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
