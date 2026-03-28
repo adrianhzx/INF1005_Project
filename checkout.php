@@ -170,15 +170,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     if (empty($errors)) {
         $total = ($subtotal + $shipping) - $discount;
 
-        // Check stock
-        foreach ($cart as $item) {
+        // Check stock and auto-adjust cart if quantities exceed available stock
+        $stock_adjusted = false;
+        foreach ($_SESSION['cart'] as &$cart_item) {
             $stmt = $pdo->prepare('SELECT stock FROM products WHERE id = :id');
-            $stmt->execute([':id' => $item['product_id']]);
+            $stmt->execute([':id' => $cart_item['product_id']]);
             $prod = $stmt->fetch();
-            if (!$prod || $prod['stock'] < $item['quantity']) {
-                $errors[] = htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') . ' does not have enough stock.';
-                ekea_log('Stock check failed during checkout', 'WARNING', ['product_id' => $item['product_id'], 'requested' => $item['quantity'], 'available' => $prod ? $prod['stock'] : 0]);
+            if (!$prod || $prod['stock'] < $cart_item['quantity']) {
+                $available = $prod ? (int)$prod['stock'] : 0;
+                ekea_log('Stock check failed during checkout', 'WARNING', ['product_id' => $cart_item['product_id'], 'requested' => $cart_item['quantity'], 'available' => $available]);
+                if ($available <= 0) {
+                    // Remove from cart entirely
+                    $cart_item['quantity'] = 0;
+                } else {
+                    $cart_item['quantity'] = $available;
+                }
+                $stock_adjusted = true;
             }
+        }
+        unset($cart_item);
+
+        if ($stock_adjusted) {
+            // Remove items with 0 quantity
+            $_SESSION['cart'] = array_values(array_filter($_SESSION['cart'], function($item) {
+                return $item['quantity'] > 0;
+            }));
+            $_SESSION['flash_message'] = 'Some items in your cart exceeded available stock and have been adjusted. Please review your cart.';
+            $_SESSION['flash_type'] = 'warning';
+            header('Location: cart.php');
+            exit;
         }
 
         if (empty($errors)) {

@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         try {
-            $auth->login($_POST['email'], $_POST['password']);
+            $auth->login($_POST['email'], $_POST['password'], $rememberDuration);
             ekea_log('Login successful', 'DEBUG');
             header('Location: index.php');
             exit;
@@ -228,7 +228,7 @@ require_once 'includes/header.php';
             </p>
 
             <p class="text-center mt-3 mb-0">
-                Forget password? <a href="register.php" class="fw-semibold">Change here</a>
+                Forgot your password? <a href="#" class="fw-semibold text-muted" onclick="alert('Password reset feature coming soon!'); return false;">Reset here</a>
             </p>
         </div>
     </div>

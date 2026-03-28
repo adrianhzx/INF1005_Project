@@ -21,11 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
             $errors[] = 'You cannot remove your own admin privileges.';
         }
         else {
-            $stmt = $pdo->prepare('UPDATE users SET role = :role WHERE id = :id');
-            $stmt->execute([':role' => $new_role, ':id' => $uid]);
-            ekea_log('User role updated', 'INFO', ['user_id' => $uid, 'new_role' => $new_role]);
-            $_SESSION['flash_message'] = 'User role updated successfully.';
-            $_SESSION['flash_type'] = 'success';
+            try {
+                if ($new_role === 'admin') {
+                    $auth->admin()->addRoleForUserById($uid, \Delight\Auth\Role::ADMIN);
+                } else {
+                    $auth->admin()->removeRoleForUserById($uid, \Delight\Auth\Role::ADMIN);
+                }
+                ekea_log('User role updated', 'INFO', ['user_id' => $uid, 'new_role' => $new_role]);
+                $_SESSION['flash_message'] = 'User role updated successfully.';
+                $_SESSION['flash_type'] = 'success';
+            } catch (\Delight\Auth\UnknownIdException $e) {
+                $_SESSION['flash_message'] = 'Unknown user ID.';
+                $_SESSION['flash_type'] = 'danger';
+            }
             header('Location: users.php');
             exit;
         }
@@ -45,11 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
             $errors[] = 'You cannot delete your own account.';
         }
         else {
-            $stmt = $pdo->prepare('DELETE FROM users WHERE id = :id');
-            $stmt->execute([':id' => $uid]);
-            ekea_log('User deleted', 'WARNING', ['user_id' => $uid]);
-            $_SESSION['flash_message'] = 'User account deleted.';
-            $_SESSION['flash_type'] = 'success';
+            try {
+                $auth->admin()->deleteUserById($uid);
+                ekea_log('User deleted', 'WARNING', ['user_id' => $uid]);
+                $_SESSION['flash_message'] = 'User account deleted.';
+                $_SESSION['flash_type'] = 'success';
+            } catch (\Delight\Auth\UnknownIdException $e) {
+                $_SESSION['flash_message'] = 'Unknown user ID.';
+                $_SESSION['flash_type'] = 'danger';
+            }
             header('Location: users.php');
             exit;
         }
@@ -91,15 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_review'])) {
 
 // Fetch all users with order count
 $stmt = $pdo->query('
-    SELECT u.*, 
+    SELECT u.*, up.first_name, up.last_name, up.phone,
            COUNT(DISTINCT o.id) AS order_count,
            COALESCE(SUM(o.total), 0) AS total_spent,
            COUNT(DISTINCT r.id) AS review_count
     FROM users u 
+    LEFT JOIN user_profiles up ON u.id = up.user_id
     LEFT JOIN orders o ON u.id = o.user_id 
     LEFT JOIN reviews r ON u.id = r.user_id
     GROUP BY u.id 
-    ORDER BY u.created_at DESC
+    ORDER BY u.registered DESC
 ');
 $users = $stmt->fetchAll();
 
@@ -113,9 +126,10 @@ foreach ($sessions_raw as $s) {
 
 // Fetch all reviews for moderation tab
 $stmt = $pdo->query('
-    SELECT r.*, u.first_name, u.last_name, u.email, p.name AS product_name
+    SELECT r.*, up.first_name, up.last_name, u.email, p.name AS product_name
     FROM reviews r 
     JOIN users u ON r.user_id = u.id 
+    LEFT JOIN user_profiles up ON u.id = up.user_id
     JOIN products p ON r.product_id = p.id
     ORDER BY r.created_at DESC
 ');
@@ -192,14 +206,16 @@ endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $u): ?>
+                            <?php foreach ($users as $u):
+                                $isAdmin = ((int)$u['roles_mask'] & \Delight\Auth\Role::ADMIN) === \Delight\Auth\Role::ADMIN;
+                            ?>
                                 <tr>
                                     <td><strong>#<?php echo (int)$u['id']; ?></strong></td>
-                                    <td><?php echo htmlspecialchars($u['first_name'] . ' ' . $u['last_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars(($u['first_name'] ?? 'Unknown') . ' ' . ($u['last_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><code><?php echo htmlspecialchars($u['email'], ENT_QUOTES, 'UTF-8'); ?></code></td>
                                     <td><?php echo htmlspecialchars($u['phone'] ?? '-', ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td>
-                                        <?php if ($u['role'] === 'admin'): ?>
+                                        <?php if ($isAdmin): ?>
                                             <span class="status-badge status-delivered">Admin</span>
                                         <?php
     else: ?>
@@ -226,17 +242,17 @@ endif; ?>
                                     </td>
                                     <td><?php echo (int)$u['order_count']; ?></td>
                                     <td>$<?php echo number_format($u['total_spent'], 2); ?></td>
-                                    <td><?php echo date('d M Y', strtotime($u['created_at'])); ?></td>
+                                    <td><?php echo date('d M Y', $u['registered']); ?></td>
                                     <td>
                                         <div class="d-flex gap-1 flex-wrap">
                                             <!-- Toggle Role -->
                                             <form method="POST" class="d-inline">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                 <input type="hidden" name="user_id" value="<?php echo (int)$u['id']; ?>">
-                                                <input type="hidden" name="new_role" value="<?php echo $u['role'] === 'admin' ? 'user' : 'admin'; ?>">
+                                                <input type="hidden" name="new_role" value="<?php echo $isAdmin ? 'user' : 'admin'; ?>">
                                                 <input type="hidden" name="update_role" value="1">
-                                                <button type="submit" class="btn btn-sm btn-dark-ekea" title="Toggle role to <?php echo $u['role'] === 'admin' ? 'User' : 'Admin'; ?>">
-                                                    <i class="bi bi-<?php echo $u['role'] === 'admin' ? 'person' : 'shield-lock'; ?> me-1"></i><?php echo $u['role'] === 'admin' ? 'Demote' : 'Promote'; ?>
+                                                <button type="submit" class="btn btn-sm btn-dark-ekea" title="Toggle role to <?php echo $isAdmin ? 'User' : 'Admin'; ?>">
+                                                    <i class="bi bi-<?php echo $isAdmin ? 'person' : 'shield-lock'; ?> me-1"></i><?php echo $isAdmin ? 'Demote' : 'Promote'; ?>
                                                 </button>
                                             </form>
                                             <?php if ($u['id'] !== $auth->getUserId()): ?>

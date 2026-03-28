@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // using phpmail to send our send verificaiton
                 $emailSender = sendVerificationEmail($email, $verify_url);
                 // logging the result
-                if ($emailSent) {
+                if ($emailSender) {
                     ekea_log("Verification email successfully sent to {$email}", 'INFO');
                 } else {
                     ekea_log("Failed to send verification email to {$email}", 'ERROR');

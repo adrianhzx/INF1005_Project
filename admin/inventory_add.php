@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
         if ($price <= 0)        $errors[] = 'Price must be greater than $0.';
         if ($stock < 0)         $errors[] = 'Stock cannot be negative.';
 
-        $image_url = 'default.jpg';
+        $image_url = 'logo.png';
         if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
             $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
             $finfo   = finfo_open(FILEINFO_MIME_TYPE);
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
                 $dest      = __DIR__ . '/../uploads/' . $image_url;
                 if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $dest)) {
                     $errors[] = 'Failed to upload image.';
-                    $image_url = 'default.jpg';
+                    $image_url = 'logo.png';
                 }
             }
         }

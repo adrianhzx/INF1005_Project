@@ -168,11 +168,23 @@ document.addEventListener('DOMContentLoaded', function () {
             let isValid = true;
             clearValidation(checkoutForm);
 
-            const address = checkoutForm.querySelector('#shipping_address');
+            const postalCode = checkoutForm.querySelector('#postal_code');
+            const unitNumber = checkoutForm.querySelector('#unit_number');
+            const streetAddress = checkoutForm.querySelector('#street_address');
             const payment = checkoutForm.querySelector('#payment_method');
 
-            if (!address.value.trim()) {
-                showError(address, 'Shipping address is required.');
+            if (!postalCode.value.trim() || !/^\d{6}$/.test(postalCode.value.trim())) {
+                showError(postalCode, 'Please enter a valid 6-digit postal code.');
+                isValid = false;
+            }
+
+            if (!unitNumber.value.trim()) {
+                showError(unitNumber, 'Unit number is required.');
+                isValid = false;
+            }
+
+            if (!streetAddress.value.trim()) {
+                showError(streetAddress, 'Street address is required.');
                 isValid = false;
             }
 

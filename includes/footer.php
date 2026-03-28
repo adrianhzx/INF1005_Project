@@ -7,7 +7,12 @@
             <div class="row g-4 py-5">
                 <!-- Brand & About -->
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="footer-brand">EKEA</h5>
+                    <div class="footer-brand-wrapper mb-3">
+                        <img src="<?php echo $base_path ?? ''; ?>uploads/logo.png" alt="EKEA" class="brand-logo"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+                             style="height: 45px; object-fit: contain;">
+                        <span class="brand-text h5 mb-0" style="display: none; color: var(--color-accent);">EKEA</span>
+                    </div>
                     <p class="footer-text">Premium Scandinavian-inspired furniture designed for modern living. Quality craftsmanship meets timeless design.</p>
                     <div class="social-links mt-3">
                         <a href="https://www.facebook.com/SingaporeTech/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on Facebook"><i class="bi bi-facebook"></i></a>

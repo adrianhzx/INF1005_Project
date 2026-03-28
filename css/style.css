@@ -197,6 +197,13 @@ img {
     letter-spacing: 3px;
 }
 
+.brand-logo {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
 .ekea-navbar .nav-link {
     color: rgba(255, 255, 255, 0.85) !important;
     font-weight: 500;
@@ -761,6 +768,8 @@ img {
 .ekea-footer {
     background: var(--color-primary-dark);
     color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 10;
 }
 
 .footer-brand {
@@ -1545,6 +1554,13 @@ input[type="number"] {
     z-index: 0;
     overflow: hidden;
     background-color: #000;
+    pointer-events: none;
+}
+
+.hero-fixed .hero-overlay,
+.hero-fixed .hero-dots,
+.hero-fixed .hero-content a {
+    pointer-events: auto;
 }
 .hero-slide {
     position: absolute;
