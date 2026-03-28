@@ -51,9 +51,10 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand fw-bold" href="<?php echo $base_path; ?>index.php">
-                <img src="<?php echo $base_path; ?>uploads/logo.jpg" alt="EKEA" class="brand-logo"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
-                <span class="brand-text" style="display:none;">EKEA</span>
+                <img src="<?php echo $base_path; ?>uploads/logo.png" alt="EKEA" class="brand-logo"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+                     style="height: 38px; object-fit: contain;">
+                <span class="brand-text" style="display: none;">EKEA</span>
             </a>
 
             <!-- Mobile Toggle -->

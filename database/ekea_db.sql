@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     `description` text DEFAULT NULL,
     `price` decimal(10,2) NOT NULL,
     `stock` int(11) NOT NULL DEFAULT 0,
-    `image_url` varchar(255) DEFAULT 'logo.jpg',
+    `image_url` varchar(255) DEFAULT 'logo.png',
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     KEY `category_id` (`category_id`),
