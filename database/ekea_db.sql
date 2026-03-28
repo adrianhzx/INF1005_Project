@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS orders (
     status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') NOT NULL DEFAULT 'pending',
     shipping_address TEXT NOT NULL,
     payment_method VARCHAR(50) NOT NULL DEFAULT 'credit_card',
+    payment_intent_id VARCHAR(100) DEFAULT NULL,
     coupon_code VARCHAR(50) DEFAULT NULL,
     discount DECIMAL(10,2) DEFAULT 0.00,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

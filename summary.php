@@ -86,6 +86,12 @@ require_once 'includes/header.php';
                                 <?php echo ucfirst(htmlspecialchars($order['status'], ENT_QUOTES, 'UTF-8')); ?>
                             </span></p>
                         </div>
+                        <?php if (!empty($order['payment_intent_id'])): ?>
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Stripe Payment ID:</strong></p>
+                            <p class="text-muted-ekea small font-monospace"><?php echo htmlspecialchars($order['payment_intent_id'], ENT_QUOTES, 'UTF-8'); ?></p>
+                        </div>
+                        <?php endif; ?>
                         <div class="col-12">
                             <p class="mb-1"><strong>Shipping Address:</strong></p>
                             <p><?php echo htmlspecialchars($order['shipping_address'], ENT_QUOTES, 'UTF-8'); ?></p>

@@ -3,7 +3,11 @@ $page_title = 'Checkout';
 $current_page = 'checkout';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
+require_once 'includes/stripe_helper.php';
 require_login();
+
+$stripe_secret_key = $config['stripe']['secret_key']  ?? '';
+$stripe_pub_key    = $config['stripe']['publishable_key'] ?? '';
 
 // Redirect if cart is empty
 if (empty($_SESSION['cart'])) {
@@ -57,6 +61,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validate_coupon'])) {
     exit;
 }
 
+// Handle AJAX PaymentIntent creation (Stripe credit card flow)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_payment_intent'])) {
+    header('Content-Type: application/json');
+
+    if (empty($stripe_secret_key)) {
+        echo json_encode(['error' => 'Stripe is not configured on this server.']);
+        exit;
+    }
+
+    $coupon_code = strtoupper(trim($_POST['coupon_code'] ?? ''));
+    $discount = 0;
+    if (!empty($coupon_code)) {
+        $stmt = $pdo->prepare('SELECT discount_percent FROM coupons WHERE code = :code AND active = 1');
+        $stmt->execute([':code' => $coupon_code]);
+        $coupon = $stmt->fetch();
+        if ($coupon) {
+            $discount = ($subtotal * $coupon['discount_percent']) / 100;
+        }
+    }
+
+    $total        = ($subtotal + $shipping) - $discount;
+    $amount_cents = (int) round($total * 100);
+
+    $result = stripe_post('payment_intents', [
+        'amount'            => $amount_cents,
+        'currency'          => 'sgd',
+        'metadata[user_id]' => $_SESSION['user']['id'],
+    ], $stripe_secret_key);
+
+    if ($result['status'] !== 200 || isset($result['data']['error'])) {
+        ekea_log('Stripe PaymentIntent creation failed', 'ERROR', [
+            'error' => $result['data']['error']['message'] ?? 'unknown',
+        ]);
+        echo json_encode(['error' => $result['data']['error']['message'] ?? 'Failed to initialise payment.']);
+        exit;
+    }
+
+    echo json_encode(['client_secret' => $result['data']['client_secret']]);
+    exit;
+}
+
 // Handle order placement
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
@@ -78,6 +123,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         $errors[] = 'Street address is required.';
     if (empty($payment_method))
         $errors[] = 'Please select a payment method.';
+
+    // Verify Stripe PaymentIntent for credit card payments
+    $payment_intent_id = trim($_POST['payment_intent_id'] ?? '');
+    if ($payment_method === 'credit_card') {
+        if (empty($payment_intent_id)) {
+            $errors[] = 'Card payment was not completed. Please try again.';
+        } elseif (!empty($stripe_secret_key)) {
+            $pi = stripe_get("payment_intents/{$payment_intent_id}", $stripe_secret_key);
+            if ($pi['status'] !== 200 || ($pi['data']['status'] ?? '') !== 'succeeded') {
+                $errors[] = 'Card payment could not be verified. Please try again.';
+                ekea_log('Stripe verification failed', 'WARNING', ['payment_intent_id' => $payment_intent_id]);
+            }
+        }
+    }
 
     // Build full shipping address
     $shipping_address = $unit_number . ', ' . $street_address . ', Singapore ' . $postal_code;
@@ -118,14 +177,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 $pdo->beginTransaction();
                 ekea_log('Starting checkout transaction', 'INFO', ['user_id' => $_SESSION['user']['id'], 'total' => $total]);
 
-                $stmt = $pdo->prepare('INSERT INTO orders (user_id, total, shipping_address, payment_method, coupon_code, discount) VALUES (:uid, :total, :addr, :pay, :coupon, :disc)');
+                $stmt = $pdo->prepare('INSERT INTO orders (user_id, total, shipping_address, payment_method, payment_intent_id, coupon_code, discount) VALUES (:uid, :total, :addr, :pay, :pi_id, :coupon, :disc)');
                 $stmt->execute([
-                    ':uid' => $_SESSION['user']['id'],
+                    ':uid'   => $_SESSION['user']['id'],
                     ':total' => $total,
-                    ':addr' => $shipping_address,
-                    ':pay' => $payment_method,
+                    ':addr'  => $shipping_address,
+                    ':pay'   => $payment_method,
+                    ':pi_id' => !empty($payment_intent_id) ? $payment_intent_id : null,
                     ':coupon' => !empty($coupon_code) ? $coupon_code : null,
-                    ':disc' => $discount,
+                    ':disc'  => $discount,
                 ]);
                 $order_id = $pdo->lastInsertId();
 
@@ -337,7 +397,7 @@ endforeach; ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- Stripe Init (Test Mode) ---
-    var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    var stripe = Stripe('<?php echo htmlspecialchars($stripe_pub_key, ENT_QUOTES, 'UTF-8'); ?>');
     var elements = stripe.elements();
     var cardElement = elements.create('card', {
         style: {
@@ -483,6 +543,68 @@ document.addEventListener('DOMContentLoaded', function() {
         couponInput.value = couponParam.toUpperCase();
         showCouponFeedback('Coupon code pre-filled. Click "Apply" to validate.', true);
     }
+
+    // --- Stripe Form Submit Interception ---
+    var checkoutForm = document.getElementById('checkoutForm');
+    var submitBtn = checkoutForm.querySelector('button[type="submit"]');
+    var cardErrors = document.getElementById('card-errors');
+
+    function resetSubmitBtn() {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-lock me-2"></i>Place Order';
+    }
+
+    checkoutForm.addEventListener('submit', function(e) {
+        if (paymentSelect.value !== 'credit_card') {
+            return; // Non-card payments submit normally
+        }
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
+        cardErrors.textContent = '';
+
+        // Step 1: Create PaymentIntent server-side
+        var fd = new FormData();
+        fd.append('create_payment_intent', '1');
+        fd.append('coupon_code', couponInput.value.trim());
+
+        fetch('checkout.php', { method: 'POST', body: fd })
+            .then(function(r) { return r.json(); })
+            .then(function(piData) {
+                if (piData.error) {
+                    cardErrors.textContent = piData.error;
+                    resetSubmitBtn();
+                    return Promise.reject('pi_error');
+                }
+                // Step 2: Confirm card payment with Stripe.js
+                return stripe.confirmCardPayment(piData.client_secret, {
+                    payment_method: { card: cardElement }
+                });
+            })
+            .then(function(result) {
+                if (!result) return;
+                if (result.error) {
+                    cardErrors.textContent = result.error.message;
+                    resetSubmitBtn();
+                    return;
+                }
+                if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
+                    // Step 3: Attach payment_intent_id and submit form for order creation
+                    var hidden = document.createElement('input');
+                    hidden.type = 'hidden';
+                    hidden.name = 'payment_intent_id';
+                    hidden.value = result.paymentIntent.id;
+                    checkoutForm.appendChild(hidden);
+                    checkoutForm.submit();
+                }
+            })
+            .catch(function(err) {
+                if (err !== 'pi_error') {
+                    cardErrors.textContent = 'Payment failed. Please try again.';
+                    resetSubmitBtn();
+                }
+            });
+    });
 });
 </script>
 
