@@ -3,7 +3,14 @@ $page_title = 'Checkout';
 $current_page = 'checkout';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
-require_login();
+
+// 1. Enforce login using the Auth library
+if (!$auth->isLoggedIn()) {
+    $_SESSION['flash_message'] = 'Please log in to proceed to checkout.';
+    $_SESSION['flash_type'] = 'warning';
+    header('Location: login.php');
+    exit;
+}
 
 // Redirect if cart is empty
 if (empty($_SESSION['cart'])) {
@@ -16,9 +23,9 @@ if (empty($_SESSION['cart'])) {
 $cart = $_SESSION['cart'];
 $errors = [];
 
-// Fetch user address
-$stmt = $pdo->prepare('SELECT address FROM users WHERE id = :id');
-$stmt->execute([':id' => $_SESSION['user']['id']]);
+// 2. Fetch user address from the new user_profiles table
+$stmt = $pdo->prepare('SELECT address FROM user_profiles WHERE user_id = :id');
+$stmt->execute([':id' => $auth->getUserId()]);
 $user_data = $stmt->fetch();
 
 // Calculate subtotal
@@ -50,8 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validate_coupon'])) {
             'discount' => $disc,
             'percent' => $coupon['discount_percent'],
         ]);
-    }
-    else {
+    } else {
         echo json_encode(['valid' => false, 'message' => 'Invalid or expired coupon code.']);
     }
     exit;
@@ -70,14 +76,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     $coupon_code = strtoupper(trim($_POST['coupon_code'] ?? ''));
 
     // Validation
-    if (empty($postal_code) || !preg_match('/^\d{6}$/', $postal_code))
+    if (empty($postal_code) || !preg_match('/^\d{6}$/', $postal_code)) {
         $errors[] = 'Please enter a valid 6-digit Singapore postal code.';
-    if (empty($unit_number))
+    }
+    if (empty($unit_number)) {
         $errors[] = 'Unit number is required.';
-    if (empty($street_address))
+    }
+    if (empty($street_address)) {
         $errors[] = 'Street address is required.';
-    if (empty($payment_method))
+    }
+    if (empty($payment_method)) {
         $errors[] = 'Please select a payment method.';
+    }
 
     // Build full shipping address
     $shipping_address = $unit_number . ', ' . $street_address . ', Singapore ' . $postal_code;
@@ -93,8 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         if ($coupon) {
             $discount_percent = $coupon['discount_percent'];
             $discount = ($subtotal * $discount_percent) / 100;
-        }
-        else {
+        } else {
             $errors[] = 'Invalid or expired coupon code.';
         }
     }
@@ -116,11 +125,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         if (empty($errors)) {
             try {
                 $pdo->beginTransaction();
-                ekea_log('Starting checkout transaction', 'INFO', ['user_id' => $_SESSION['user']['id'], 'total' => $total]);
+                // 3. Update logging array with new Auth method
+                ekea_log('Starting checkout transaction', 'INFO', ['user_id' => $auth->getUserId(), 'total' => $total]);
 
+                // 4. Update the INSERT statement with the new Auth method
                 $stmt = $pdo->prepare('INSERT INTO orders (user_id, total, shipping_address, payment_method, coupon_code, discount) VALUES (:uid, :total, :addr, :pay, :coupon, :disc)');
                 $stmt->execute([
-                    ':uid' => $_SESSION['user']['id'],
+                    ':uid' => $auth->getUserId(),
                     ':total' => $total,
                     ':addr' => $shipping_address,
                     ':pay' => $payment_method,
@@ -149,8 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 header('Location: summary.php');
                 exit;
 
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 $pdo->rollBack();
                 ekea_log_exception($e, 'Checkout transaction failed');
                 $errors[] = 'An error occurred while processing your order. Please try again.';
@@ -163,7 +173,6 @@ $csrf_token = generate_csrf_token();
 require_once 'includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-credit-card me-2"></i>Checkout</h1>
@@ -184,22 +193,18 @@ require_once 'includes/header.php';
                 <ul class="mb-0">
                     <?php foreach ($errors as $error): ?>
                         <li><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
-                    <?php
-    endforeach; ?>
+                    <?php endforeach; ?>
                 </ul>
             </div>
-        <?php
-endif; ?>
+        <?php endif; ?>
 
         <form id="checkoutForm" method="POST" class="ekea-form" novalidate>
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
             <input type="hidden" name="place_order" value="1">
 
             <div class="row g-4">
-                <!-- Main Column -->
                 <div class="col-lg-8">
 
-                    <!-- 1. Order Items Preview -->
                     <div class="summary-card mb-4">
                         <h4 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Order Items (<?php echo count($cart); ?>)</h4>
                         <?php foreach ($cart as $item): ?>
@@ -213,12 +218,10 @@ endif; ?>
                                 </div>
                                 <strong>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong>
                             </div>
-                        <?php
-endforeach; ?>
+                        <?php endforeach; ?>
                         <a href="cart.php" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil me-1"></i>Edit Cart</a>
                     </div>
 
-                    <!-- 2. Shipping Address (Postal Code + Unit Number + OneMap) -->
                     <div class="summary-card mb-4">
                         <h4 class="mb-3"><i class="bi bi-geo-alt text-accent me-2"></i>Delivery Address</h4>
                         <div class="row g-3">
@@ -252,7 +255,6 @@ endforeach; ?>
                         <div id="postalLookupStatus" class="mt-2" style="display: none;"></div>
                     </div>
 
-                    <!-- 3. Payment Method (Stripe Test) -->
                     <div class="summary-card mb-4">
                         <h4 class="mb-3"><i class="bi bi-credit-card text-accent me-2"></i>Payment Method</h4>
                         <div class="mb-3">
@@ -265,7 +267,6 @@ endforeach; ?>
                             </select>
                         </div>
 
-                        <!-- Stripe Card Element (shown when credit_card is selected) -->
                         <div id="stripeCardSection" style="display: none;">
                             <label class="form-label">Card Details</label>
                             <div id="card-element" class="form-control" style="padding: 12px; min-height: 44px;"></div>
@@ -276,7 +277,6 @@ endforeach; ?>
                         </div>
                     </div>
 
-                    <!-- 4. Coupon Code with Apply Button -->
                     <div class="summary-card mb-4">
                         <h4 class="mb-3"><i class="bi bi-tag text-accent me-2"></i>Discount Coupon</h4>
                         <div class="row g-2 align-items-end">
@@ -295,7 +295,6 @@ endforeach; ?>
                     </div>
                 </div>
 
-                <!-- Order Summary Sidebar -->
                 <div class="col-lg-4">
                     <div class="summary-card" style="position: sticky; top: 90px;">
                         <h4 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h4>
@@ -331,7 +330,6 @@ endforeach; ?>
     </div>
 </section>
 
-<!-- Stripe.js (Test Mode) -->
 <script src="https://js.stripe.com/v3/"></script>
 
 <script>

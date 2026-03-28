@@ -4,11 +4,18 @@ $current_page = 'history';
 $use_chartjs = true;
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
-require_login();
 
-// Fetch user's orders
+// 1. Enforce login using the Auth library
+if (!$auth->isLoggedIn()) {
+    $_SESSION['flash_message'] = 'Please log in to view your order history.';
+    $_SESSION['flash_type'] = 'warning';
+    header('Location: login.php');
+    exit;
+}
+
+// 2. Fetch user's orders using the new User ID method
 $stmt = $pdo->prepare('SELECT * FROM orders WHERE user_id = :uid ORDER BY created_at DESC');
-$stmt->execute([':uid' => $_SESSION['user']['id']]);
+$stmt->execute([':uid' => $auth->getUserId()]);
 $orders = $stmt->fetchAll();
 
 // Compute monthly spending for chart
@@ -29,8 +36,10 @@ $order_detail = null;
 $order_items = [];
 if (isset($_GET['id'])) {
     $view_id = (int)$_GET['id'];
+    
+    // 3. Update the specific order fetch with the new User ID method
     $stmt = $pdo->prepare('SELECT * FROM orders WHERE id = :id AND user_id = :uid');
-    $stmt->execute([':id' => $view_id, ':uid' => $_SESSION['user']['id']]);
+    $stmt->execute([':id' => $view_id, ':uid' => $auth->getUserId()]);
     $order_detail = $stmt->fetch();
 
     if ($order_detail) {
@@ -43,7 +52,6 @@ if (isset($_GET['id'])) {
 require_once 'includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-clock-history me-2"></i>Order History</h1>
@@ -59,7 +67,6 @@ require_once 'includes/header.php';
 <section class="section-padding">
     <div class="container">
         <?php if ($order_detail): ?>
-            <!-- Order Detail -->
             <div class="mb-4">
                 <a href="history.php" class="btn btn-outline-secondary">
                     <i class="bi bi-arrow-left me-1"></i>Back to Orders
@@ -86,7 +93,6 @@ require_once 'includes/header.php';
                         </div>
                     </div>
 
-                    <!-- Items -->
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead>
@@ -115,8 +121,7 @@ require_once 'includes/header.php';
                                         <td><?php echo (int)$item['quantity']; ?></td>
                                         <td><strong>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong></td>
                                     </tr>
-                                <?php
-    endforeach; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -126,12 +131,12 @@ require_once 'includes/header.php';
                     <div class="summary-card">
                         <h5>Order Summary</h5>
                         <?php
-    $items_total = 0;
-    foreach ($order_items as $it) {
-        $items_total += $it['price'] * $it['quantity'];
-    }
-    $ship = $items_total >= 200 ? 0 : 15;
-?>
+                            $items_total = 0;
+                            foreach ($order_items as $it) {
+                                $items_total += $it['price'] * $it['quantity'];
+                            }
+                            $ship = $items_total >= 200 ? 0 : 15;
+                        ?>
                         <div class="summary-row">
                             <span>Subtotal</span>
                             <span>$<?php echo number_format($items_total, 2); ?></span>
@@ -145,8 +150,7 @@ require_once 'includes/header.php';
                                 <span>Discount (<?php echo htmlspecialchars($order_detail['coupon_code'], ENT_QUOTES, 'UTF-8'); ?>)</span>
                                 <span>-$<?php echo number_format($order_detail['discount'], 2); ?></span>
                             </div>
-                        <?php
-    endif; ?>
+                        <?php endif; ?>
                         <div class="summary-row summary-total">
                             <span>Total</span>
                             <span>$<?php echo number_format($order_detail['total'], 2); ?></span>
@@ -155,9 +159,7 @@ require_once 'includes/header.php';
                 </div>
             </div>
 
-        <?php
-else: ?>
-            <!-- Orders List with Spending Chart -->
+        <?php else: ?>
             <?php if (empty($orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-bag-x"></i></div>
@@ -167,9 +169,7 @@ else: ?>
                         <i class="bi bi-grid me-2"></i>Browse Products
                     </a>
                 </div>
-            <?php
-    else: ?>
-                <!-- Spending Trend Chart -->
+            <?php else: ?>
                 <?php if (count($spending_by_month) > 0): ?>
                     <div class="spending-chart-container fade-in-up">
                         <h5 class="mb-3"><i class="bi bi-graph-up-arrow me-2" style="color: var(--color-accent);"></i>Your Spending Trend</h5>
@@ -255,13 +255,10 @@ else: ?>
                                 </div>
                             </div>
                         </div>
-                    <?php
-        endforeach; ?>
+                    <?php endforeach; ?>
                 </div>
-            <?php
-    endif; ?>
-        <?php
-endif; ?>
+            <?php endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 

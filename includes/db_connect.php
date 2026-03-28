@@ -1,9 +1,11 @@
 <?php
 /**
- * Database Connection (PDO)
+ * Database Connection (PDO) + delight-im/auth
  * Parses db_config.ini and establishes a secure MySQL connection.
- * Also starts the session and initialises the logger.
+ * Also starts the session, initialises the logger, and sets up $auth.
  */
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // Harden session cookies (INF1005 Security Best Practices)
 if (session_status() === PHP_SESSION_NONE) {
@@ -40,6 +42,9 @@ try {
     ]
         );
     ekea_log('Database connection established', 'DEBUG');
+
+    // ── delight-im/auth ──
+    $auth = new \Delight\Auth\Auth($pdo);
 
     // ── Single-Session Enforcement ──
     // Verify session token on every page load for logged-in users

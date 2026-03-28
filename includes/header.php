@@ -94,30 +94,38 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
 
                 <!-- Right Side Nav -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['user'])): ?>
-                        <!-- Logged In -->
-                        <?php if ($_SESSION['user']['role'] === 'admin'): ?>
+                    <!--  check user is logged in. -->
+                    <?php if ($auth->isLoggedIn()): ?>
+
+                    <?php 
+                    // select first name from db
+                    $stmt = $pdo->prepare('SELECT first_name FROM user_profiles WHERE user_id = :uid');
+                    $stmt->execute([':uid' => $auth->getUserId()]);
+                    $profile = $stmt->fetch();
+                    $displayName = $profile ? $profile['first_name'] : 'User';
+                    ?>
+                        <!-- use php-auth to get ADMIN -->
+                        <?php if ($auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
                             <li class="nav-item">
                                 <a class="nav-link <?php echo(isset($current_page) && $current_page === 'admin') ? 'active' : ''; ?>"
-                                   href="<?php echo $base_path; ?>admin/admin.php">
+                                href="<?php echo $base_path; ?>admin/admin.php">
                                     <i class="bi bi-speedometer2 me-1"></i>Admin Panel
                                 </a>
                             </li>
-                        <?php
-                        endif; ?>
+                        <?php endif; ?>
+                    
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'cart') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>cart.php">
+                            href="<?php echo $base_path; ?>cart.php">
                                 <i class="bi bi-cart3 me-1"></i>Cart
                                 <?php if (!empty($_SESSION['cart'])): ?>
                                     <span class="badge bg-accent rounded-pill"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
-                                <?php
-                                endif; ?>
+                                <?php endif; ?>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle me-1"></i><?php echo htmlspecialchars($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>
+                                <i class="bi bi-person-circle me-1"></i><?php echo htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8'); ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="<?php echo $base_path; ?>profile.php"><i class="bi bi-person me-2"></i>My Profile</a></li>
@@ -127,21 +135,19 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
                             </ul>
                         </li>
                     <?php else: ?>
-                        <!-- Guest -->
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'login') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>login.php">
+                            href="<?php echo $base_path; ?>login.php">
                                 <i class="bi bi-box-arrow-in-right me-1"></i>Login
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-accent btn-sm ms-2 px-3 <?php echo(isset($current_page) && $current_page === 'register') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>register.php">
+                            href="<?php echo $base_path; ?>register.php">
                                 <i class="bi bi-person-plus me-1"></i>Register
                             </a>
                         </li>
-                    <?php
-                    endif; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
