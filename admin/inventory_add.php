@@ -3,7 +3,14 @@ $page_title = 'Add New Product';
 $current_page = 'admin';
 require_once '../includes/db_connect.php';
 require_once '../includes/auth_guard.php';
-require_admin();
+
+// 1. Global Admin Guard
+if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+    $_SESSION['flash_message'] = 'Access denied. Administrator privileges required.';
+    $_SESSION['flash_type'] = 'danger';
+    header('Location: ../login.php');
+    exit;
+}
 
 $errors = [];
 
@@ -73,7 +80,6 @@ $csrf_token = generate_csrf_token();
 require_once '../includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1><i class="bi bi-plus-circle me-2"></i>Add New Product</h1>

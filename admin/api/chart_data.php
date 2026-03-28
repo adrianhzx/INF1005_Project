@@ -10,7 +10,7 @@ require_once '../../includes/db_connect.php';
 require_once '../../includes/auth_guard.php';
 
 // Block non-admin users
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
     http_response_code(403);
     echo json_encode(['error' => 'Unauthorized']);
     exit;

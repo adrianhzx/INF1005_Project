@@ -1,29 +1,68 @@
 /* ============================================================
    EKEA — Design System
-   WCAG AA Compliant | IKEA-Inspired Premium Aesthetic
+   WCAG AA Compliant | Scandinavian-Inspired Premium Aesthetic
    ============================================================ */
 
-/* ----- CSS Custom Properties (Design Tokens) ----- */
+/* ===== 1. FONT FACE — Visby CF (Self-Hosted) ===== */
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbyLight.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbyRegular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbyMedium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbySemibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbyBold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Visby CF';
+    src: url('../fonts/VisbyExtrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ===== 2. DESIGN TOKENS (CSS Custom Properties) ===== */
 :root {
     /* Primary Palette — All pass WCAG AA contrast on white/dark */
     --color-primary: #003366;
-    /* Deep Navy */
     --color-primary-light: #004d99;
     --color-primary-dark: #002244;
     --color-accent: #C4932B;
-    /* Warm Gold */
     --color-accent-hover: #A87B1F;
     --color-accent-light: #F5E6C8;
 
     /* Neutrals */
     --color-bg: #F5F5F0;
-    /* Warm Off-White */
     --color-bg-alt: #EAEAE5;
     --color-surface: #FFFFFF;
     --color-text: #1A1A1A;
-    /* Charcoal — 15.4:1 on white */
     --color-text-muted: #555555;
-    /* 7.5:1 on white */
     --color-text-light: #F5F5F0;
     --color-border: #D1D1CC;
 
@@ -33,9 +72,9 @@
     --color-danger: #C62828;
     --color-info: #01579B;
 
-    /* Typography */
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    /* Typography — Visby CF */
+    --font-body: 'Visby CF', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Visby CF', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Spacing & Sizing */
     --navbar-height: 72px;
@@ -164,7 +203,7 @@ img {
     padding: 0.5rem 1rem !important;
     border-radius: var(--border-radius);
     transition: var(--transition);
-    font-size: 0.938rem;
+    font-size: 0.94rem;
 }
 
 .ekea-navbar .nav-link:hover,
@@ -388,7 +427,7 @@ img {
 }
 
 .product-card .product-category {
-    font-size: 0.8125rem;
+    font-size: 0.81rem;
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -396,7 +435,7 @@ img {
 }
 
 .product-card .product-price {
-    font-size: 1.375rem;
+    font-size: 1.38rem;
     font-weight: 700;
     color: var(--color-primary);
     margin-top: auto;
@@ -459,8 +498,8 @@ img {
 .ekea-form .form-label {
     font-weight: 600;
     color: var(--color-primary-dark);
-    font-size: 0.938rem;
-    margin-bottom: 0.375rem;
+    font-size: 0.94rem;
+    margin-bottom: 0.38rem;
 }
 
 .ekea-form .form-control,
@@ -468,7 +507,7 @@ img {
     border: 2px solid var(--color-border);
     border-radius: var(--border-radius);
     padding: 0.75rem 1rem;
-    font-size: 0.938rem;
+    font-size: 0.94rem;
     transition: var(--transition);
     background-color: var(--color-surface);
 }
@@ -577,7 +616,7 @@ img {
 }
 
 .summary-card .summary-total {
-    font-size: 1.375rem;
+    font-size: 1.38rem;
     font-weight: 700;
     color: var(--color-primary);
     border-top: 2px solid var(--color-primary);
@@ -588,9 +627,9 @@ img {
 /* ----- Status Badges ----- */
 .status-badge {
     display: inline-block;
-    padding: 0.25rem 0.875rem;
+    padding: 0.25rem 0.88rem;
     border-radius: 20px;
-    font-size: 0.8125rem;
+    font-size: 0.81rem;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
@@ -734,7 +773,7 @@ img {
 }
 
 .footer-text {
-    font-size: 0.938rem;
+    font-size: 0.94rem;
     line-height: 1.7;
     opacity: 0.8;
 }
@@ -754,7 +793,7 @@ img {
 
 .footer-links a {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.938rem;
+    font-size: 0.94rem;
     transition: var(--transition);
 }
 
@@ -853,7 +892,7 @@ img {
     display: inline-block;
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.8125rem;
+    font-size: 0.81rem;
     font-weight: 600;
 }
 
@@ -1014,9 +1053,9 @@ img {
     }
 }
 
-/* ----- Utility Classes ----- */
+/* ===== 17. UTILITY CLASSES ===== */
 .text-accent {
-    color: var(--color-accent) !important;
+    color: #7A5A10 !important; /* WCAG AA 6.3:1 on white */
 }
 
 .bg-accent {
@@ -1115,7 +1154,7 @@ img {
 }
 
 .chat-msg {
-    padding: 0.625rem 1rem;
+    padding: 0.63rem 1rem;
     border-radius: var(--border-radius);
     font-size: 0.875rem;
     line-height: 1.5;
@@ -1244,7 +1283,7 @@ img {
     justify-content: center;
     min-height: 280px;
     color: var(--color-text-muted);
-    font-size: 0.938rem;
+    font-size: 0.94rem;
 }
 
 .chart-loading i {
@@ -1401,11 +1440,7 @@ a:focus-visible {
     color: var(--color-danger);
 }
 
-/* ----- WCAG Contrast Fix: Accent text on white ----- */
-/* #C4932B on white = 2.77:1 (fails AA). Use darker shade for text. */
-.text-accent {
-    color: #7A5A10 !important; /* 6.3:1 on white - passes AA and AAA */
-}
+/* WCAG .text-accent override consolidated into Utility Classes section above */
 
 /* ----- Sort dropdown themed ----- */
 .form-select {
@@ -1488,13 +1523,119 @@ input[type="number"] {
     object-fit: cover;
 }
 
-/* ----- Hide Number Input Arrows for Readonly Qty ----- */
-input[type="number"].qty-input[readonly]::-webkit-inner-spin-button,
-input[type="number"].qty-input[readonly]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+/* ===== 18. HERO SLIDESHOW (Adrian) ===== */
+.content-layer {
+    position: relative;
+    z-index: 10;
+    background-color: var(--color-bg);
+    width: 100%;
+    margin-top: 100vh;
+    transform: translateY(-5px); 
+    padding-top: 5px;
+    box-shadow: 0px -10px 20px rgba(0,0,0,0.1);
+    min-height: 100vh;
 }
-input[type="number"].qty-input[readonly] {
-    -moz-appearance: textfield;
-    appearance: textfield;
-}
+
+.hero-fixed {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 101%; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom; 
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
+}
+
+.hero-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2); 
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+.hero-dot {
+   width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.hero-dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+.hero-dot:hover {
+    background: rgba(255,255,255,0.8);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6); 
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+    .hero-subtitle { font-size: 1rem; }
+}
+

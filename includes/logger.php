@@ -37,10 +37,11 @@ function ekea_log($message, $level = 'INFO', $context = [])
     $caller_file = isset($backtrace[0]['file']) ? basename($backtrace[0]['file']) : 'unknown';
     $caller_line = isset($backtrace[0]['line']) ? $backtrace[0]['line'] : 0;
 
-    // Get user info if available
+    // Get user info if available (via delight-im/auth)
     $user_info = '';
-    if (isset($_SESSION['user'])) {
-        $user_info = ' [User: ' . $_SESSION['user']['email'] . ' (ID:' . $_SESSION['user']['id'] . ')]';
+    global $auth;
+    if (isset($auth) && $auth->isLoggedIn()) {
+        $user_info = ' [User: ' . $auth->getEmail() . ' (ID:' . $auth->getUserId() . ')]';
     }
 
     // Build log line

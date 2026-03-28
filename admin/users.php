@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_role'])) {
         $new_role = $_POST['new_role'] === 'admin' ? 'admin' : 'user';
 
         // Prevent demoting yourself
-        if ($uid === (int)$_SESSION['user']['id'] && $new_role !== 'admin') {
+        if ($uid === (int)$auth->getUserId() && $new_role !== 'admin') {
             $errors[] = 'You cannot remove your own admin privileges.';
         }
         else {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'])) {
         $uid = (int)$_POST['user_id'];
 
         // Prevent deleting yourself
-        if ($uid === (int)$_SESSION['user']['id']) {
+        if ($uid === (int)$auth->getUserId()) {
             $errors[] = 'You cannot delete your own account.';
         }
         else {
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['force_logout'])) {
     else {
         $uid = (int)$_POST['user_id'];
         $pdo->prepare('DELETE FROM user_sessions WHERE user_id = :uid')->execute([':uid' => $uid]);
-        ekea_log('Admin force-logged out user', 'WARNING', ['target_user_id' => $uid, 'admin_id' => $_SESSION['user']['id']]);
+        ekea_log('Admin force-logged out user', 'WARNING', ['target_user_id' => $uid, 'admin_id' => $auth->getUserId()]);
         $_SESSION['flash_message'] = 'User session terminated. They will be logged out on their next page load.';
         $_SESSION['flash_type'] = 'success';
         header('Location: users.php');
@@ -239,7 +239,7 @@ endif; ?>
                                                     <i class="bi bi-<?php echo $u['role'] === 'admin' ? 'person' : 'shield-lock'; ?> me-1"></i><?php echo $u['role'] === 'admin' ? 'Demote' : 'Promote'; ?>
                                                 </button>
                                             </form>
-                                            <?php if ($u['id'] !== $_SESSION['user']['id']): ?>
+                                            <?php if ($u['id'] !== $auth->getUserId()): ?>
                                                 <!-- Force Logout -->
                                                 <?php if (isset($active_sessions[$u['id']])): ?>
                                                     <form method="POST" class="d-inline">

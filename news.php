@@ -5,11 +5,11 @@ $use_chartjs = true;
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 
-// Fetch all reviews sorted by newest first
+// Fetch all reviews sorted by newest first (UPDATED TO USE user_profiles)
 $stmt = $pdo->query('
-    SELECT r.*, u.first_name, u.last_name, p.name AS product_name, p.id AS product_id, p.image_url
+    SELECT r.*, up.first_name, up.last_name, p.name AS product_name, p.id AS product_id, p.image_url
     FROM reviews r 
-    JOIN users u ON r.user_id = u.id 
+    JOIN user_profiles up ON r.user_id = up.user_id 
     JOIN products p ON r.product_id = p.id 
     ORDER BY r.created_at DESC
 ');
@@ -29,7 +29,6 @@ foreach ($reviews as $rev) {
 require_once 'includes/header.php';
 ?>
 
-<!-- Page Header -->
 <div class="page-header">
     <div class="container">
         <h1>Community Reviews</h1>
@@ -44,7 +43,6 @@ require_once 'includes/header.php';
 
 <section class="section-padding">
     <div class="container">
-        <!-- Stats Bar -->
         <div class="row g-4 mb-5">
             <div class="col-md-4 fade-in-up">
                 <div class="stat-card">
@@ -64,15 +62,14 @@ require_once 'includes/header.php';
                 <div class="stat-card">
                     <div class="stat-icon"><i class="bi bi-people"></i></div>
                     <div class="stat-number"><?php
-$stmt2 = $pdo->query('SELECT COUNT(DISTINCT user_id) FROM reviews');
-echo (int)$stmt2->fetchColumn();
-?></div>
+                        $stmt2 = $pdo->query('SELECT COUNT(DISTINCT user_id) FROM reviews');
+                        echo (int)$stmt2->fetchColumn();
+                    ?></div>
                     <div class="stat-label">Happy Reviewers</div>
                 </div>
             </div>
         </div>
 
-        <!-- Ratings Breakdown Chart -->
         <?php if (!empty($reviews)): ?>
             <div class="row mb-5">
                 <div class="col-md-6 col-lg-4 mx-auto fade-in-up">
@@ -141,8 +138,7 @@ echo (int)$stmt2->fetchColumn();
                 <p class="text-muted-ekea">Be the first to share your experience with EKEA products!</p>
                 <a href="product.php" class="btn btn-primary-ekea">Browse Products</a>
             </div>
-        <?php
-else: ?>
+        <?php else: ?>
             <div class="row g-4">
                 <?php foreach ($reviews as $review): ?>
                     <div class="col-lg-6 fade-in-up">
@@ -158,8 +154,7 @@ else: ?>
                                     <div class="star-rating mt-1">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                             <i class="bi <?php echo $i <= $review['rating'] ? 'bi-star-fill' : 'bi-star'; ?>"></i>
-                                        <?php
-        endfor; ?>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                             </div>
@@ -176,11 +171,9 @@ else: ?>
                             </div>
                         </div>
                     </div>
-                <?php
-    endforeach; ?>
+                <?php endforeach; ?>
             </div>
-        <?php
-endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 

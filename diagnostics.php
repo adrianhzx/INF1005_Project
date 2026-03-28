@@ -6,6 +6,7 @@
  */
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
+require_admin();
 
 ekea_log('Diagnostics page accessed', 'INFO');
 
@@ -27,7 +28,7 @@ echo '<h5><i class="bi bi-check-circle text-success me-2"></i>Session</h5>';
 echo '<p>Session status: ' . (session_status() === PHP_SESSION_ACTIVE ? '<span class="text-success">Active</span>' : '<span class="text-danger">Inactive</span>') . '</p>';
 echo '<p>Session ID: <code>' . session_id() . '</code></p>';
 echo '<p>CSRF token in session: ' . (isset($_SESSION['csrf_token']) ? '<code>' . substr($_SESSION['csrf_token'], 0, 16) . '...</code>' : '<span class="text-danger">Not set</span>') . '</p>';
-echo '<p>Logged in user: ' . (isset($_SESSION['user']) ? htmlspecialchars($_SESSION['user']['email']) . ' (' . $_SESSION['user']['role'] . ')' : '<span class="text-danger">Not logged in</span>') . '</p>';
+echo '<p>Logged in user: ' . ($auth->isLoggedIn() ? htmlspecialchars($auth->getEmail()) . ' (ID:' . $auth->getUserId() . ')' : '<span class="text-danger">Not logged in</span>') . '</p>';
 echo '</div></div>';
 
 // 3. Database Connection

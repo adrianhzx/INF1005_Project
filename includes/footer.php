@@ -10,9 +10,11 @@
                     <h5 class="footer-brand">EKEA</h5>
                     <p class="footer-text">Premium Scandinavian-inspired furniture designed for modern living. Quality craftsmanship meets timeless design.</p>
                     <div class="social-links mt-3">
-                        <a href="<?php echo $base_path ?? ''; ?>about.php" class="social-link" aria-label="Learn more about EKEA"><i class="bi bi-info-circle"></i></a>
-                        <a href="<?php echo $base_path ?? ''; ?>news.php" class="social-link" aria-label="Read community reviews"><i class="bi bi-chat-square-text"></i></a>
-                        <a href="<?php echo $base_path ?? ''; ?>product.php" class="social-link" aria-label="Browse products"><i class="bi bi-grid"></i></a>
+                        <a href="https://www.facebook.com/SingaporeTech/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/singaporetech/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/singapore-institute-of-technology" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.youtube.com/user/SingaporeTech" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on YouTube"><i class="bi bi-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@singaporetech" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="EKEA on TikTok"><i class="bi bi-tiktok"></i></a>
                     </div>
                 </div>
 
@@ -43,7 +45,7 @@
                 <div class="col-lg-2 col-md-6">
                     <h6 class="footer-heading">Account</h6>
                     <ul class="footer-links list-unstyled">
-                        <?php if (isset($_SESSION['user'])): ?>
+                        <?php if ($auth->isLoggedIn()): ?>
                             <li><a href="<?php echo $base_path ?? ''; ?>profile.php">My Profile</a></li>
                             <li><a href="<?php echo $base_path ?? ''; ?>history.php">Order History</a></li>
                             <li><a href="<?php echo $base_path ?? ''; ?>cart.php">Shopping Cart</a></li>

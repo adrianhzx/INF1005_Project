@@ -4,6 +4,38 @@ $current_page = 'home';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 
+// Handle newsletter subscription (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['newsletter_subscribe'])) {
+    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
+        $_SESSION['flash_message'] = 'Invalid form submission.';
+        $_SESSION['flash_type'] = 'danger';
+    } else {
+        $newsletter_email = filter_var(trim($_POST['newsletter_email'] ?? ''), FILTER_VALIDATE_EMAIL);
+        if (!$newsletter_email) {
+            $_SESSION['flash_message'] = 'Please enter a valid email address.';
+            $_SESSION['flash_type'] = 'danger';
+        } else {
+            // Check for duplicate
+            $stmt = $pdo->prepare('SELECT id FROM newsletter_subscribers WHERE email = :email');
+            $stmt->execute([':email' => $newsletter_email]);
+            if ($stmt->fetch()) {
+                $_SESSION['flash_message'] = 'You\'re already subscribed! We\'ll keep you inspired.';
+                $_SESSION['flash_type'] = 'info';
+            } else {
+                $stmt = $pdo->prepare('INSERT INTO newsletter_subscribers (email) VALUES (:email)');
+                $stmt->execute([':email' => $newsletter_email]);
+                ekea_log('Newsletter subscription', 'INFO', ['email' => $newsletter_email]);
+                $_SESSION['flash_message'] = 'Thank you for subscribing! Stay inspired with EKEA.';
+                $_SESSION['flash_type'] = 'success';
+            }
+        }
+    }
+    header('Location: index.php#newsletter');
+    exit;
+}
+
+$csrf_token = generate_csrf_token();
+
 // Fetch featured products (latest 8)
 $stmt = $pdo->query('SELECT p.*, c.name AS category_name FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT 8');
 $featured_products = $stmt->fetchAll();
@@ -15,37 +47,31 @@ $categories = $stmt->fetchAll();
 require_once 'includes/header.php';
 ?>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-pattern"></div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 hero-content">
-                <p class="text-uppercase letter-spacing-1 mb-3" style="color: var(--color-accent); font-weight: 600;">
-                    <i class="bi bi-stars me-1"></i> Scandinavian Design
-                </p>
-                <h1>Furniture That Feels Like Home</h1>
-                <p class="mb-4">
-                    Discover EKEA's curated collection of modern, sustainable furniture. 
-                    Crafted with care, designed for life.
-                </p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="product.php" class="btn btn-primary-ekea btn-lg">
-                        <i class="bi bi-grid me-2"></i>Shop Now
-                    </a>
-                    <a href="about.php" class="btn btn-outline-ekea btn-lg">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 d-none d-lg-block text-center">
-                <div style="padding: 3rem;">
-                    <i class="bi bi-house-heart" style="font-size: 15rem; color: rgba(255,255,255,0.1);"></i>
-                </div>
+<!-- Hero Section (Slideshow) -->
+<section class="hero-section hero-fixed">
+    <!-- Slideshow images -->
+        <div class="hero-slide active" style="background-image: url('./uploads/spacejoy-unsplash1.jpg'); background-position: center center;"></div>
+        <div class="hero-slide" style="background-image: url('./uploads/spacejoy-unsplash2.jpg'); background-position: center center;"></div>
+        <div class="hero-slide" style="background-image: url('./uploads/spacejoy-unsplash-row1.jpg'); background-position: center center;"></div>
+
+        <div class="hero-overlay">
+        <div class="hero-content fade-in-up visible">
+            <h1 class="hero-title">Elevate Your Living Space</h1>
+            <p class="hero-subtitle">Discover thoughtfully designed furniture that blends Scandinavian simplicity with modern comfort.</p>
+            <div class="hero-buttons">
+                <a href="product.php" class="btn btn-primary-ekea btn-lg">Shop Collection</a>
             </div>
         </div>
     </div>
+        <!-- 3 dot indicators -->
+        <div class="hero-dots">
+            <button class="hero-dot active" data-index="0"></button>
+            <button class="hero-dot" data-index="1"></button>
+            <button class="hero-dot" data-index="2"></button>
+        </div>
 </section>
+
+<div class="content-layer">
 
 <!-- Categories Section -->
 <section class="section-padding">
@@ -157,15 +183,17 @@ endforeach; ?>
 </section>
 
 <!-- Newsletter Section -->
-<section class="section-padding bg-light-ekea">
+<section id="newsletter" class="section-padding bg-light-ekea">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center fade-in-up">
                 <h2>Stay Inspired</h2>
                 <p class="text-muted-ekea mb-4">Subscribe to our newsletter for exclusive deals, design tips, and new arrivals.</p>
-                <form class="d-flex gap-2 justify-content-center flex-wrap" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                <form method="POST" action="index.php#newsletter" class="d-flex gap-2 justify-content-center flex-wrap">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="hidden" name="newsletter_subscribe" value="1">
                     <label for="newsletter-email" class="visually-hidden">Email address</label>
-                    <input type="email" class="form-control" id="newsletter-email" placeholder="Enter your email" style="max-width: 350px;" required>
+                    <input type="email" class="form-control" id="newsletter-email" name="newsletter_email" placeholder="Enter your email" style="max-width: 350px;" required>
                     <button type="submit" class="btn btn-primary-ekea">
                         <i class="bi bi-envelope me-1"></i>Subscribe
                     </button>
@@ -174,5 +202,6 @@ endforeach; ?>
         </div>
     </div>
 </section>
+</div>
 
 <?php require_once 'includes/footer.php'; ?>

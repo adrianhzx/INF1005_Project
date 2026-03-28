@@ -3,7 +3,14 @@ $page_title = 'Shopping Cart';
 $current_page = 'cart';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
-require_login();
+
+// Enforce login using the Auth library
+if (!$auth->isLoggedIn()) {
+    $_SESSION['flash_message'] = 'Please log in to view your cart.';
+    $_SESSION['flash_type'] = 'warning';
+    header('Location: login.php');
+    exit;
+}
 
 // Handle cart actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,6 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_id = (int)$_POST['product_id'];
         $new_qty = max(1, (int)$_POST['quantity']);
 
+        // Validate against actual stock
+        $stock_stmt = $pdo->prepare('SELECT stock FROM products WHERE id = :id');
+        $stock_stmt->execute([':id' => $product_id]);
+        $stock_row = $stock_stmt->fetch();
+        $max_stock = $stock_row ? (int)$stock_row['stock'] : 1;
+
+        if ($new_qty > $max_stock) {
+            $new_qty = $max_stock;
+            $_SESSION['flash_message'] = 'Quantity adjusted to maximum available stock (' . $max_stock . ').';
+            $_SESSION['flash_type'] = 'warning';
+        } else {
+            $_SESSION['flash_message'] = 'Cart updated.';
+            $_SESSION['flash_type'] = 'success';
+        }
+
         foreach ($_SESSION['cart'] as &$item) {
             if ($item['product_id'] === $product_id) {
                 $item['quantity'] = $new_qty;
@@ -27,8 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         unset($item);
 
-        $_SESSION['flash_message'] = 'Cart updated.';
-        $_SESSION['flash_type'] = 'success';
         header('Location: cart.php');
         exit;
     }
@@ -57,6 +77,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $cart = $_SESSION['cart'] ?? [];
+
+// Fetch actual stock for each cart item (for max attribute + validation)
+$cart_stock = [];
+foreach ($cart as $item) {
+    $stock_stmt = $pdo->prepare('SELECT stock FROM products WHERE id = :id');
+    $stock_stmt->execute([':id' => $item['product_id']]);
+    $row = $stock_stmt->fetch();
+    $cart_stock[$item['product_id']] = $row ? (int)$row['stock'] : 0;
+}
 
 // Calculate totals
 $subtotal = 0;
@@ -131,7 +160,9 @@ else: ?>
                                                 <div class="quantity-control" data-auto-submit="true">
                                                     <button type="button" class="qty-minus" aria-label="Decrease quantity">&minus;</button>
                                                     <input type="number" class="qty-input" name="quantity"
-                                                           value="<?php echo (int)$item['quantity']; ?>" min="1" readonly
+                                                           value="<?php echo (int)$item['quantity']; ?>" min="1"
+                                                           max="<?php echo $cart_stock[$item['product_id']] ?? 1; ?>"
+                                                           readonly
                                                            aria-label="Quantity for <?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
                                                     <button type="button" class="qty-plus" aria-label="Increase quantity">+</button>
                                                 </div>
@@ -219,6 +250,24 @@ endif; ?>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" id="confirmModalAction">Yes, Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stock Limit Warning Modal -->
+<div class="modal fade" id="stockLimitModal" tabindex="-1" aria-labelledby="stockLimitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background: var(--color-warning); color: #fff;">
+                <h5 class="modal-title" id="stockLimitModalLabel"><i class="bi bi-exclamation-triangle me-2"></i>Stock Limit</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="stockLimitModalBody">
+                Maximum available stock reached.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark-ekea" data-bs-dismiss="modal">OK</button>
             </div>
         </div>
     </div>

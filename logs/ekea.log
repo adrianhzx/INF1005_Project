@@ -2216,3 +2216,682 @@
 [2026-03-14 06:15:35] [DEBUG] [db_connect.php:42] [User: admin@ekea.com (ID:1)] Database connection established
 [2026-03-14 06:15:36] [DEBUG] [db_connect.php:42] [User: admin@ekea.com (ID:1)] Database connection established
 [2026-03-14 06:15:36] [DEBUG] [db_connect.php:42] [User: admin@ekea.com (ID:1)] Database connection established
+[2026-03-02 14:14:49] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-02 14:19:23] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [1049] Unknown database 'ekea_db' | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-02 14:20:01] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:27] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:29] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:34] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:46] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:51] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:52] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:52] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:53] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:53] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:54] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:55] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:21:55] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:00] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:15] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:15] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:22:16] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:16] [DEBUG] [register.php:7] Register page accessed
+[2026-03-02 14:22:17] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:17] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:22:18] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:19] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:20] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:21] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:22] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:28] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:22:34] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:23:01] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:23:11] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:23:17] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:32] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:46] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:46] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:51] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:54] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:24:57] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:35:50] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:35:51] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:40:34] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:40:34] [DEBUG] [register.php:7] Register page accessed
+[2026-03-02 14:40:55] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:40:55] [DEBUG] [register.php:7] Register page accessed
+[2026-03-02 14:40:55] [INFO] [register.php:75] Creating new user account | Context: {"email":"test@test.com"}
+[2026-03-02 14:40:55] [INFO] [register.php:87] User account created successfully | Context: {"email":"test@test.com","user_id":"5"}
+[2026-03-02 14:40:55] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:40:55] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:41:06] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:41:06] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:41:06] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-02 14:41:06] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"user"}
+[2026-03-02 14:41:06] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:14] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:15] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:15] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:20] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:26] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:28] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:58] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:41:59] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:42:01] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:42:03] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:42:06] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:42:07] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:42:07] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:42:16] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:42:16] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:42:16] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-02 14:42:16] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"admin"}
+[2026-03-02 14:42:16] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:45:12] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:46:31] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:46:31] [INFO] [inventory.php:97] [User: test@test.com (ID:5)] Product created | Context: {"product_id":"15"}
+[2026-03-02 14:46:31] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:46:35] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:46:38] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:47:52] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:47:53] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:47:55] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:48:00] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:48:00] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:48:02] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:48:04] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:51:02] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:52:19] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:11] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:53] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:54] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:54] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:56] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:56] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:53:57] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:27] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:28] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:29] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:30] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:31] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:33] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:34] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-02 14:54:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:54:40] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:54:40] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:54:50] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:54:50] [DEBUG] [register.php:7] Register page accessed
+[2026-03-02 14:55:07] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:55:07] [DEBUG] [register.php:7] Register page accessed
+[2026-03-02 14:55:07] [INFO] [register.php:75] Creating new user account | Context: {"email":"testuser@test.com"}
+[2026-03-02 14:55:07] [INFO] [register.php:87] User account created successfully | Context: {"email":"testuser@test.com","user_id":"6"}
+[2026-03-02 14:55:07] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:55:07] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:55:13] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-02 14:55:13] [DEBUG] [login.php:7] Login page accessed
+[2026-03-02 14:55:13] [INFO] [login.php:47] Attempting login | Context: {"email":"testuser@test.com"}
+[2026-03-02 14:55:13] [INFO] [login.php:53] Login successful | Context: {"user_id":6,"role":"user"}
+[2026-03-02 14:55:13] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:00:39] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:02:18] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:02:54] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:03:17] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:03:20] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:03:23] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:03:23] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:04:07] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:04:29] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:09:57] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:10:30] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:10:46] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:10:58] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:11:28] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:12:44] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:15:23] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:19:55] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:19:55] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:19:56] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:19:56] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:20:35] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:22:13] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:22:30] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:24:40] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:29:06] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:29:19] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:29:25] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:29:25] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:36:20] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:49:49] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 15:54:49] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:04:17] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:04:26] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:04:34] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:04:49] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:05:02] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:05:30] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:05:43] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:05:51] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:06:18] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:07:05] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:08:13] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:11:25] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:11:50] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:01] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:04] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:04] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:04] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:05] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:14:05] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:26] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:32] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:33] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:33] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:33] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:15:33] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:18:24] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:18:27] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:21:11] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:21:20] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:21:23] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:08] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:35] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-02 16:24:41] [DEBUG] [db_connect.php:39] [User: testuser@test.com (ID:6)] Database connection established
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:22] [CRITICAL] [db_connect.php:45] Database connection failed: SQLSTATE[HY000] [2006] MySQL server has gone away | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-09 14:25:34] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:25:37] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:16] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:16] [DEBUG] [register.php:7] Register page accessed
+[2026-03-09 14:26:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:39] [DEBUG] [register.php:7] Register page accessed
+[2026-03-09 14:26:39] [INFO] [register.php:75] Creating new user account | Context: {"email":"adrian@test.com"}
+[2026-03-09 14:26:39] [INFO] [register.php:87] User account created successfully | Context: {"email":"adrian@test.com","user_id":"7"}
+[2026-03-09 14:26:39] [DEBUG] [db_connect.php:39] Database connection established
+[2026-03-09 14:26:39] [DEBUG] [login.php:7] Login page accessed
+[2026-03-09 15:54:33] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:34] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:35] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:36] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:38] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:39] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:54:42] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 15:58:25] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:53] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:57] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:01:58] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:06] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:08] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:10] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:18] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:18] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:22] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:25] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:36] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:52] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:02:52] [INFO] [checkout.php:119] [User: test@test.com (ID:5)] Starting checkout transaction | Context: {"user_id":5,"total":95}
+[2026-03-09 16:02:52] [INFO] [checkout.php:145] [User: test@test.com (ID:5)] Order placed successfully | Context: {"order_id":"2","total":95,"items":1}
+[2026-03-09 16:02:52] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:04] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:06] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:09] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:10] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:14] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:17] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:22] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:26] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-09 16:03:30] [DEBUG] [db_connect.php:39] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:33:40] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:33:46] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:33:46] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:34:40] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:34:40] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:34:40] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:34:40] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:34:43] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:34:43] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:34:43] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:34:43] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"admin"}
+[2026-03-25 20:36:47] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:36:47] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:36:54] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:36:54] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:36:54] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:36:54] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"admin"}
+[2026-03-25 20:40:10] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:40:10] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:40:21] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:40:21] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:40:21] [WARNING] [login.php:24] CSRF token validation failed | Context: {"submitted_token":"3aec9716a4...","session_token_exists":false}
+[2026-03-25 20:40:28] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:40:28] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:40:28] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:40:29] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"admin"}
+[2026-03-25 20:43:15] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:15] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:19] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:19] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:19] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:43:19] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:43:22] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:22] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:22] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:43:23] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:43:28] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:28] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:28] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:43:28] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:43:50] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:50] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:50] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:43:50] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:43:54] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:43:54] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:43:54] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:43:54] [WARNING] [login.php:97] Login failed | Context: {"email":"test@test.com","user_found":true,"password_hash_in_db":"$2y$10$okBlizRN487cn..."}
+[2026-03-25 20:44:13] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:44:13] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:44:13] [INFO] [login.php:47] Attempting login | Context: {"email":"test@test.com"}
+[2026-03-25 20:44:13] [INFO] [login.php:53] Login successful | Context: {"user_id":5,"role":"admin"}
+[2026-03-25 20:44:13] [INFO] [login.php:70] Session token created | Context: {"user_id":5}
+[2026-03-25 20:44:13] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:14] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:14] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:14] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:14] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:14] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:21] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:21] [DEBUG] [login.php:7] [User: test@test.com (ID:5)] Login page accessed
+[2026-03-25 20:44:21] [DEBUG] [login.php:11] [User: test@test.com (ID:5)] Already logged in, redirecting
+[2026-03-25 20:44:21] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:22] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:22] [DEBUG] [login.php:7] [User: test@test.com (ID:5)] Login page accessed
+[2026-03-25 20:44:22] [DEBUG] [login.php:11] [User: test@test.com (ID:5)] Already logged in, redirecting
+[2026-03-25 20:44:22] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:23] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:26] [DEBUG] [db_connect.php:42] [User: test@test.com (ID:5)] Database connection established
+[2026-03-25 20:44:26] [INFO] [logout.php:12] [User: test@test.com (ID:5)] User logged out | Context: {"user_id":5}
+[2026-03-25 20:44:26] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:44:32] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:44:46] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:44:46] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:45:43] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:45:43] [DEBUG] [login.php:7] Login page accessed
+[2026-03-25 20:46:13] [DEBUG] [db_connect.php:42] Database connection established
+[2026-03-25 20:46:13] [DEBUG] [login.php:7] Login page accessed
+[2026-03-27 18:16:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:18:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:23:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:23:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:23:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:24:38] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:38] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:42] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:35:47] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 18:36:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:36:52] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 18:37:22] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 18:37:22] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:00:43] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:00:43] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:02:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:02:30] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:03:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:03:04] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:12:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:12:59] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:13:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:13:24] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:13:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:13:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:13:34] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:13:34] [ERROR] [logger.php:72] Failed to create user account: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ekea_db.users_profiles' doesn't exist | Context: {"exception":"PDOException","file":"D:\\xampp\\htdocs\\ekea\\register.php:75","trace":"#0 D:\\xampp\\htdocs\\ekea\\register.php(75): PDO->prepare('INSERT INTO use...')\n#1 {main}"}
+[2026-03-27 19:14:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:14:00] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:14:44] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:14:45] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:14:45] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:14:45] [ERROR] [logger.php:72] Failed to create user account: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ekea_db.users_profiles' doesn't exist | Context: {"exception":"PDOException","file":"D:\\xampp\\htdocs\\ekea\\register.php:75","trace":"#0 D:\\xampp\\htdocs\\ekea\\register.php(75): PDO->prepare('INSERT INTO use...')\n#1 {main}"}
+[2026-03-27 19:15:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:15:06] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:15:06] [ERROR] [logger.php:72] Failed to create user account: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ekea_db.users_profiles' doesn't exist | Context: {"exception":"PDOException","file":"D:\\xampp\\htdocs\\ekea\\register.php:75","trace":"#0 D:\\xampp\\htdocs\\ekea\\register.php(75): PDO->prepare('INSERT INTO use...')\n#1 {main}"}
+[2026-03-27 19:16:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:16:51] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:17:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:17:14] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:23:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:23:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:23:34] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:23:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:23:53] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:23:53] [DEBUG] [register.php:53] Registration working
+[2026-03-27 19:23:53] [INFO] [register.php:64] User account created successfully | Context: {"email":"test3@test.com","user_id":3}
+[2026-03-27 19:23:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:28:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:28:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:28:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:28:28] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:28:35] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:33:50] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:33:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:49:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:49:57] [WARNING] [login.php:15] Login CSRF validation failed
+[2026-03-27 19:49:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:50:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:50:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:50:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:50:14] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:50:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:50:30] [DEBUG] [register.php:7] Register page accessed
+[2026-03-27 19:50:30] [DEBUG] [register.php:66] Registration working
+[2026-03-27 19:50:30] [INFO] [register.php:68] Verification link generated: http://localhost/ekea/verify_email.php?selector=1pBCxruz4HeVyyv1&token=sYd63eclczRbEnnH | Context: {"email":"test4@test.com"}
+[2026-03-27 19:50:30] [INFO] [register.php:79] User account created successfully | Context: {"email":"test4@test.com","user_id":4}
+[2026-03-27 19:50:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:51:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:51:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:53:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:53:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:54:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:54:09] [INFO] [emailverification.php:7] Email verified successfully
+[2026-03-27 19:54:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:54:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 19:54:21] [DEBUG] [login.php:39] Login successful
+[2026-03-27 19:54:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:17:07] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:17:07] [DEBUG] [login.php:39] Login successful
+[2026-03-27 20:17:07] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:17:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:17:08] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 20:17:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:17:56] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 20:17:56] [DEBUG] [register.php:67] Registration working
+[2026-03-27 20:18:00] [ERROR] [register.php:76] Failed to send verification email to adrianhzx_@hotmail.com
+[2026-03-27 20:18:00] [INFO] [register.php:88] User account created successfully | Context: {"email":"adrianhzx_@hotmail.com","user_id":5}
+[2026-03-27 20:18:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:18:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:18:28] [INFO] [emailverification.php:7] Email verified successfully
+[2026-03-27 20:18:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:18:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:18:34] [DEBUG] [login.php:39] Login successful
+[2026-03-27 20:18:34] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:50:49] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:50:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 20:50:55] [DEBUG] [login.php:48] Login successful
+[2026-03-27 20:50:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:16] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:18] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:19] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:28] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:28] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:31] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:31] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 21:08:33] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:33] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:33] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:35] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:35] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:35] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:39] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:39] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:39] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:41] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:41] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 21:08:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:46] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:47] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:08:48] [DEBUG] [login.php:8] Already logged in, redirecting
+[2026-03-27 21:08:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:10:50] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:10:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:10:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:10:57] [DEBUG] [login.php:54] Login successful
+[2026-03-27 21:10:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:11:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:11:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:11:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:25:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:25:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:31:54] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:31:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:31:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:38:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:39:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:39:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:39:47] [DEBUG] [login.php:51] Login successful
+[2026-03-27 21:39:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:43:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:07] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:44:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:08] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 21:45:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:11] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 21:45:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:13] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:45:15] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:46:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:46:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:46:46] [DEBUG] [login.php:51] Login successful
+[2026-03-27 21:46:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:46:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:46:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:06] [DEBUG] [login.php:51] Login successful
+[2026-03-27 21:48:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:48:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:50:36] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:50:42] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:50:42] [DEBUG] [login.php:51] Login successful
+[2026-03-27 21:50:42] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:50:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:50:51] [DEBUG] [register.php:8] Register page accessed
+[2026-03-27 21:51:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:51:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:23] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:52:26] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:54:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:54:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:54:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 21:54:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:03:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:03:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:04:38] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:05:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:09:26] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:09:31] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:09:33] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:11:15] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:11:19] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:14:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:14:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:14:29] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:14:29] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:19:40] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:19:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:19:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:19:54] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:20:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:20:04] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:20:30] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:29] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:39] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:23:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:11] [DEBUG] [login.php:52] Login successful
+[2026-03-27 22:24:11] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:24:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:25:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:32:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:32:38] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:32:44] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:27] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:41] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:47] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:50] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:50] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:51] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:52] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:54] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:54] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:55] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:33:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:00] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:01] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:05] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:08] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:12] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:14] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:17] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:21] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:22] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:22] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:24] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:34:25] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:35:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:35:58] [INFO] [checkout.php:129] Starting checkout transaction | Context: {"user_id":5,"total":979}
+[2026-03-27 22:35:58] [INFO] [checkout.php:156] Order placed successfully | Context: {"order_id":"3","total":979,"items":2}
+[2026-03-27 22:35:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:35:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:35:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:36:03] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:36:06] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:10] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:13] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:15] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:16] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:37:18] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:32] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:36] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:37] [DEBUG] [login.php:52] Login successful
+[2026-03-27 22:53:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:39] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:40] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:41] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:42] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:43] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:44] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:46] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:48] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:56] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:57] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:58] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:54:07] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-27 22:54:09] [DEBUG] [db_connect.php:44] Database connection established

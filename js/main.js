@@ -295,6 +295,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (autoSubmit && input.form && input.form.className.includes('cart-update-form')) {
                         input.form.submit();
                     }
+                } else {
+                    // Show stock limit modal if it exists, otherwise show alert
+                    var stockModal = document.getElementById('stockLimitModal');
+                    if (stockModal) {
+                        var modalBody = document.getElementById('stockLimitModalBody');
+                        if (modalBody) {
+                            modalBody.textContent = 'Only ' + max + ' units available for this item.';
+                        }
+                        var bsModal = new bootstrap.Modal(stockModal);
+                        bsModal.show();
+                    }
                 }
             });
         }
@@ -405,6 +416,75 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         form.querySelectorAll('.invalid-feedback').forEach(function (el) {
             el.remove();
+        });
+    }
+
+    // ============================================================
+    // Hero Slideshow
+    // ============================================================
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots = document.querySelectorAll('.hero-dot');
+    const heroFixed = document.querySelector('.hero-fixed');
+
+    // Only run slideshow logic if slides exist
+    if (heroSlides.length > 0) {
+        let currentSlide = 0;
+        let slideInterval;
+
+        function goToSlide(n) {
+            // Remove active class from current
+            heroSlides[currentSlide].classList.remove('active');
+            if (heroDots[currentSlide]) heroDots[currentSlide].classList.remove('active');
+
+            // Calculate next index
+            currentSlide = (n + heroSlides.length) % heroSlides.length;
+
+            // Add active class to new
+            heroSlides[currentSlide].classList.add('active');
+            if (heroDots[currentSlide]) heroDots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function startSlideAuto() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopSlideAuto() {
+            clearInterval(slideInterval);
+        }
+
+        // Add click events to dots
+        heroDots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () {
+                stopSlideAuto();
+                goToSlide(i);
+                startSlideAuto();
+            });
+        });
+
+        // Start the slideshow
+        startSlideAuto();
+    }
+
+    // Scroll Fade Effect for Hero
+    if (heroFixed) {
+        window.addEventListener('scroll', function () {
+            const scrollY = window.scrollY;
+            const winH = window.innerHeight;
+            if (scrollY < winH) {
+                let opacity = 1;
+                
+                if (scrollY > (winH * 0.1)) {
+                     opacity = 1 - ((scrollY - (winH * 0.1)) / (winH * 0.9));
+                }
+                
+                heroFixed.style.opacity = Math.max(0, opacity);
+            } else {
+                heroFixed.style.opacity = 0;
+            }
         });
     }
 

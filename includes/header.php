@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Content-Security-Policy header (XSS protection)
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: SAMEORIGIN");
 header("Referrer-Policy: strict-origin-when-cross-origin");
@@ -22,10 +22,7 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <meta name="description" content="EKEA — Premium Scandinavian-inspired furniture for modern living. Shop sofas, beds, dining sets and more.">
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') . ' | EKEA' : 'EKEA — Modern Furniture'; ?></title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Visby CF (self-hosted via @font-face in style.css) -->
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -94,30 +91,38 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
 
                 <!-- Right Side Nav -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['user'])): ?>
-                        <!-- Logged In -->
-                        <?php if ($_SESSION['user']['role'] === 'admin'): ?>
+                    <!--  check user is logged in. -->
+                    <?php if ($auth->isLoggedIn()): ?>
+
+                    <?php 
+                    // select first name from db
+                    $stmt = $pdo->prepare('SELECT first_name FROM user_profiles WHERE user_id = :uid');
+                    $stmt->execute([':uid' => $auth->getUserId()]);
+                    $profile = $stmt->fetch();
+                    $displayName = $profile ? $profile['first_name'] : 'User';
+                    ?>
+                        <!-- use php-auth to get ADMIN -->
+                        <?php if ($auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
                             <li class="nav-item">
                                 <a class="nav-link <?php echo(isset($current_page) && $current_page === 'admin') ? 'active' : ''; ?>"
-                                   href="<?php echo $base_path; ?>admin/admin.php">
+                                href="<?php echo $base_path; ?>admin/admin.php">
                                     <i class="bi bi-speedometer2 me-1"></i>Admin Panel
                                 </a>
                             </li>
-                        <?php
-    endif; ?>
+                        <?php endif; ?>
+                    
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'cart') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>cart.php">
+                            href="<?php echo $base_path; ?>cart.php">
                                 <i class="bi bi-cart3 me-1"></i>Cart
                                 <?php if (!empty($_SESSION['cart'])): ?>
                                     <span class="badge bg-accent rounded-pill"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
-                                <?php
-    endif; ?>
+                                <?php endif; ?>
                             </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle me-1"></i><?php echo htmlspecialchars($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>
+                                <i class="bi bi-person-circle me-1"></i><?php echo htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8'); ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="<?php echo $base_path; ?>profile.php"><i class="bi bi-person me-2"></i>My Profile</a></li>
@@ -126,23 +131,20 @@ if (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false) {
                                 <li><a class="dropdown-item" href="<?php echo $base_path; ?>logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                             </ul>
                         </li>
-                    <?php
-else: ?>
-                        <!-- Guest -->
+                    <?php else: ?>
                         <li class="nav-item">
                             <a class="nav-link <?php echo(isset($current_page) && $current_page === 'login') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>login.php">
+                            href="<?php echo $base_path; ?>login.php">
                                 <i class="bi bi-box-arrow-in-right me-1"></i>Login
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-accent btn-sm ms-2 px-3 <?php echo(isset($current_page) && $current_page === 'register') ? 'active' : ''; ?>"
-                               href="<?php echo $base_path; ?>register.php">
+                            href="<?php echo $base_path; ?>register.php">
                                 <i class="bi bi-person-plus me-1"></i>Register
                             </a>
                         </li>
-                    <?php
-endif; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
