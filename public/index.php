@@ -34,6 +34,8 @@ $app->get('/forgetpassword',  [\App\Controllers\AuthController::class, 'forgotPa
 $app->post('/forgetpassword', [\App\Controllers\AuthController::class, 'forgotPassword']);
 $app->get('/resetpassword',   [\App\Controllers\AuthController::class, 'resetPasswordPage']);
 $app->post('/resetpassword',  [\App\Controllers\AuthController::class, 'resetPassword']);
+$app->get('/auth/google', [\App\Controllers\AuthController::class, 'googleLogin']);
+$app->get('/auth/google/callback', [\App\Controllers\AuthController::class, 'googleCallback']);
 
 $app->get('/cart',         [\App\Controllers\CartController::class, 'index']);
 $app->post('/cart/add',    [\App\Controllers\CartController::class, 'add']);

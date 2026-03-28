@@ -48,7 +48,19 @@
                 <button type="submit" class="btn btn-primary-ekea w-100 mt-2">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Log In
                 </button>
+
+                <div class="auth-separator">
+                <span>OR</span>
+            </div>
+
+            <div class="google-login-container" style="text-align: center; margin-top: 15px;">
+                <a href="<?= BASE_URL ?>/auth/google" class="btn btn-google">
+                    <img src="<?= BASE_URL ?>/uploads/g-logo.png" alt="Google Logo" class="google-logo">
+                    Sign in with Google
+                </a>
+            </div>
             </form>
+
 
             <p class="text-center mt-3 mb-0">
                 Don't have an account? <a href="<?= BASE_URL ?>/register" class="fw-semibold">Register here</a>

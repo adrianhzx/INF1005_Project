@@ -1654,4 +1654,57 @@ input[type="number"] {
     .hero-title { font-size: 2.5rem; }
     .hero-subtitle { font-size: 1rem; }
 }
-
+
+/* oAuth button*/
+.auth-separator {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.auth-separator::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #ccc;
+    z-index: 1;
+}
+
+.auth-separator span {
+    background-color: #fff;
+    padding: 0 10px;
+    color: #777;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-google {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #757575;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    transition: background-color 0.2s, box-shadow 0.2s;
+    width: 100%; /* Or set a fixed max-width */
+}
+
+.btn-google:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    color: #757575;
+}
+
+.google-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+}

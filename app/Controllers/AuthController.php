@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use League\OAuth2\Client\Provider\Google;
 
 class AuthController extends BaseController
 {
@@ -50,6 +51,8 @@ class AuthController extends BaseController
             try {
                 $auth->login($old_email, $data['password'], $rememberDuration);
                 ekea_log('Login successful', 'INFO');
+
+                unset($_SESSION['is_google_user']);
                 return $this->redirect($response, '/');
             } catch (\Delight\Auth\InvalidEmailException $e) {
                 $errors[] = 'Wrong email address.';
@@ -132,8 +135,14 @@ class AuthController extends BaseController
                     ekea_log("Verification URL: {$verify_url}", 'DEBUG');
                     sendVerificationEmail($email, $verify_url);
                 });
-                $pdo->prepare('INSERT INTO user_profiles (user_id,first_name,last_name,phone) VALUES (:uid,:fn,:ln,:phone)')
-                    ->execute([':uid' => $userId,':fn' => $first_name,':ln' => $last_name,':phone' => $phone]);
+                $pdo->prepare('INSERT INTO user_profiles (user_id, first_name, last_name, phone, auth_provider) VALUES (:uid, :fn, :ln, :phone, :provider)')
+                    ->execute([
+                        ':uid' => $userId,
+                        ':fn' => $first_name,
+                        ':ln' => $last_name,
+                        ':phone' => $phone,
+                        ':provider' => 'local' //initially DB have default value as local. but this just in case if something happens.
+                    ]);
                 ekea_log('User registered', 'INFO', ['email' => $email]);
                 $this->flash('Account created! Please check your email to verify, then log in.', 'success');
                 return $this->redirect($response, '/login');
@@ -302,6 +311,108 @@ class AuthController extends BaseController
         }
         $page_title = 'Email Verification';
         $current_page = '';
-        return $this->render($response, 'auth/verify', compact('page_title','current_page','error'));
+        return $this->render($response, 'auth/verify', compact('page_title', 'current_page', 'error'));
+    }
+
+    public function googleLogin(Request $request, Response $response): Response
+    {
+        global $auth;
+
+        if ($auth->isLoggedIn()) {
+            return $this->redirect($response, '/');
+        }
+
+        $provider = new Google([
+            'clientId'     => '430096688412-a0vr6gdjmrnp8ge5ndj7jnr8qf9fs1b2.apps.googleusercontent.com', // Paste your Client ID here
+            'clientSecret' => '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', // Paste your Client Secret here
+            'redirectUri'  => 'http://localhost' . BASE_URL . '/auth/google/callback',
+        ]);
+
+        // Generate the authorization URL and store the state
+        $authUrl = $provider->getAuthorizationUrl();
+        $_SESSION['oauth2state'] = $provider->getState();
+
+        return $response->withHeader('Location', $authUrl)->withStatus(302);
+    }
+
+    public function googleCallback(Request $request, Response $response): Response
+    {
+        global $auth, $pdo;
+
+        $params = $request->getQueryParams();
+
+        // 1. Check for errors
+        if (!empty($params['error'])) {
+            $this->flash('Google login failed: ' . htmlspecialchars($params['error'], ENT_QUOTES, 'UTF-8'), 'danger');
+            return $this->redirect($response, '/login');
+        }
+
+        // 2. Validate state to prevent CSRF attacks
+        if (empty($params['state']) || ($params['state'] !== ($_SESSION['oauth2state'] ?? ''))) {
+            unset($_SESSION['oauth2state']);
+            $this->flash('Invalid state. Please try again.', 'danger');
+            return $this->redirect($response, '/login');
+        }
+
+        $provider = new Google([
+            'clientId'     => '430096688412-a0vr6gdjmrnp8ge5ndj7jnr8qf9fs1b2.apps.googleusercontent.com', // Paste your Client ID here
+            'clientSecret' => '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', // Paste your Client Secret here
+            'redirectUri'  => 'http://localhost' . BASE_URL . '/auth/google/callback',
+        ]);
+
+        try {
+            // 3. Get the access token and the user's Google profile
+            $token = $provider->getAccessToken('authorization_code', [
+                'code' => $params['code']
+            ]);
+
+            $ownerDetails = $provider->getResourceOwner($token);
+            $email = $ownerDetails->getEmail();
+            $firstName = $ownerDetails->getFirstName();
+            $lastName = $ownerDetails->getLastName();
+
+            // 4. Try to log the user in
+            try {
+                // Using admin() allows us to securely bypass the password check for a known email
+                $auth->admin()->logInAsUserByEmail($email);
+                ekea_log('Google Login successful', 'INFO', ['email' => $email]);
+
+                $_SESSION['is_google_user'] = true;
+
+                return $this->redirect($response, '/');
+
+            } catch (\Delight\Auth\InvalidEmailException $e) {
+                // 5. If the email is not in the DB, register them silently
+                $randomPassword = bin2hex(random_bytes(16)); // Secure, unused placeholder password
+
+                // admin()->createUser creates a verified account automatically without needing the email confirmation flow
+                $userId = $auth->admin()->createUser($email, $randomPassword);
+
+                // Insert their profile data into your custom user_profiles table
+                $stmt = $pdo->prepare('INSERT INTO user_profiles (user_id, first_name, last_name, auth_provider) VALUES (:uid, :fn, :ln, :provider)');
+                $stmt->execute([
+                    ':uid' => $userId,
+                    ':fn' => $firstName ?: 'Unknown',
+                    ':ln' => $lastName ?: 'Unknown',
+                    ':provider' => 'google' // Flag them as a Google user
+                ]);
+
+                ekea_log('User registered via Google OAuth', 'INFO', ['email' => $email]);
+
+                // Immediately log the newly created user in
+                $auth->admin()->logInAsUserById($userId);
+
+                $_SESSION['is_google_user'] = true;
+
+                $this->flash('Account created and logged in successfully via Google!', 'success');
+                return $this->redirect($response, '/');
+            }
+
+        } catch (\Exception $e) {
+            ekea_log_exception($e, 'Google OAuth Callback error');
+            $this->flash('Something went wrong during Google Login.', 'danger');
+            return $this->redirect($response, '/login');
+        }
+
     }
 }
