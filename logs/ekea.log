@@ -2895,3 +2895,5 @@
 [2026-03-27 22:53:59] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:07] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-27 22:54:09] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-28 09:40:29] [CRITICAL] [db_connect.php:72] Database connection failed: could not find driver | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-28 09:40:29] [CRITICAL] [db_connect.php:72] Database connection failed: could not find driver | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
