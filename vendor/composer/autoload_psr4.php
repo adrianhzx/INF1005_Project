@@ -6,12 +6,21 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Slim\\Psr7\\' => array($vendorDir . '/slim/psr7/src'),
+    'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'Psr\\Http\\Server\\' => array($vendorDir . '/psr/http-server-middleware/src', $vendorDir . '/psr/http-server-handler/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Fig\\Http\\Message\\' => array($vendorDir . '/fig/http-message-util/src'),
+    'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
     'Delight\\Otp\\' => array($vendorDir . '/delight-im/otp/src'),
     'Delight\\Http\\' => array($vendorDir . '/delight-im/http/src'),
     'Delight\\Db\\' => array($vendorDir . '/delight-im/db/src'),
     'Delight\\Cookie\\' => array($vendorDir . '/delight-im/cookie/src'),
     'Delight\\Base64\\' => array($vendorDir . '/delight-im/base64/src'),
     'Delight\\Auth\\' => array($vendorDir . '/delight-im/auth/src'),
+    'App\\' => array($baseDir . '/app'),
 );
