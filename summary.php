@@ -17,7 +17,7 @@ if ($order_id <= 0) {
 
 // Fetch order
 $stmt = $pdo->prepare('SELECT o.*, u.first_name, u.last_name, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = :id AND o.user_id = :uid');
-$stmt->execute([':id' => $order_id, ':uid' => $_SESSION['user']['id']]);
+$stmt->execute([':id' => $order_id, ':uid' => $auth->getUserId()]);
 $order = $stmt->fetch();
 
 if (!$order) {
