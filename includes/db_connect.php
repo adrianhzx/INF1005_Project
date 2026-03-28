@@ -44,7 +44,7 @@ try {
     ekea_log('Database connection established', 'DEBUG');
 
     // ── delight-im/auth ──
-    $auth = new \Delight\Auth\Auth($pdo);
+    $auth = new \Delight\Auth\Auth($pdo, null, null, false);
 
     // ── Single-Session Enforcement ──
     // Verify session token on every page load for logged-in users

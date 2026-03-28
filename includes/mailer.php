@@ -48,3 +48,36 @@ function sendVerificationEmail($toEmail, $verifyUrl) {
         return false;
     }
 }
+function sendPasswordResetEmail($toEmail, $resetUrl) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'ekeaforsit@gmail.com';
+        $mail->Password   = 'lbyqqvuilremjeeh';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        $mail->setFrom('noreply@ekea.localhost', 'EKEA Support');
+        $mail->addAddress($toEmail);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Reset your EKEA password';
+        $mail->Body    = "
+            <h1>Password Reset</h1>
+            <p>We received a request to reset your EKEA account password.</p>
+            <p>Click the link below to choose a new password. This link expires in 1 hour.</p>
+            <p><a href='{$resetUrl}'>{$resetUrl}</a></p>
+            <br>
+            <p>If you did not request a password reset, you can safely ignore this email.</p>
+        ";
+        $mail->AltBody = "Password Reset\n\nVisit the link below to reset your password:\n{$resetUrl}\n\nThis link expires in 1 hour.\n\nIf you did not request this, ignore this email.";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        ekea_log("Password reset email failed: {$mail->ErrorInfo}", 'ERROR');
+        return false;
+    }
+}

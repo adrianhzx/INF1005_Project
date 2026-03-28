@@ -30,6 +30,10 @@ $app->get('/register',           [\App\Controllers\AuthController::class, 'regis
 $app->post('/register',          [\App\Controllers\AuthController::class, 'register']);
 $app->get('/logout',             [\App\Controllers\AuthController::class, 'logout']);
 $app->get('/email-verification', [\App\Controllers\AuthController::class, 'verifyEmail']);
+$app->get('/forgetpassword',  [\App\Controllers\AuthController::class, 'forgotPasswordPage']);
+$app->post('/forgetpassword', [\App\Controllers\AuthController::class, 'forgotPassword']);
+$app->get('/resetpassword',   [\App\Controllers\AuthController::class, 'resetPasswordPage']);
+$app->post('/resetpassword',  [\App\Controllers\AuthController::class, 'resetPassword']);
 
 $app->get('/cart',         [\App\Controllers\CartController::class, 'index']);
 $app->post('/cart/add',    [\App\Controllers\CartController::class, 'add']);

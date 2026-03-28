@@ -55,7 +55,7 @@
             </p>
 
             <p class="text-center mt-3 mb-0">
-                Forgot your password? <a href="#" class="fw-semibold text-muted" onclick="alert('Password reset feature coming soon!'); return false;">Reset here</a>
+                Forgot your password? <a href="<?= BASE_URL ?>/forgetpassword" class="fw-semibold">Reset here</a>
             </p>
         </div>
     </div>
