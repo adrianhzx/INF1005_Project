@@ -1,3 +1,34 @@
+
+/* 1. The Rigid Box (Slightly larger to fit the chair) */
+.ekea-logo-box {
+    display: block;
+    width: 180px;  
+    height: 60px;  
+    position: relative; 
+    padding: 0 !important; 
+}
+
+/* 2. The Floating Image (THIS IS NEW!) */
+.ekea-logo-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+    /* This next line is the magic trick. It zooms the image in by 1.6x to hide the white padding! */
+    transform: scale(1.6); 
+    transform-origin: left center;
+}
+
+/* Move the main navigation links to the left on desktop */
+@media (min-width: 992px) {
+    #mainNav .navbar-nav.me-auto {
+        margin-left: -30px; /* Adjust this number to move it exactly where you want! */
+    }
+}
+
 /* ============================================================
    EKEA — Design System
    WCAG AA Compliant | Scandinavian-Inspired Premium Aesthetic
@@ -9,42 +40,42 @@
     src: url('../fonts/VisbyLight.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyRegular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyMedium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbySemibold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyBold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyExtrabold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
 }
 
 /* ===== 2. DESIGN TOKENS (CSS Custom Properties) ===== */
@@ -96,6 +127,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--navbar-height);
+    overflow-y: scroll;
 }
 
 body {
@@ -151,23 +183,28 @@ img {
     height: auto;
 }
 
-/* ----- Accessibility: Skip Link ----- */
+/* Accessibility: Skip to Main Content Link */
 .skip-link {
     position: absolute;
-    top: -100px;
-    left: 16px;
-    background: var(--color-primary);
+    top: -100px; /* Hides it completely off the top of the screen */
+    left: 50%;
+    transform: translateX(-50%); /* Centers it perfectly */
+    background-color: #000; /* Change to your EKEA primary color if desired */
     color: #fff;
     padding: 12px 24px;
-    z-index: 10000;
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    font-weight: 600;
-    transition: top 0.3s ease;
+    z-index: 10000; /* This MUST be higher than Bootstrap's fixed navbar (1030) */
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: top 0.3s ease-in-out;
 }
 
+/* When a user presses the 'Tab' key, this gets triggered */
 .skip-link:focus {
-    top: 0;
+    top: 0; /* Drops down smoothly into view */
     color: #fff;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* ----- Focus Styles (Accessibility) ----- */
@@ -185,8 +222,8 @@ img {
 }
 
 .ekea-navbar.scrolled {
-    padding: 0.5rem 0;
-    box-shadow: var(--shadow-lg);
+    padding: 0.75rem 0; /* Matches the original padding so it stops resizing */
+    box-shadow: var(--shadow-lg); /* Keeps the darker shadow effect when scrolling */
 }
 
 .brand-text {

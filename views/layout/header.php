@@ -23,7 +23,11 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') . ' | EKEA' : 'EKEA — Modern Furniture'; ?></title>
 
     <!-- Fonts: Visby CF (self-hosted via @font-face in style.css) -->
-
+     <link rel="preload" href="<?= BASE_URL ?>/uploads/logo.png" as="image">
+    <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyRegular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyMedium.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyBold.otf" as="font" type="font/otf" crossorigin>
+   
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -32,7 +36,8 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo time(); ?>">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/dist/turbo.es2017-umd.js"></script> -->
 </head>
 <body>
 
@@ -43,10 +48,8 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ekea-navbar" aria-label="Main navigation">
         <div class="container">
             <!-- Brand -->
-            <a class="navbar-brand fw-bold" href="<?= BASE_URL ?>/">
-                <img src="<?= BASE_URL ?>/uploads/logo.png" alt="EKEA" class="brand-logo"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
-                     style="height: 38px; object-fit: contain;">
+            <a class="navbar-brand ekea-logo-box" href="<?= BASE_URL ?>/">
+                <img src="<?= BASE_URL ?>/uploads/logo.png" alt="EKEA">
                 <span class="brand-text" style="display: none;">EKEA</span>
             </a>
 
@@ -90,13 +93,13 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
                     <!--  check user is logged in. -->
                     <?php if ($auth->isLoggedIn()): ?>
 
-                    <?php 
+                    <?php
                     // select first name from db
                     $stmt = $pdo->prepare('SELECT first_name FROM user_profiles WHERE user_id = :uid');
-                    $stmt->execute([':uid' => $auth->getUserId()]);
-                    $profile = $stmt->fetch();
-                    $displayName = $profile ? $profile['first_name'] : 'User';
-                    ?>
+                        $stmt->execute([':uid' => $auth->getUserId()]);
+                        $profile = $stmt->fetch();
+                        $displayName = $profile ? $profile['first_name'] : 'User';
+                        ?>
                         <!-- use php-auth to get ADMIN -->
                         <?php if ($auth->hasRole(\Delight\Auth\Role::ADMIN)): ?>
                             <li class="nav-item">
@@ -155,13 +158,14 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
             <div class="alert alert-<?php echo htmlspecialchars($_SESSION['flash_type'] ?? 'info', ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show" role="alert">
                 <i class="bi bi-<?php
     $icon = 'info-circle';
-    if (($_SESSION['flash_type'] ?? '') === 'success')
-        $icon = 'check-circle';
-    elseif (($_SESSION['flash_type'] ?? '') === 'danger')
-        $icon = 'exclamation-triangle';
-    elseif (($_SESSION['flash_type'] ?? '') === 'warning')
-        $icon = 'exclamation-circle';
-    echo $icon;
+        if (($_SESSION['flash_type'] ?? '') === 'success') {
+            $icon = 'check-circle';
+        } elseif (($_SESSION['flash_type'] ?? '') === 'danger') {
+            $icon = 'exclamation-triangle';
+        } elseif (($_SESSION['flash_type'] ?? '') === 'warning') {
+            $icon = 'exclamation-circle';
+        }
+echo $icon;
 ?> me-2"></i>
                 <?php echo htmlspecialchars($_SESSION['flash_message'], ENT_QUOTES, 'UTF-8'); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
