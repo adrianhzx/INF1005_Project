@@ -295,6 +295,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (autoSubmit && input.form && input.form.className.includes('cart-update-form')) {
                         input.form.submit();
                     }
+                } else {
+                    // Show stock limit modal if it exists, otherwise show alert
+                    var stockModal = document.getElementById('stockLimitModal');
+                    if (stockModal) {
+                        var modalBody = document.getElementById('stockLimitModalBody');
+                        if (modalBody) {
+                            modalBody.textContent = 'Only ' + max + ' units available for this item.';
+                        }
+                        var bsModal = new bootstrap.Modal(stockModal);
+                        bsModal.show();
+                    }
                 }
             });
         }
@@ -408,7 +419,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    //Hero Scrolling
+    // ============================================================
+    // Hero Slideshow
+    // ============================================================
     const heroSlides = document.querySelectorAll('.hero-slide');
     const heroDots = document.querySelectorAll('.hero-dot');
     const heroFixed = document.querySelector('.hero-fixed');
@@ -456,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function () {
         startSlideAuto();
     }
 
-    // Scroll Fade Effect
+    // Scroll Fade Effect for Hero
     if (heroFixed) {
         window.addEventListener('scroll', function () {
             const scrollY = window.scrollY;
