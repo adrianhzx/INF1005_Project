@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product'])) {
         $stmt = $pdo->prepare('SELECT image_url FROM products WHERE id = :id');
         $stmt->execute([':id' => $del_id]);
         $del_prod = $stmt->fetch();
-        if ($del_prod && $del_prod['image_url'] !== 'default.jpg') {
+        if ($del_prod && $del_prod['image_url'] !== 'logo.jpg') {
             $img_path = __DIR__ . '/../uploads/' . $del_prod['image_url'];
             if (file_exists($img_path)) unlink($img_path);
         }
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
         if ($price <= 0)        $errors[] = 'Price must be greater than $0.';
         if ($stock < 0)         $errors[] = 'Stock cannot be negative.';
 
-        $image_url = $_POST['existing_image'] ?? 'default.jpg';
+        $image_url = $_POST['existing_image'] ?? 'logo.jpg';
         if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
             $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
             $finfo   = finfo_open(FILEINFO_MIME_TYPE);
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
                 $dest      = __DIR__ . '/../uploads/' . $image_url;
                 if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $dest)) {
                     $errors[] = 'Failed to upload image.';
-                    $image_url = $_POST['existing_image'] ?? 'default.jpg';
+                    $image_url = $_POST['existing_image'] ?? 'logo.jpg';
                 }
             }
         }
@@ -198,7 +198,7 @@ require_once '../includes/header.php';
                     </div>
                     <div class="col-md-6">
                         <label for="product_image" class="form-label">Replace Image</label>
-                        <?php if ($edit_product['image_url'] !== 'default.jpg'): ?>
+                        <?php if ($edit_product['image_url'] !== 'logo.jpg'): ?>
                             <div class="mb-1">
                                 <img src="../uploads/<?php echo htmlspecialchars($edit_product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="Current image" style="height:60px;border-radius:var(--border-radius);">

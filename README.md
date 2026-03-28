@@ -7,12 +7,11 @@ This document provides a comprehensive breakdown of all features, security harde
 ## 1. Detailed Changes & Enhancements
 
 ### 🛡️ Security & Session Management
-- **Single-Session Enforcement**: Implemented database-backed session management (`user_sessions` table). A user can only log in from one location at a time. A new login automatically invalidates any existing session for that account.
-- **Session Validation**: Every page load (via `db_connect.php`) checks the active token against the database. If hijacked or replaced, the session is killed.
-- **Admin Control**: The **Manage Users** panel displays real-time session status (Online/Offline, Last Active time, IPv4 address like `127.0.0.1` instead of `::1`). Admins can force-logout any user.
+- **Authentication Library**: Uses `delight-im/auth` v8.x for secure registration, login, email verification, and role management. Sessions are managed by the library.
+- **Admin Control**: The **Manage Users** panel displays user details and session status. Admins can manage roles and force-logout any user.
 - **HTTP Headers**: Added strict `Content-Security-Policy` (CSP) whitelisting CDNs (Stripe, Chart.js, Bootstrap, Leaflet), `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, from XSS and clickjacking.
 - **Cookie Hardening**: Configured PHP session cookies with `HttpOnly`, `SameSite=Strict`, and `use_strict_mode` enabled.
-- **IDOR & XSS Protection**: Database queries strictly use `$_SESSION['user']['id']` for user ownership validation. Output is escaped uniformly using `htmlspecialchars(... ENT_QUOTES, 'UTF-8')`.
+- **IDOR & XSS Protection**: Database queries strictly use `$auth->getUserId()` for user ownership validation. Output is escaped uniformly using `htmlspecialchars(... ENT_QUOTES, 'UTF-8')`.
 
 ### 🎨 UI/UX & Accessibility Polish
 - **WCAG AA Compliance**: Fixed contrast ratios. The `.text-accent` color was darkened to `#7A5A10` (6.3:1 contrast ratio passing both AA and AAA).
@@ -59,9 +58,9 @@ The structure utilizes a clean, procedural MVC-lite pattern in PHP:
 
 - **Routing & Entry**: Requests hit specific `.php` pages (e.g., `cart.php`).
 - **Bootstrap / Initialization**: 
-  - Every page begins by importing `includes/db_connect.php`, which starts the session, sets strict cookies, initializes the secure `$pdo` connection, and checks the `$user_sessions` table to enforce single-session validity.
-  - `includes/auth_guard.php` is required on protected routes to verify `$_SESSION['user']`.
-- **Controller Logic**: At the top of the file, PHP processes any `POST` requests (e.g., `isset($_POST['add_to_cart'])`). CSRF tokens (`$_POST['csrf_token']`) are validated immediately. Success/failure states trigger `$_SESSION['flash_message']` and a `header('Location: ...')` redirect (PRG pattern).
+  - Every page begins by importing `includes/db_connect.php`, which starts the session, sets strict cookies, and initializes the secure `$pdo` connection and `$auth` instance (delight-im/auth).
+  - `includes/auth_guard.php` is required on protected routes to verify the user is logged in via `$auth->isLoggedIn()`.
+- **Controller Logic**: At the top of the file, PHP processes any `POST` requests (e.g., `isset($_POST['add_to_cart'])`). CSRF tokens (`$_POST['csrf_token']`) are validated immediately. Success/failure states trigger `$_SESSION['flash_message']` and a `header('Location: ...')` redirect (PRG pattern). Cart stock validation ensures quantities never exceed available inventory.
 - **Data Fetching**: The mid-section prepares SQL statements via `$pdo->prepare()` to fetch the necessary data for the view (e.g., `$stmt->fetchAll()`).
 - **View Rendering**: The UI is rendered at the bottom. 
   - `includes/header.php` injects the CSP headers and output layout. 
@@ -96,6 +95,6 @@ graph TD
     View -->|Displays| User
 ```
 
-1. **Authentication Flow**: User credentials verify against standard password hashes. A 64-byte CSRF token securely ties their temporary active window to their `$_SESSION`. Simultaneously, a `session_token` securely ties the server `$_SESSION` to the MySQL `user_sessions` table, preventing cookie cloning.
-2. **Transaction Flow**: Cart data is stored transiently in `$_SESSION['cart']`. Upon checkout, the server maps this array to persistent `orders` and `order_items` tables inside a single database transaction.
+1. **Authentication Flow**: User credentials are managed by the `delight-im/auth` library with secure password hashing and email verification. A 64-byte CSRF token securely ties their temporary active window to their `$_SESSION`.
+2. **Transaction Flow**: Cart data is stored transiently in `$_SESSION['cart']` with server-side stock validation. Upon checkout, the server verifies quantities against DB stock, auto-adjusts if needed, then maps the cart to persistent `orders` and `order_items` tables inside a single database transaction.
 3. **Reporting Flow**: The `admin/api/chart_data.php` endpoint queries aggregate data (e.g., `SUM(total)`, `COUNT(status)`), packages it into JSON format, and pipes it directly into the client-side Chart.js instances for visual dashboarding.

@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     }
 
     $qty = max(1, (int)($_POST['quantity'] ?? 1));
+    $max_stock = (int)$product['stock'];
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -56,7 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $found = false;
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['product_id'] === $product_id) {
-            $item['quantity'] += $qty;
+            $new_total = $item['quantity'] + $qty;
+            if ($new_total > $max_stock) {
+                $item['quantity'] = $max_stock;
+                $_SESSION['flash_message'] = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') . ' quantity capped to maximum stock (' . $max_stock . ').';
+                $_SESSION['flash_type'] = 'warning';
+            } else {
+                $item['quantity'] = $new_total;
+                $_SESSION['flash_message'] = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') . ' added to your cart!';
+                $_SESSION['flash_type'] = 'success';
+            }
             $found = true;
             break;
         }
@@ -64,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     unset($item);
 
     if (!$found) {
+        if ($qty > $max_stock) {
+            $qty = $max_stock;
+        }
         $_SESSION['cart'][] = [
             'product_id' => $product_id,
             'name' => $product['name'],
@@ -71,10 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             'image_url' => $product['image_url'],
             'quantity' => $qty,
         ];
+        $_SESSION['flash_message'] = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') . ' added to your cart!';
+        $_SESSION['flash_type'] = 'success';
     }
 
-    $_SESSION['flash_message'] = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') . ' added to your cart!';
-    $_SESSION['flash_type'] = 'success';
     header("Location: product_detail.php?id={$product_id}");
     exit;
 }

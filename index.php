@@ -4,35 +4,6 @@ $current_page = 'home';
 require_once 'includes/db_connect.php';
 require_once 'includes/auth_guard.php';
 
-// Handle newsletter subscription (POST)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['newsletter_subscribe'])) {
-    if (!validate_csrf_token($_POST['csrf_token'] ?? '')) {
-        $_SESSION['flash_message'] = 'Invalid form submission.';
-        $_SESSION['flash_type'] = 'danger';
-    } else {
-        $newsletter_email = filter_var(trim($_POST['newsletter_email'] ?? ''), FILTER_VALIDATE_EMAIL);
-        if (!$newsletter_email) {
-            $_SESSION['flash_message'] = 'Please enter a valid email address.';
-            $_SESSION['flash_type'] = 'danger';
-        } else {
-            // Check for duplicate
-            $stmt = $pdo->prepare('SELECT id FROM newsletter_subscribers WHERE email = :email');
-            $stmt->execute([':email' => $newsletter_email]);
-            if ($stmt->fetch()) {
-                $_SESSION['flash_message'] = 'You\'re already subscribed! We\'ll keep you inspired.';
-                $_SESSION['flash_type'] = 'info';
-            } else {
-                $stmt = $pdo->prepare('INSERT INTO newsletter_subscribers (email) VALUES (:email)');
-                $stmt->execute([':email' => $newsletter_email]);
-                ekea_log('Newsletter subscription', 'INFO', ['email' => $newsletter_email]);
-                $_SESSION['flash_message'] = 'Thank you for subscribing! Stay inspired with EKEA.';
-                $_SESSION['flash_type'] = 'success';
-            }
-        }
-    }
-    header('Location: index.php#newsletter');
-    exit;
-}
 
 $csrf_token = generate_csrf_token();
 
@@ -182,26 +153,6 @@ endforeach; ?>
     </div>
 </section>
 
-<!-- Newsletter Section -->
-<section id="newsletter" class="section-padding bg-light-ekea">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center fade-in-up">
-                <h2>Stay Inspired</h2>
-                <p class="text-muted-ekea mb-4">Subscribe to our newsletter for exclusive deals, design tips, and new arrivals.</p>
-                <form method="POST" action="index.php#newsletter" class="d-flex gap-2 justify-content-center flex-wrap">
-                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
-                    <input type="hidden" name="newsletter_subscribe" value="1">
-                    <label for="newsletter-email" class="visually-hidden">Email address</label>
-                    <input type="email" class="form-control" id="newsletter-email" name="newsletter_email" placeholder="Enter your email" style="max-width: 350px;" required>
-                    <button type="submit" class="btn btn-primary-ekea">
-                        <i class="bi bi-envelope me-1"></i>Subscribe
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
 </div>
 
 <?php require_once 'includes/footer.php'; ?>

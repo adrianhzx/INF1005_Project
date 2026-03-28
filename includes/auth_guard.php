@@ -9,7 +9,8 @@
  */
 function require_login()
 {
-    if (!isset($_SESSION['user'])) {
+    global $auth;
+    if (!$auth->isLoggedIn()) {
         $_SESSION['flash_message'] = 'Please log in to access this page.';
         $_SESSION['flash_type'] = 'warning';
         header('Location: login.php');
@@ -22,7 +23,8 @@ function require_login()
  */
 function require_admin()
 {
-    if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+    global $auth;
+    if (!$auth->isLoggedIn() || !$auth->hasRole(\Delight\Auth\Role::ADMIN)) {
         $_SESSION['flash_message'] = 'Access denied. Admin privileges required.';
         $_SESSION['flash_type'] = 'danger';
         header('Location: ../index.php');
