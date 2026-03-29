@@ -63,10 +63,51 @@ class OrderController extends BaseController {
         $valid      = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
 
         if (in_array($new_status, $valid)) {
-            $pdo->prepare('UPDATE orders SET status = :status WHERE id = :id')
-                ->execute([':status' => $new_status, ':id' => $order_id]);
-            ekea_log('Order status updated', 'INFO', ['order_id' => $order_id, 'status' => $new_status]);
-            $this->flash('Order #' . str_pad($order_id, 5, '0', STR_PAD_LEFT) . ' updated to ' . ucfirst($new_status) . '.', 'success');
+            // Check what the current status is before updating
+            $stmt = $pdo->prepare('SELECT status FROM orders WHERE id = :id');
+            $stmt->execute([':id' => $order_id]);
+            $current_status = $stmt->fetchColumn();
+
+            // Only run the update if the status is actually changing
+            if ($current_status && $current_status !== $new_status) {
+                
+                // RESTOCK LOGIC: If changing to 'cancelled', put items back in stock
+                if ($new_status === 'cancelled' && $current_status !== 'cancelled') {
+                    $items_stmt = $pdo->prepare('SELECT product_id, quantity FROM order_items WHERE order_id = :oid');
+                    $items_stmt->execute([':oid' => $order_id]);
+                    $items = $items_stmt->fetchAll();
+
+                    $restock_stmt = $pdo->prepare('UPDATE products SET stock = stock + :qty WHERE id = :pid');
+                    foreach ($items as $item) {
+                        $restock_stmt->execute([':qty' => $item['quantity'], ':pid' => $item['product_id']]);
+                    }
+                    ekea_log('Inventory restocked due to cancellation', 'INFO', ['order_id' => $order_id]);
+                }
+
+                // DEDUCT STOCK LOGIC: If un-cancelling an order, take the stock back out
+                if ($current_status === 'cancelled' && $new_status !== 'cancelled') {
+                    $items_stmt = $pdo->prepare('SELECT product_id, quantity FROM order_items WHERE order_id = :oid');
+                    $items_stmt->execute([':oid' => $order_id]);
+                    $items = $items_stmt->fetchAll();
+
+                    $deduct_stmt = $pdo->prepare('UPDATE products SET stock = stock - :qty WHERE id = :pid');
+                    foreach ($items as $item) {
+                        $deduct_stmt->execute([':qty' => $item['quantity'], ':pid' => $item['product_id']]);
+                    }
+                    ekea_log('Inventory deducted due to un-cancellation', 'INFO', ['order_id' => $order_id]);
+                }
+
+                // Finally, update the actual order status
+                $pdo->prepare('UPDATE orders SET status = :status WHERE id = :id')
+                    ->execute([':status' => $new_status, ':id' => $order_id]);
+                
+                ekea_log('Order status updated', 'INFO', ['order_id' => $order_id, 'status' => $new_status]);
+                $this->flash('Order #' . str_pad($order_id, 5, '0', STR_PAD_LEFT) . ' updated to ' . ucfirst($new_status) . '.', 'success');
+            } else {
+                $this->flash('Status is already set to ' . ucfirst($new_status) . '.', 'info');
+            }
+        } else {
+            $this->flash('Invalid status selected.', 'danger');
         }
 
         return $this->redirect($response, '/admin/orders');

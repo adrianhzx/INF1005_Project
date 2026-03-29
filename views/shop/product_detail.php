@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row g-5">
             <div class="col-lg-6 fade-in-up">
-                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                      alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
                      class="product-detail-img">
             </div>
@@ -247,7 +247,7 @@
                     <div class="product-card">
                         <a href="<?= BASE_URL ?>/products/<?php echo (int)$rp['id']; ?>">
                             <div class="card-img-wrapper">
-                                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($rp['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <img src="<?php echo htmlspecialchars($rp['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="<?php echo htmlspecialchars($rp['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                      loading="lazy">
                             </div>

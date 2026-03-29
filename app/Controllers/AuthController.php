@@ -131,7 +131,7 @@ class AuthController extends BaseController
         if (empty($errors)) {
             try {
                 $userId = $auth->register($email, $password, null, function ($selector, $token) use ($email) {
-                    $verify_url = 'http://localhost'. BASE_URL.'/email-verification?selector='.urlencode($selector).'&token='.urlencode($token);
+                    $verify_url = 'http://ekea.duckdns.org/email-verification?selector='.urlencode($selector).'&token='.urlencode($token);
                     ekea_log("Verification URL: {$verify_url}", 'DEBUG');
                     sendVerificationEmail($email, $verify_url);
                 });
@@ -207,7 +207,7 @@ class AuthController extends BaseController
         if (empty($errors)) {
             try {
                 $auth->forgotPassword($old_email, function ($selector, $token) use ($old_email) {
-                    $reset_url = 'http://localhost' . BASE_URL . '/resetpassword?selector=' . urlencode($selector) . '&token=' . urlencode($token);
+                    $reset_url = 'http://ekea.duckdns.org/resetpassword?selector=' . urlencode($selector) . '&token=' . urlencode($token);
                     ekea_log("Password reset URL: {$reset_url}", 'DEBUG');
                     sendPasswordResetEmail($old_email, $reset_url);
                 });
@@ -325,7 +325,7 @@ class AuthController extends BaseController
         $provider = new Google([
             'clientId'     => '430096688412-a0vr6gdjmrnp8ge5ndj7jnr8qf9fs1b2.apps.googleusercontent.com', // Paste your Client ID here
             'clientSecret' => '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', // Paste your Client Secret here
-            'redirectUri'  => 'http://localhost' . BASE_URL . '/auth/google/callback',
+            'redirectUri'  => 'http://ekea.duckdns.org/auth/google/callback',
         ]);
 
         // Generate the authorization URL and store the state
@@ -357,7 +357,7 @@ class AuthController extends BaseController
         $provider = new Google([
             'clientId'     => '430096688412-a0vr6gdjmrnp8ge5ndj7jnr8qf9fs1b2.apps.googleusercontent.com', // Paste your Client ID here
             'clientSecret' => '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', // Paste your Client Secret here
-            'redirectUri'  => 'http://localhost' . BASE_URL . '/auth/google/callback',
+            'redirectUri'  => 'http://ekea.duckdns.org/auth/google/callback',
         ]);
 
         try {

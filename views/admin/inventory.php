@@ -81,7 +81,7 @@
                         <label for="product_image" class="form-label">Replace Image</label>
                         <?php if ($edit_product['image_url'] !== 'logo.png'): ?>
                             <div class="mb-1">
-                                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($edit_product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <img src="<?php echo htmlspecialchars($edit_product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="Current image" style="height:60px;border-radius:var(--border-radius);">
                             </div>
                         <?php endif; ?>
@@ -128,7 +128,7 @@
                         <?php foreach ($products as $prod): ?>
                             <tr <?php echo ($edit_product && $edit_product['id'] == $prod['id']) ? 'class="table-active"' : ''; ?>>
                                 <td>
-                                    <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($prod['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                    <img src="<?php echo htmlspecialchars($prod['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                          alt="<?php echo htmlspecialchars($prod['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                          class="cart-item-img">
                                 </td>

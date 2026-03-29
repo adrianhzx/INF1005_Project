@@ -9,10 +9,10 @@ use Slim\Factory\AppFactory;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\AdminMiddleware;
 
-define('BASE_URL', '/ekea');
+define('BASE_URL', '');
 
 $app = AppFactory::create();
-$app->setBasePath('/ekea');
+$app->setBasePath('');
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 

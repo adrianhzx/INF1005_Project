@@ -1,9 +1,9 @@
 <!-- Hero Section (Slideshow) -->
 <section class="hero-section hero-fixed">
     <!-- Slideshow images -->
-        <div class="hero-slide active" style="background-image: url('<?= BASE_URL ?>/uploads/spacejoy-unsplash1.jpg'); background-position: center center;"></div>
-        <div class="hero-slide" style="background-image: url('<?= BASE_URL ?>/uploads/spacejoy-unsplash2.jpg'); background-position: center center;"></div>
-        <div class="hero-slide" style="background-image: url('<?= BASE_URL ?>/uploads/spacejoy-unsplash-row1.jpg'); background-position: center center;"></div>
+        <div class="hero-slide active" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash1.jpg'); background-position: center center;"></div>
+        <div class="hero-slide" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash2.jpg'); background-position: center center;"></div>
+        <div class="hero-slide" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash-row1.jpg'); background-position: center center;"></div>
 
         <div class="hero-overlay">
         <div class="hero-content fade-in-up visible">
@@ -68,7 +68,7 @@ endforeach; ?>
                     <div class="product-card <?php echo $fi < 2 ? 'product-card-featured' : ''; ?>">
                         <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>">
                             <div class="card-img-wrapper">
-                                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                      loading="lazy">
                             </div>

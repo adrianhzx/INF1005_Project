@@ -104,7 +104,7 @@
                                 <div class="product-card">
                                     <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>">
                                         <div class="card-img-wrapper">
-                                            <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                            <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                                  alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                                  loading="lazy">
                                         </div>

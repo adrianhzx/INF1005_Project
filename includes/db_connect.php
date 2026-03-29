@@ -18,17 +18,17 @@ if (session_status() === PHP_SESSION_NONE) {
 // Include the logger
 require_once __DIR__ . '/logger.php';
 
-$config = parse_ini_file(__DIR__ . '/db_config.ini', true);
+$config = parse_ini_file('/var/www/private/db-config.ini');
 
 if ($config === false) {
     ekea_log('Failed to read db_config.ini', 'CRITICAL');
     die('Error: Unable to read database configuration file.');
 }
 
-$db_host = $config['database']['host'];
-$db_name = $config['database']['dbname'];
-$db_user = $config['database']['username'];
-$db_pass = $config['database']['password'];
+$db_host = $config['host'];
+$db_name = $config['dbname'];
+$db_user = $config['username'];
+$db_pass = $config['password'];
 
 try {
     $pdo = new PDO(

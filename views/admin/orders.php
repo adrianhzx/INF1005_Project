@@ -60,7 +60,7 @@
                         <?php foreach ($order_items as $item): ?>
                             <tr>
                                 <td>
-                                    <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                    <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                          alt="<?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
                                          class="cart-item-img">
                                 </td>
