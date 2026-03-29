@@ -43,7 +43,7 @@ else: ?>
                                 <?php foreach ($cart as $item): ?>
                                     <tr>
                                         <td>
-                                            <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                            <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                                  alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                                  class="cart-item-img">
                                         </td>
@@ -54,7 +54,7 @@ else: ?>
                                         </td>
                                         <td>$<?php echo number_format($item['price'], 2); ?></td>
                                         <td>
-                                            <form method="POST" class="d-inline cart-update-form">
+                                            <form action="<?= BASE_URL ?>/cart/update" method="POST" class="d-inline cart-update-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                 <input type="hidden" name="product_id" value="<?php echo (int)$item['product_id']; ?>">
                                                 <input type="hidden" name="update_qty" value="1">
@@ -71,7 +71,7 @@ else: ?>
                                         </td>
                                         <td><strong>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong></td>
                                         <td>
-                                            <form method="POST" class="d-inline cart-remove-form">
+                                            <form action="<?= BASE_URL ?>/cart/remove" method="POST" class="d-inline cart-remove-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                                                 <input type="hidden" name="product_id" value="<?php echo (int)$item['product_id']; ?>">
                                                 <input type="hidden" name="remove_item" value="1">
@@ -93,7 +93,7 @@ else: ?>
                         <a href="<?= BASE_URL ?>/products" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-1"></i>Continue Shopping
                         </a>
-                        <form method="POST" class="d-inline" id="clearCartForm">
+                        <form action="<?= BASE_URL ?>/cart/clear" method="POST" class="d-inline" id="clearCartForm">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                             <input type="hidden" name="clear_cart" value="1">
                             <button type="button" class="btn btn-outline-danger" id="btnClearCart">

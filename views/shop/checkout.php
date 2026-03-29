@@ -34,7 +34,7 @@
                         <h4 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Order Items (<?php echo count($cart); ?>)</h4>
                         <?php foreach ($cart as $item): ?>
                             <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
-                                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                      class="cart-item-img">
                                 <div class="flex-grow-1">

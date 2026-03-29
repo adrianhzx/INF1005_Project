@@ -113,7 +113,7 @@
                     <div class="col-lg-6 fade-in-up">
                         <div class="review-card h-100">
                             <div class="d-flex gap-3">
-                                <img src="<?= BASE_URL ?>/uploads/<?php echo htmlspecialchars($review['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <img src="<?php echo htmlspecialchars($review['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="<?php echo htmlspecialchars($review['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
                                      class="cart-item-img" loading="lazy">
                                 <div class="flex-grow-1">
