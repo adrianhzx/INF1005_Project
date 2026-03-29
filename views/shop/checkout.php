@@ -54,9 +54,9 @@
                                 <label for="postal_code" class="form-label">Postal Code <span class="text-danger" aria-hidden="true">*</span></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="postal_code" name="postal_code"
-                                           maxlength="6" pattern="\d{6}" placeholder="e.g. 828608" required aria-required="true">
-                                    <button type="button" class="btn btn-dark-ekea" id="lookupPostalBtn" aria-label="Look up address">
-                                        <i class="bi bi-search me-1"></i>Lookup
+                                        maxlength="6" pattern="\d{6}" placeholder="e.g. 828608" required aria-required="true">
+                                    <button type="button" class="btn btn-dark-ekea px-3" id="lookupPostalBtn" title="Look up address" aria-label="Look up address">
+                                        <i class="bi bi-search"></i>
                                     </button>
                                 </div>
                                 <div class="form-text">Enter 6-digit postal code, then click search</div>
@@ -252,45 +252,74 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Coupon Apply via AJAX ---
     var applyCouponBtn = document.getElementById('applyCouponBtn');
-    var couponInput = document.getElementById('coupon_code');
+    var couponInput = document.getElementById('coupon_code'); // Corrected ID reference
     var couponFeedback = document.getElementById('couponFeedback');
     var discountRow = document.getElementById('discountRow');
     var discountAmount = document.getElementById('discountAmount');
     var orderTotal = document.getElementById('orderTotal');
-    var subtotal = <?php echo $subtotal; ?>;
-    var shipping = <?php echo $shipping; ?>;
+    
+    // PHP variables injected safely
+    var subtotal = <?php echo (float)$subtotal; ?>;
+    var shipping = <?php echo (float)$shipping; ?>;
 
     applyCouponBtn.addEventListener('click', function() {
-        var code = couponInput.value.trim();
+        var code = couponInput.value.trim().toUpperCase();
+        
         if (!code) {
             showCouponFeedback('Please enter a coupon code.', false);
             return;
         }
 
-        var formData = new FormData();
-        formData.append('validate_coupon', '1');
-        formData.append('coupon_code', code);
+        // Disable button during check
+        applyCouponBtn.disabled = true;
+        applyCouponBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Checking...';
 
-        fetch('<?= BASE_URL ?>/checkout', { method: 'POST', body: formData })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                showCouponFeedback(data.message, data.valid);
-                if (data.valid) {
-                    discountRow.style.display = 'flex';
-                    discountAmount.textContent = '-$' + data.discount.toFixed(2);
-                    var total = (subtotal + shipping) - data.discount;
-                    orderTotal.textContent = '$' + total.toFixed(2);
-                    couponInput.readOnly = true;
-                    applyCouponBtn.disabled = true;
-                    applyCouponBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Applied';
-                } else {
-                    discountRow.style.display = 'none';
-                    orderTotal.textContent = '$' + (subtotal + shipping).toFixed(2);
-                }
+        // Make the POST request to the correct route (/checkout/coupon)
+        fetch('<?= BASE_URL ?>/checkout/coupon', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'coupon_code': code,
+                // Make sure we grab the CSRF token from the main form
+                'csrf_token': document.querySelector('input[name="csrf_token"]').value
             })
-            .catch(function() {
-                showCouponFeedback('Could not validate coupon. Try again.', false);
-            });
+        })
+        .then(function(response) {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(function(data) {
+            showCouponFeedback(data.message, data.valid);
+            
+            if (data.valid) {
+                // Update UI for success
+                discountRow.style.display = 'flex';
+                // discount comes from the JSON response
+                discountAmount.textContent = '-$' + parseFloat(data.discount).toFixed(2);
+                
+                var total = (subtotal + shipping) - parseFloat(data.discount);
+                orderTotal.textContent = '$' + Math.max(0, total).toFixed(2); // Ensure it doesn't go below 0
+                
+                // Lock the input
+                couponInput.readOnly = true;
+                applyCouponBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Applied';
+                // Leave the button disabled so they can't click it again
+            } else {
+                // Reset UI on failure
+                discountRow.style.display = 'none';
+                orderTotal.textContent = '$' + (subtotal + shipping).toFixed(2);
+                applyCouponBtn.disabled = false;
+                applyCouponBtn.innerHTML = '<i class="bi bi-check2 me-1"></i>Apply';
+            }
+        })
+        .catch(function(error) {
+            showCouponFeedback('Could not validate coupon. Please try again.', false);
+            applyCouponBtn.disabled = false;
+            applyCouponBtn.innerHTML = '<i class="bi bi-check2 me-1"></i>Apply';
+            console.error('Coupon Error:', error);
+        });
     });
 
     function showCouponFeedback(msg, success) {
@@ -299,12 +328,45 @@ document.addEventListener('DOMContentLoaded', function() {
         couponFeedback.innerHTML = '<i class="bi bi-' + (success ? 'check-circle' : 'x-circle') + ' me-1"></i>' + msg;
     }
 
-    // Auto-fill coupon from URL param (e.g. chatbot redirect)
-    var urlParams = new URLSearchParams(window.location.search);
-    var couponParam = urlParams.get('coupon');
-    if (couponParam && couponInput) {
-        couponInput.value = couponParam.toUpperCase();
-        showCouponFeedback('Coupon code pre-filled. Click "Apply" to validate.', true);
-    }
+    // --- Stripe Form Intercept ---
+    var form = document.getElementById('checkoutForm');
+    
+    form.addEventListener('submit', function(event) {
+        var paymentSelect = document.getElementById('payment_method');
+        
+        // Only intercept if Credit Card is selected
+        if (paymentSelect.value === 'credit_card') {
+            event.preventDefault(); // STOP the form from submitting to PHP
+            
+            // Disable button to prevent double-charging
+            var submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Verifying Card...';
+            
+            // Ask Stripe to verify the card details
+            stripe.createToken(cardElement).then(function(result) {
+                if (result.error) {
+                    // The card is empty or invalid! Show the error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                    
+                    // Re-enable the button so they can try again
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="bi bi-lock me-2"></i>Place Order';
+                } else {
+                    // Success! The card is valid. Stripe gave us a secure "Token".
+                    // Create a hidden input to hold this token
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'stripeToken');
+                    hiddenInput.setAttribute('value', result.token.id);
+                    form.appendChild(hiddenInput);
+                    
+                    // NOW we finally let the form submit to your PHP Controller
+                    form.submit();
+                }
+            });
+        }
+    });
 });
 </script>
