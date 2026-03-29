@@ -30,12 +30,12 @@ endif; ?>
         <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-panel" type="button" role="tab" aria-controls="users-panel" aria-selected="true">
-                    <i class="bi bi-people me-1"></i>All Users (<?php echo count($users); ?>)
+                    <i class="bi bi-people me-1"></i>All Users (<?php echo count($users ?? []); ?>)
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews-panel" type="button" role="tab" aria-controls="reviews-panel" aria-selected="false">
-                    <i class="bi bi-chat-square-text me-1"></i>Review Moderation (<?php echo count($all_reviews); ?>)
+                    <i class="bi bi-chat-square-text me-1"></i>Review Moderation (<?php echo count($all_reviews ?? []); ?>)
                 </button>
             </li>
         </ul>
@@ -65,7 +65,7 @@ endif; ?>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $u):
+                            <?php foreach ($users ?? [] as $u):
                                 $isAdmin = ((int)$u['roles_mask'] & \Delight\Auth\Role::ADMIN) === \Delight\Auth\Role::ADMIN;
                             ?>
                                 <tr>
@@ -170,7 +170,7 @@ else: ?>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($all_reviews as $rev): ?>
+                                <?php foreach ($all_reviews ?? [] as $rev): ?>
                                     <tr>
                                         <td>#<?php echo (int)$rev['id']; ?></td>
                                         <td>
