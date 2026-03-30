@@ -50,6 +50,7 @@ class AuthController extends BaseController
             }
             try {
                 $auth->login($old_email, $data['password'], $rememberDuration);
+                start_user_session_record((int) $auth->getUserId());
                 ekea_log('Login successful', 'INFO');
 
                 unset($_SESSION['is_google_user']);
@@ -164,7 +165,9 @@ class AuthController extends BaseController
     public function logout(Request $request, Response $response): Response
     {
         global $auth;
+        $currentUserId = $auth->isLoggedIn() ? (int) $auth->getUserId() : null;
         try {
+            clear_user_session_record($currentUserId, $_SESSION['session_token'] ?? null);
             $auth->logOut();
             unset($_SESSION['cached_first_name']);
             $this->flash('You have been safely logged out. See you next time!', 'success');
@@ -212,7 +215,7 @@ class AuthController extends BaseController
                     sendPasswordResetEmail($old_email, $reset_url);
                 });
             } catch (\Exception $e) {
-                // Silently ignore — don't reveal whether the email exists
+                // Silently ignore 窶・don't reveal whether the email exists
                 ekea_log_exception($e, 'Forgot password error');
             }
             // Always show success to prevent email enumeration
@@ -375,6 +378,7 @@ class AuthController extends BaseController
             try {
                 // Using admin() allows us to securely bypass the password check for a known email
                 $auth->admin()->logInAsUserByEmail($email);
+                start_user_session_record((int) $auth->getUserId());
                 ekea_log('Google Login successful', 'INFO', ['email' => $email]);
 
                 $_SESSION['is_google_user'] = true;
@@ -401,6 +405,7 @@ class AuthController extends BaseController
 
                 // Immediately log the newly created user in
                 $auth->admin()->logInAsUserById($userId);
+                start_user_session_record((int) $auth->getUserId());
 
                 $_SESSION['is_google_user'] = true;
 

@@ -4959,3 +4959,112 @@
 [2026-03-28 21:44:50] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-28 21:44:50] [DEBUG] [db_connect.php:44] Database connection established
 [2026-03-28 21:44:50] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-30 22:25:37] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-30 22:25:49] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-30 22:25:53] [DEBUG] [db_connect.php:44] Database connection established
+[2026-03-30 22:42:48] [DEBUG] [db_connect.php:36] Database connection established
+[2026-03-30 22:42:48] [DEBUG] [db_connect.php:74] Zebra session handler initialised
+[2026-03-30 22:44:26] [DEBUG] [db_connect.php:36] Database connection established
+[2026-03-30 22:44:26] [DEBUG] [db_connect.php:74] Zebra session handler initialised
+[2026-03-30 22:44:54] [DEBUG] [db_connect.php:36] Database connection established
+[2026-03-30 22:44:54] [DEBUG] [db_connect.php:74] Zebra session handler initialised
+[2026-03-30 22:51:05] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 22:51:05] [CRITICAL] [db_connect.php:146] Database connection failed: SQLSTATE[HY000]: General error: 1005 Can't create table `ekea_db`.`user_sessions` (errno: 150 "Foreign key constraint is incorrectly formed") | Context: {"host":"localhost","dbname":"ekea_db","user":"root"}
+[2026-03-30 22:53:21] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 22:53:21] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 22:55:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 22:55:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 22:57:42] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 22:57:42] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:01:21] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:01:21] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:01:56] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:01:56] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:02:41] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:02:41] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:05:52] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:05:52] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:05:52] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:05:52] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:06:05] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:06:05] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:06:05] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:06:05] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:06:13] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:06:13] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:07:55] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:07:55] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:08:02] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:08:02] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:11:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:11:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:11:21] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:11:21] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:11:26] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:11:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:12:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:12:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:12:40] [DEBUG] [AuthController.php:136] Verification URL: http://localhost/ekea/email-verification?selector=ZkyX3LWS6gA2qiJC&token=ocRd1CZYycmAOUbo
+[2026-03-30 23:12:44] [INFO] [AuthController.php:147] User registered | Context: {"email":"verycooked@gmail.com"}
+[2026-03-30 23:12:44] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:12:44] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:13:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:13:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:14:11] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:14:11] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:14:11] [INFO] [AuthController.php:303] Email verified
+[2026-03-30 23:14:11] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:14:11] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:14:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:14:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:14:17] [INFO] [AuthController.php:54] [User: verycooked@gmail.com (ID:13)] Login successful
+[2026-03-30 23:14:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:14:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:18:01] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:18:01] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:18:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:18:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:18:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:18:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:18:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:18:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:19:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:19:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:19:19] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:19:19] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:19:20] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:19:20] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:19:50] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:19:50] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:19:50] [INFO] [AuthController.php:54] [User: verycooked@gmail.com (ID:13)] Login successful
+[2026-03-30 23:19:50] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:19:50] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:20:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:20:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:20:17] [INFO] [db_connect.php:119] [User: verycooked@gmail.com (ID:13)] Session invalidated - token mismatch | Context: {"user_id":13}
+[2026-03-30 23:20:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:20:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:20:55] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:20:55] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:20:55] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:20:55] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:21:41] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:21:41] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:21:42] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:21:42] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:22:28] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:22:28] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:22:35] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:22:35] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:22:35] [INFO] [AuthController.php:54] [User: verycooked@gmail.com (ID:13)] Login successful
+[2026-03-30 23:22:35] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:22:35] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:23:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:23:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:23:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:23:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:24:19] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:24:19] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-30 23:24:19] [INFO] [AuthController.php:54] [User: verycooked@gmail.com (ID:13)] Login successful
+[2026-03-30 23:24:19] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-30 23:24:19] [DEBUG] [db_connect.php:101] Zebra session handler initialised
