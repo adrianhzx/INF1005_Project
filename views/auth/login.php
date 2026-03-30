@@ -1,0 +1,62 @@
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= BASE_URL ?>/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="auth-card">
+            <h1><i class="bi bi-box-arrow-in-right text-accent"></i></h1>
+            <p class="text-center text-muted-ekea mb-4">Log in to your EKEA account</p>
+
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger" role="alert">
+                    <ul class="mb-0">
+                        <?php foreach ($errors as $error): ?>
+                            <li><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></li>
+                        <?php
+                        endforeach; ?>
+                    </ul>
+                </div>
+            <?php
+            endif; ?>
+
+            <form id="loginForm" method="POST" action="<?= BASE_URL ?>/login" class="ekea-form" novalidate>
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address <span class="text-danger" aria-hidden="true">*</span></label>
+                    <input type="email" class="form-control" id="email" name="email"
+                           value="<?php echo htmlspecialchars($old_email, ENT_QUOTES, 'UTF-8'); ?>"
+                           required aria-required="true" autocomplete="email">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password <span class="text-danger" aria-hidden="true">*</span></label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           required aria-required="true" autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn btn-primary-ekea w-100 mt-2">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+                </button>
+            </form>
+
+            <p class="text-center mt-3 mb-0">
+                Don't have an account? <a href="<?= BASE_URL ?>/register" class="fw-semibold">Register here</a>
+            </p>
+
+            <p class="text-center mt-3 mb-0">
+                Forgot your password? <a href="#" class="fw-semibold text-muted" onclick="alert('Password reset feature coming soon!'); return false;">Reset here</a>
+            </p>
+        </div>
+    </div>
+</section>
