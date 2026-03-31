@@ -1,21 +1,12 @@
 <?php
 /**
- * Database Connection (PDO) + delight-im/auth
- * Parses db_config.ini and establishes a secure MySQL connection.
- * Also starts the session, initialises the logger, and sets up $auth.
+ * Database Connection (PDO) + delight-im/auth + Zebra Session
+ * Parses db_config.ini, establishes a secure MySQL connection, starts the
+ * session handler, initialises the logger, and sets up $auth.
  */
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-// Harden session cookies (INF1005 Security Best Practices)
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_samesite', 'Strict');
-    ini_set('session.use_strict_mode', 1);
-    session_start();
-}
-
-// Include the logger
+require_once __DIR__ . '/auth_guard.php';
 require_once __DIR__ . '/logger.php';
 
 $config = parse_ini_file('/var/www/private/db-config.ini');
@@ -35,37 +26,116 @@ try {
         "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4",
         $db_user,
         $db_pass,
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    ]
-        );
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]
+    );
     ekea_log('Database connection established', 'DEBUG');
 
-    // ── delight-im/auth ──
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS `session_data` (
+            `session_id` varchar(128) NOT NULL,
+            `hash` varchar(32) NOT NULL DEFAULT '',
+            `session_data` blob NOT NULL,
+            `session_expire` int(11) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`session_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+
+    $sessionUserColumn = strtolower((string) $pdo->query(
+        "SELECT COLUMN_TYPE
+         FROM information_schema.COLUMNS
+         WHERE TABLE_SCHEMA = DATABASE()
+           AND TABLE_NAME = 'user_sessions'
+           AND COLUMN_NAME = 'user_id'"
+    )->fetchColumn());
+
+    $sessionForeignKey = $pdo->query(
+        "SELECT CONSTRAINT_NAME
+         FROM information_schema.KEY_COLUMN_USAGE
+         WHERE TABLE_SCHEMA = DATABASE()
+           AND TABLE_NAME = 'user_sessions'
+           AND COLUMN_NAME = 'user_id'
+           AND REFERENCED_TABLE_NAME IS NOT NULL
+         LIMIT 1"
+    )->fetchColumn();
+
+    if ($sessionUserColumn !== 'int(10) unsigned' || $sessionForeignKey) {
+        if ($sessionForeignKey) {
+            $constraintName = str_replace('`', '``', $sessionForeignKey);
+            $pdo->exec("ALTER TABLE `user_sessions` DROP FOREIGN KEY `{$constraintName}`");
+        }
+
+        $pdo->exec('ALTER TABLE `user_sessions` MODIFY `user_id` int(10) UNSIGNED NOT NULL');
+        ekea_log('Aligned user_sessions tracking schema', 'DEBUG');
+    }
+
+    if (session_status() === PHP_SESSION_NONE) {
+        require_once __DIR__ . '/Zebra_Session.php';
+
+        ini_set('session.cookie_samesite', 'Strict');
+        ini_set('session.use_strict_mode', 1);
+
+        $session_security_code = trim((string) ($config['session']['security_code'] ?? ''));
+        if ($session_security_code === '') {
+            $session_security_code = hash('sha256', __DIR__ . '|' . $db_name . '|ekea-zebra-session');
+        }
+
+        $session_table = trim((string) ($config['session']['table'] ?? 'session_data'));
+        if ($session_table === '') {
+            $session_table = 'session_data';
+        }
+
+        $session = new \Zebra_Session(
+            $pdo,
+            $session_security_code,
+            0,
+            true,
+            false,
+            60,
+            $session_table
+        );
+
+        ekea_log('Zebra session handler initialised', 'DEBUG');
+    }
+
     $auth = new \Delight\Auth\Auth($pdo, null, null, false);
 
-    // ── Single-Session Enforcement ──
-    // Verify session token on every page load for logged-in users
-    if (isset($_SESSION['user'], $_SESSION['session_token'])) {
-        $sess_stmt = $pdo->prepare('SELECT id FROM user_sessions WHERE user_id = :uid AND session_token = :token');
-        $sess_stmt->execute([':uid' => $_SESSION['user']['id'], ':token' => $_SESSION['session_token']]);
-        if (!$sess_stmt->fetch()) {
-            // Session token not found — user was logged out (another login or admin force-logout)
-            ekea_log('Session invalidated — token mismatch', 'INFO', ['user_id' => $_SESSION['user']['id']]);
-            $old_user = $_SESSION['user']['first_name'] ?? 'User';
-            session_unset();
-            session_destroy();
-            session_start();
-            $_SESSION['flash_message'] = 'You were logged out because your account was accessed from another location.';
-            $_SESSION['flash_type'] = 'warning';
-            header('Location: ' . (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false ? '../' : '') . 'login.php');
-            exit;
+    if ($auth->isLoggedIn()) {
+        $currentUserId = (int) $auth->getUserId();
+        $sessionToken = $_SESSION['session_token'] ?? '';
+
+        if ($sessionToken === '') {
+            start_user_session_record($currentUserId);
+            ekea_log('Bootstrapped tracked session for logged-in user', 'DEBUG', ['user_id' => $currentUserId]);
         }
-        // Update last_active timestamp
-        $pdo->prepare('UPDATE user_sessions SET last_active = NOW() WHERE user_id = :uid AND session_token = :token')
-            ->execute([':uid' => $_SESSION['user']['id'], ':token' => $_SESSION['session_token']]);
+        else {
+            $sessStmt = $pdo->prepare('SELECT id FROM user_sessions WHERE user_id = :uid AND session_token = :token');
+            $sessStmt->execute([':uid' => $currentUserId, ':token' => $sessionToken]);
+
+            if (!$sessStmt->fetch()) {
+                ekea_log('Session invalidated - token mismatch', 'INFO', ['user_id' => $currentUserId]);
+                clear_user_session_record($currentUserId, $sessionToken);
+                try {
+                    $auth->logOut();
+                }
+                catch (\Throwable $e) {
+                    ekea_log_exception($e, 'Tracked session logout failed');
+                }
+                invalidate_user_session();
+            }
+
+            $pdo->prepare(
+                'UPDATE user_sessions SET last_active = NOW(), ip_address = :ip, user_agent = :ua WHERE user_id = :uid AND session_token = :token'
+            )->execute([
+                ':ip' => tracked_session_ip(),
+                ':ua' => tracked_session_user_agent(),
+                ':uid' => $currentUserId,
+                ':token' => $sessionToken,
+            ]);
+        }
     }
 }
 catch (PDOException $e) {

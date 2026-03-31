@@ -1,4 +1,6 @@
 <?php
+define('BASE_URL', '/ekea');
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../includes/db_connect.php';
 require_once __DIR__ . '/../includes/auth_guard.php';
@@ -30,11 +32,11 @@ $app->get('/register',           [\App\Controllers\AuthController::class, 'regis
 $app->post('/register',          [\App\Controllers\AuthController::class, 'register']);
 $app->get('/logout',             [\App\Controllers\AuthController::class, 'logout']);
 $app->get('/email-verification', [\App\Controllers\AuthController::class, 'verifyEmail']);
-$app->get('/forgetpassword',  [\App\Controllers\AuthController::class, 'forgotPasswordPage']);
-$app->post('/forgetpassword', [\App\Controllers\AuthController::class, 'forgotPassword']);
-$app->get('/resetpassword',   [\App\Controllers\AuthController::class, 'resetPasswordPage']);
-$app->post('/resetpassword',  [\App\Controllers\AuthController::class, 'resetPassword']);
-$app->get('/auth/google', [\App\Controllers\AuthController::class, 'googleLogin']);
+$app->get('/forgetpassword',     [\App\Controllers\AuthController::class, 'forgotPasswordPage']);
+$app->post('/forgetpassword',    [\App\Controllers\AuthController::class, 'forgotPassword']);
+$app->get('/resetpassword',      [\App\Controllers\AuthController::class, 'resetPasswordPage']);
+$app->post('/resetpassword',     [\App\Controllers\AuthController::class, 'resetPassword']);
+$app->get('/auth/google',        [\App\Controllers\AuthController::class, 'googleLogin']);
 $app->get('/auth/google/callback', [\App\Controllers\AuthController::class, 'googleCallback']);
 
 $app->get('/cart',         [\App\Controllers\CartController::class, 'index']);
