@@ -40,42 +40,42 @@
     src: url('../fonts/VisbyLight.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyRegular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyMedium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbySemibold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyBold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 @font-face {
     font-family: 'Visby CF';
     src: url('../fonts/VisbyExtrabold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 /* ===== 2. DESIGN TOKENS (CSS Custom Properties) ===== */
@@ -371,6 +371,21 @@ img {
     font-weight: 600;
     border-radius: var(--border-radius);
     transition: var(--transition);
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #5a6268;
+    --bs-btn-border-color: #5a6268;
+    --bs-btn-hover-color: #fff;
+}
+
+.nav-tabs .nav-link {
+    color: #0058d6;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link.active {
+    color: #003d99;
 }
 
 .btn-dark-ekea:hover {
@@ -680,7 +695,7 @@ img {
 
 .status-pending {
     background: #FFF3E0;
-    color: #E65100;
+    color: #BF360C;
 }
 
 .status-processing {
@@ -949,7 +964,7 @@ img {
 
 .stock-low {
     background: #FFF3E0;
-    color: #E65100;
+    color: #BF360C;
 }
 
 .stock-out {
@@ -1054,6 +1069,10 @@ img {
 }
 
 @media (max-width: 768px) {
+    .summary-card {
+        padding: 1.25rem;
+    }
+
     .hero-section {
         min-height: 60vh;
     }
@@ -1095,6 +1114,37 @@ img {
     }
 
     .product-card .card-body {
+        padding: 1rem;
+    }
+
+    /* Admin tables on mobile */
+    .table-responsive table {
+        font-size: 0.8rem;
+    }
+
+    .table-responsive .cart-item-img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .table-responsive td,
+    .table-responsive th {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .table-responsive .category-badge,
+    .table-responsive .stock-badge,
+    .table-responsive .status-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .table-responsive .btn-sm {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.75rem;
+    }
+
+    .summary-card {
         padding: 1rem;
     }
 }

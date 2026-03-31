@@ -16,14 +16,15 @@
     <div class="container">
         <div class="row g-5">
             <div class="col-lg-6 fade-in-up">
-                <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                     alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                     class="product-detail-img">
+                <?php $filename = basename($product['image_url']); ?>
+                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_1200/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                    alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>"
+                    class="product-detail-img" fetchpriority="high">
             </div>
 
             <div class="col-lg-6 product-detail-info fade-in-up">
                 <span class="category-badge mb-3"><?php echo htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8'); ?></span>
-                <h1 class="mt-2"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h1>
+                <h2 class="mt-2"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
 
                 <div class="d-flex align-items-center gap-2 mb-3">
                     <div class="star-rating">
@@ -247,9 +248,10 @@
                     <div class="product-card">
                         <a href="<?= BASE_URL ?>/products/<?php echo (int)$rp['id']; ?>">
                             <div class="card-img-wrapper">
-                                <img src="<?php echo htmlspecialchars($rp['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                     alt="<?php echo htmlspecialchars($rp['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                     loading="lazy">
+                                <?php $rp_filename = basename($rp['image_url']); ?>
+                                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_600/ekea/<?= htmlspecialchars($rp_filename, ENT_QUOTES, 'UTF-8') ?>"
+                                    alt="<?= htmlspecialchars($rp['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                    loading="lazy">
                             </div>
                         </a>
                         <div class="card-body">

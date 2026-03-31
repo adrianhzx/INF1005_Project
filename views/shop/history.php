@@ -22,7 +22,7 @@
             <div class="row g-4">
                 <div class="col-lg-8">
                     <div class="summary-card mb-4">
-                        <h4>Order #<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></h4>
+                        <h2>Order #<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></h2>
                         <div class="row g-3 mt-2">
                             <div class="col-md-6">
                                 <p class="mb-1"><strong>Date:</strong> <?php echo date('d M Y, h:i A', strtotime($order_detail['created_at'])); ?></p>
@@ -54,9 +54,10 @@
                                 <?php foreach ($order_items as $item): ?>
                                     <tr>
                                         <td>
-                                            <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 alt="<?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 class="cart-item-img">
+                                            <?php $filename = basename($item['image_url']); ?>
+                                            <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                                alt="<?= htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8') ?>"
+                                                class="cart-item-img">
                                         </td>
                                         <td>
                                             <a href="<?= BASE_URL ?>/products/<?php echo (int)$item['product_id']; ?>" class="fw-semibold text-decoration-none">
@@ -75,7 +76,7 @@
 
                 <div class="col-lg-4">
                     <div class="summary-card">
-                        <h5>Order Summary</h5>
+                        <h3>Order Summary</h3>
                         <?php
                             $items_total = 0;
                             foreach ($order_items as $it) {
@@ -109,7 +110,7 @@
             <?php if (empty($orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-bag-x"></i></div>
-                    <h3>No Orders Yet</h3>
+                    <h2>No Orders Yet</h2>
                     <p class="text-muted-ekea">You haven't placed any orders. Start shopping now!</p>
                     <a href="<?= BASE_URL ?>/products" class="btn btn-primary-ekea">
                         <i class="bi bi-grid me-2"></i>Browse Products
@@ -118,7 +119,7 @@
             <?php else: ?>
                 <?php if (!empty($spending_by_month)): ?>
                     <div class="spending-chart-container fade-in-up">
-                        <h5 class="mb-3"><i class="bi bi-graph-up-arrow me-2" style="color: var(--color-accent);"></i>Your Spending Trend</h5>
+                        <h2 class="mb-3"><i class="bi bi-graph-up-arrow me-2" style="color: var(--color-accent);"></i>Your Spending Trend</h2>
                         <div class="chart-wrapper">
                             <canvas id="spendingTrend" role="img" aria-label="Line chart showing your monthly spending over time">
                                 <p>Spending trend chart. Data loaded from your order history.</p>
@@ -183,7 +184,7 @@
                             <div class="summary-card h-100">
                                 <div class="d-flex justify-content-between align-items-start mb-3">
                                     <div>
-                                        <h5 class="mb-1">Order #<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></h5>
+                                        <h2 class="mb-1">Order #<?php echo str_pad($order['id'], 5, '0', STR_PAD_LEFT); ?></h2>
                                         <small class="text-muted-ekea">
                                             <i class="bi bi-calendar3 me-1"></i>
                                             <?php echo date('d M Y', strtotime($order['created_at'])); ?>

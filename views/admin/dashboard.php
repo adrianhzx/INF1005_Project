@@ -44,12 +44,12 @@
         </div>
 
         <div class="mb-5">
-            <h3 class="chart-section-title mb-4"><i class="bi bi-graph-up"></i> Analytics Overview</h3>
+            <h2 class="chart-section-title mb-4"><i class="bi bi-graph-up"></i> Analytics Overview</h2>
 
             <div class="row g-4 mb-4">
                 <div class="col-lg-7 fade-in-up">
                     <div class="chart-container" id="chart-revenue-category">
-                        <h5><i class="bi bi-bar-chart-fill"></i> Revenue by Category</h5>
+                        <h3><i class="bi bi-bar-chart-fill"></i> Revenue by Category</h3>
                         <div class="chart-wrapper">
                             <canvas id="revenueByCategory" role="img" aria-label="Bar chart showing revenue earned per product category">
                                 <p>Bar chart displaying revenue by product category. Data loaded from database.</p>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-lg-5 fade-in-up">
                     <div class="chart-container" id="chart-order-status">
-                        <h5><i class="bi bi-pie-chart-fill"></i> Order Status Distribution</h5>
+                        <h3><i class="bi bi-pie-chart-fill"></i> Order Status Distribution</h3>
                         <div class="chart-wrapper">
                             <canvas id="orderStatus" role="img" aria-label="Doughnut chart showing distribution of order statuses">
                                 <p>Doughnut chart displaying order status distribution. Data loaded from database.</p>
@@ -72,7 +72,7 @@
             <div class="row g-4 mb-4">
                 <div class="col-12 fade-in-up">
                     <div class="chart-container chart-container-wide" id="chart-monthly-sales">
-                        <h5><i class="bi bi-graph-up-arrow"></i> Monthly Sales Trend (Last 12 Months)</h5>
+                        <h3><i class="bi bi-graph-up-arrow"></i> Monthly Sales Trend (Last 12 Months)</h3>
                         <div class="chart-wrapper">
                             <canvas id="monthlySales" role="img" aria-label="Line chart showing monthly sales revenue and order count over the last 12 months">
                                 <p>Line chart displaying monthly sales trend. Data loaded from database.</p>
@@ -85,7 +85,7 @@
             <div class="row g-4 mb-4">
                 <div class="col-lg-5 fade-in-up">
                     <div class="chart-container" id="chart-stock-levels">
-                        <h5><i class="bi bi-bullseye"></i> Stock Levels by Category</h5>
+                        <h3><i class="bi bi-bullseye"></i> Stock Levels by Category</h3>
                         <div class="chart-wrapper">
                             <canvas id="stockByCategory" role="img" aria-label="Polar area chart showing total stock levels per product category">
                                 <p>Polar area chart displaying stock levels by category. Data loaded from database.</p>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-lg-7 fade-in-up">
                     <div class="chart-container" id="chart-top-products">
-                        <h5><i class="bi bi-trophy-fill"></i> Top 5 Selling Products</h5>
+                        <h3><i class="bi bi-trophy-fill"></i> Top 5 Selling Products</h3>
                         <div class="chart-wrapper">
                             <canvas id="topProducts" role="img" aria-label="Horizontal bar chart showing the top 5 best selling products by units sold">
                                 <p>Horizontal bar chart displaying top selling products. Data loaded from database.</p>
@@ -107,40 +107,40 @@
         </div>
 
         <div class="row g-4 mb-5">
-            <div class="col-md-4 fade-in-up">
+            <div class="col-lg-4 fade-in-up">
                 <a href="<?= BASE_URL ?>/admin/inventory" class="text-decoration-none">
                     <div class="summary-card d-flex align-items-center gap-3">
                         <div style="width: 60px; height: 60px; background: var(--color-accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-box-seam" style="font-size: 1.5rem; color: var(--color-primary);"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1">Manage Inventory</h5>
+                            <h3 class="mb-1">Manage Inventory</h3>
                             <p class="text-muted-ekea mb-0">Add, edit, or delete products</p>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 fade-in-up">
+            <div class="col-lg-4 fade-in-up">
                 <a href="<?= BASE_URL ?>/admin/orders" class="text-decoration-none">
                     <div class="summary-card d-flex align-items-center gap-3">
                         <div style="width: 60px; height: 60px; background: var(--color-accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-receipt" style="font-size: 1.5rem; color: var(--color-primary);"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1">Manage Orders</h5>
+                            <h3 class="mb-1">Manage Orders</h3>
                             <p class="text-muted-ekea mb-0">View and update order statuses</p>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 fade-in-up">
+            <div class="col-lg-4 fade-in-up">
                 <a href="<?= BASE_URL ?>/admin/users" class="text-decoration-none">
                     <div class="summary-card d-flex align-items-center gap-3">
                         <div style="width: 60px; height: 60px; background: var(--color-accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                             <i class="bi bi-people" style="font-size: 1.5rem; color: var(--color-primary);"></i>
                         </div>
                         <div>
-                            <h5 class="mb-1">Manage Users</h5>
+                            <h3 class="mb-1">Manage Users</h3>
                             <p class="text-muted-ekea mb-0">View and manage user accounts</p>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
         </div>
 
         <div class="fade-in-up">
-            <h3 class="mb-3"><i class="bi bi-clock-history me-2"></i>Recent Orders</h3>
+            <h2 class="mb-3"><i class="bi bi-clock-history me-2"></i>Recent Orders</h2>
             <?php if (empty($recent_orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-receipt"></i></div>

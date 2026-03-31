@@ -24,11 +24,11 @@
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+            <h2 class="mb-0">
                 <i class="bi bi-list-ul me-2"></i>All Products
                 <span class="badge bg-secondary ms-1"><?php echo count($products); ?></span>
-            </h4>
+            </h2>
             <a href="<?= BASE_URL ?>/admin/inventory/add" class="btn btn-primary-ekea">
                 <i class="bi bi-plus-lg me-1"></i>Add New Product
             </a>
@@ -36,9 +36,9 @@
 
         <?php if ($edit_product): ?>
         <div class="summary-card mb-4">
-            <h5 class="mb-3">
+            <h3 class="mb-3">
                 <i class="bi bi-pencil-square text-accent me-2"></i>Edit Product
-            </h5>
+            </h3>
             <form id="inventoryForm" method="POST" enctype="multipart/form-data" class="ekea-form" novalidate>
                 <input type="hidden" name="csrf_token"     value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="save_product"   value="1">
@@ -81,8 +81,9 @@
                         <label for="product_image" class="form-label">Replace Image</label>
                         <?php if ($edit_product['image_url'] !== 'logo.png'): ?>
                             <div class="mb-1">
-                                <img src="<?php echo htmlspecialchars($edit_product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                     alt="Current image" style="height:60px;border-radius:var(--border-radius);">
+                                <?php $edit_filename = basename($edit_product['image_url']); ?>
+                                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?= htmlspecialchars($edit_filename, ENT_QUOTES, 'UTF-8') ?>"
+                                    alt="Current image" style="height:60px;border-radius:var(--border-radius);">
                             </div>
                         <?php endif; ?>
                         <input type="file" class="form-control" id="product_image" name="product_image" accept="image/*">
@@ -105,7 +106,7 @@
         <?php if (empty($products)): ?>
             <div class="empty-state">
                 <div class="empty-icon"><i class="bi bi-box-seam"></i></div>
-                <h3>No Products Yet</h3>
+                <h2>No Products Yet</h2>
                 <p class="text-muted-ekea">Get started by adding your first product.</p>
                 <a href="<?= BASE_URL ?>/admin/inventory/add" class="btn btn-primary-ekea mt-2">
                     <i class="bi bi-plus-lg me-1"></i>Add New Product
@@ -128,9 +129,10 @@
                         <?php foreach ($products as $prod): ?>
                             <tr <?php echo ($edit_product && $edit_product['id'] == $prod['id']) ? 'class="table-active"' : ''; ?>>
                                 <td>
-                                    <img src="<?php echo htmlspecialchars($prod['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                         alt="<?php echo htmlspecialchars($prod['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                         class="cart-item-img">
+                                    <?php $filename = basename($prod['image_url']); ?>
+                                    <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_100/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                        alt="<?= htmlspecialchars($prod['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                        class="cart-item-img" loading="lazy">
                                 </td>
                                 <td>
                                     <strong><?php echo htmlspecialchars($prod['name'], ENT_QUOTES, 'UTF-8'); ?></strong>

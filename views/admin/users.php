@@ -151,7 +151,7 @@ endforeach; ?>
                 <?php if (empty($all_reviews)): ?>
                     <div class="empty-state">
                         <div class="empty-icon"><i class="bi bi-chat-square-text"></i></div>
-                        <h3>No Reviews</h3>
+                        <h2>No Reviews</h2>
                         <p class="text-muted-ekea">Reviews will appear here for moderation.</p>
                     </div>
                 <?php

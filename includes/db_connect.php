@@ -11,6 +11,8 @@ require_once __DIR__ . '/logger.php';
 
 $config = parse_ini_file('/var/www/private/db-config.ini');
 
+define('IMAGE_CDN_URL', 'https://res.cloudinary.com/dadvyxeah/image/upload/');
+
 if ($config === false) {
     ekea_log('Failed to read db_config.ini', 'CRITICAL');
     die('Error: Unable to read database configuration file.');
@@ -92,7 +94,7 @@ try {
             $pdo,
             $session_security_code,
             0,
-            true,
+            false, //rmb to enable for bug fixx
             false,
             60,
             $session_table

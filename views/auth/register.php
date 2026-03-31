@@ -14,7 +14,7 @@
 <section class="section-padding">
     <div class="container">
         <div class="auth-card">
-            <h1><i class="bi bi-person-plus text-accent"></i></h1>
+            <h2><i class="bi bi-person-plus text-accent" aria-hidden="true"></i><span class="visually-hidden">Register</span></h2>
             <p class="text-center text-muted-ekea mb-4">Join EKEA and start shopping for premium furniture</p>
 
             <?php if (!empty($errors)): ?>
@@ -37,13 +37,13 @@
                         <label for="first_name" class="form-label">First Name <span class="text-danger" aria-hidden="true">*</span></label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
                                value="<?php echo htmlspecialchars($old['first_name'], ENT_QUOTES, 'UTF-8'); ?>"
-                               required aria-required="true">
+                               required>
                     </div>
                     <div class="col-md-6">
                         <label for="last_name" class="form-label">Last Name <span class="text-danger" aria-hidden="true">*</span></label>
                         <input type="text" class="form-control" id="last_name" name="last_name"
                                value="<?php echo htmlspecialchars($old['last_name'], ENT_QUOTES, 'UTF-8'); ?>"
-                               required aria-required="true">
+                               required>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                     <label for="email" class="form-label">Email Address <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?php echo htmlspecialchars($old['email'], ENT_QUOTES, 'UTF-8'); ?>"
-                           required aria-required="true">
+                           required>
                 </div>
 
                 <div class="mt-3">
@@ -64,14 +64,14 @@
                 <div class="mt-3">
                     <label for="password" class="form-label">Password <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="password" class="form-control" id="password" name="password"
-                           required aria-required="true" minlength="8">
+                           required minlength="8">
                     <div class="form-text">Minimum 8 characters</div>
                 </div>
 
                 <div class="mt-3">
                     <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password"
-                           required aria-required="true">
+                           required>
                 </div>
 
                 <button type="submit" class="btn btn-primary-ekea w-100 mt-4">

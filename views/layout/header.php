@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Content-Security-Policy header (XSS protection)
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://storage.googleapis.com https://*.tile.openstreetmap.org; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.stripe.com https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: https://storage.googleapis.com https://*.tile.openstreetmap.org https://*.cloudinary.com; connect-src 'self' https://cdn.jsdelivr.net https://www.onemap.gov.sg https://api.stripe.com; frame-src https://js.stripe.com;");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: SAMEORIGIN");
 header("Referrer-Policy: strict-origin-when-cross-origin");
@@ -31,18 +31,23 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </noscript>
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    </noscript>
 
-    <!-- Custom CSS -->
-    <!-- <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo time(); ?>"> -->
-     <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo filemtime(__DIR__ . '/../../public/css/style.css'); ?>">
+    <link rel="preload" href="<?= BASE_URL ?>/css/style.css?v=<?php echo filemtime(__DIR__ . '/../../public/css/style.css'); ?>" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo filemtime(__DIR__ . '/../../public/css/style.css'); ?>">
+    </noscript>
+    
     <!-- <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/dist/turbo.es2017-umd.js"></script> -->
-     <link rel="preload" href="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash1.webp" as="image" fetchpriority="high">
+     <!-- <link rel="preload" href="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash1.webp" as="image" fetchpriority="high"> -->
 </head>
 <body>
 

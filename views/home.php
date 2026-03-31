@@ -7,8 +7,8 @@
          fetchpriority="high"
          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
 </div>
-    <div class="hero-slide" data-bg="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash2.webp" style="background-position: center center;"></div>
-    <div class="hero-slide" data-bg="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash-row1.webp" style="background-position: center center;"></div>
+    <div class="hero-slide" data-bg="<?= IMAGE_CDN_URL ?>f_auto,q_auto/ekea/spacejoy-unsplash2.webp" style="background-position: center center;"></div>
+    <div class="hero-slide" data-bg="<?= IMAGE_CDN_URL ?>f_auto,q_auto/ekea/spacejoy-unsplash-row1.webp" style="background-position: center center;"></div>
 
         <div class="hero-overlay">
         <div class="hero-content fade-in-up visible">
@@ -47,7 +47,7 @@ foreach ($categories as $i => $cat):
                             <div class="value-icon">
                                 <i class="bi <?php echo $icons[$i % count($icons)]; ?>"></i>
                             </div>
-                            <h5><?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                            <h3><?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></h3>
                             <p class="text-muted-ekea small mb-0">
                                 <?php echo (int)$cat['product_count']; ?> product<?php echo $cat['product_count'] != 1 ? 's' : ''; ?>
                             </p>
@@ -73,15 +73,16 @@ endforeach; ?>
                     <div class="product-card <?php echo $fi < 2 ? 'product-card-featured' : ''; ?>">
                         <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>">
                             <div class="card-img-wrapper">
-                                <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                     alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                     loading="lazy">
+                                <?php $filename = basename($product['image_url']); ?>
+                                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_800/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                    alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                    loading="lazy">
                             </div>
                         </a>
                         <div class="card-body">
                             <span class="product-category"><?php echo htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8'); ?></span>
                             <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>" class="text-decoration-none">
-                                <h5 class="product-name"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                                <h3 class="product-name"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h3>
                             </a>
                             <p class="product-price">$<?php echo number_format($product['price'], 2); ?></p>
                         </div>
@@ -109,28 +110,28 @@ endforeach; ?>
             <div class="col-lg-3 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-award"></i></div>
-                    <h5>Premium Quality</h5>
+                    <h3>Premium Quality</h3>
                     <p class="text-muted-ekea mb-0">Every piece is crafted from sustainably sourced materials with meticulous attention to detail.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-truck"></i></div>
-                    <h5>Free Delivery</h5>
+                    <h3>Free Delivery</h3>
                     <p class="text-muted-ekea mb-0">Enjoy complimentary delivery on all orders above $200. Your furniture, your doorstep.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-arrow-repeat"></i></div>
-                    <h5>Easy Returns</h5>
+                    <h3>Easy Returns</h3>
                     <p class="text-muted-ekea mb-0">30-day hassle-free returns. If it doesn't fit your space, we'll take it back.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-shield-check"></i></div>
-                    <h5>5-Year Warranty</h5>
+                    <h3>5-Year Warranty</h3>
                     <p class="text-muted-ekea mb-0">We stand behind our craftsmanship with an industry-leading warranty.</p>
                 </div>
             </div>

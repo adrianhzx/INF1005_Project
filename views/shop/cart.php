@@ -16,7 +16,7 @@
         <?php if (empty($cart)): ?>
             <div class="empty-state">
                 <div class="empty-icon"><i class="bi bi-cart-x"></i></div>
-                <h3>Your Cart is Empty</h3>
+                <h2>Your Cart is Empty</h2>
                 <p class="text-muted-ekea">Looks like you haven't added any items yet.</p>
                 <a href="<?= BASE_URL ?>/products" class="btn btn-primary-ekea">
                     <i class="bi bi-grid me-2"></i>Browse Products
@@ -43,9 +43,10 @@ else: ?>
                                 <?php foreach ($cart as $item): ?>
                                     <tr>
                                         <td>
-                                            <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 class="cart-item-img">
+                                            <?php $filename = basename($item['image_url']); ?>
+                                            <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                                alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                                class="cart-item-img">
                                         </td>
                                         <td>
                                             <a href="<?= BASE_URL ?>/products/<?php echo (int)$item['product_id']; ?>" class="fw-semibold text-decoration-none">
@@ -106,7 +107,7 @@ else: ?>
                 <!-- Order Summary Sidebar -->
                 <div class="col-lg-4">
                     <div class="summary-card">
-                        <h4 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h4>
+                        <h2 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h2>
                         <div class="summary-row">
                             <span>Subtotal (<?php echo array_sum(array_column($cart, 'quantity')); ?> items)</span>
                             <span>$<?php echo number_format($subtotal, 2); ?></span>
@@ -138,11 +139,11 @@ endif; ?>
 </section>
 
 <!-- Confirmation Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmModal" role="dialog" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background: var(--color-primary-dark); color: #fff;">
-                <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+                <h3 class="modal-title" id="confirmModalLabel">Confirm Action</h3>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="confirmModalBody">
@@ -157,11 +158,11 @@ endif; ?>
 </div>
 
 <!-- Stock Limit Warning Modal -->
-<div class="modal fade" id="stockLimitModal" tabindex="-1" aria-labelledby="stockLimitModalLabel" aria-hidden="true">
+<div class="modal fade" id="stockLimitModal" role="dialog" tabindex="-1" aria-labelledby="stockLimitModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background: var(--color-warning); color: #fff;">
-                <h5 class="modal-title" id="stockLimitModalLabel"><i class="bi bi-exclamation-triangle me-2"></i>Stock Limit</h5>
+                <h3 class="modal-title" id="stockLimitModalLabel"><i class="bi bi-exclamation-triangle me-2"></i>Stock Limit</h3>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="stockLimitModalBody">

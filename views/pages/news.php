@@ -43,7 +43,7 @@
             <div class="row mb-5">
                 <div class="col-md-6 col-lg-4 mx-auto fade-in-up">
                     <div class="rating-chart-container">
-                        <h5 class="mb-3"><i class="bi bi-pie-chart-fill me-2" style="color: var(--color-accent);"></i>Ratings Breakdown</h5>
+                        <h2 class="mb-3"><i class="bi bi-pie-chart-fill me-2" style="color: var(--color-accent);"></i>Ratings Breakdown</h2>
                         <div class="chart-wrapper" style="min-height: 260px;">
                             <canvas id="ratingsBreakdown" role="img" aria-label="Doughnut chart showing the breakdown of all review ratings from 1 to 5 stars">
                                 <p>Ratings breakdown chart. Data loaded from reviews.</p>
@@ -113,7 +113,8 @@
                     <div class="col-lg-6 fade-in-up">
                         <div class="review-card h-100">
                             <div class="d-flex gap-3">
-                                <img src="<?php echo htmlspecialchars($review['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                <?php $filename = basename($review['image_url']); ?>
+                                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?php echo htmlspecialchars($filename, ENT_QUOTES, 'UTF-8'); ?>"
                                      alt="<?php echo htmlspecialchars($review['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
                                      class="cart-item-img" loading="lazy">
                                 <div class="flex-grow-1">
