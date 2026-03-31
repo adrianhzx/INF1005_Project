@@ -160,7 +160,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- Stripe Init (Test Mode) ---
-    var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+    var stripe = Stripe('pk_test_51TCFUWLMsORLAKthAmU0BHpiKozLmKCYpqLinOGJjQme2ZESzvxop2HeqVW1RG1vYnviXCSfQUANUJIiVU7nPbIg00TxXOXM2L');
     var elements = stripe.elements();
     var cardElement = elements.create('card', {
         style: {
