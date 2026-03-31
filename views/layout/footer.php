@@ -8,7 +8,7 @@
                 <!-- Brand & About -->
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-brand-wrapper mb-3">
-                        <img src="<?= BASE_URL ?>/uploads/logo.png" alt="EKEA" class="brand-logo"
+                        <img src="<?= BASE_URL ?>/uploads/logo.webp" alt="EKEA" class="brand-logo"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
                              style="height: 45px; object-fit: contain;">
                         <span class="brand-text h5 mb-0" style="display: none; color: var(--color-accent);">EKEA</span>
@@ -96,7 +96,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <!-- Custom JS -->
-    <script src="<?= BASE_URL ?>/js/main.js"></script>
+    <script src="<?= BASE_URL ?>/js/main.js" defer></script>
 
     <!-- Chatbot Widget -->
     <div id="chatbot-widget">

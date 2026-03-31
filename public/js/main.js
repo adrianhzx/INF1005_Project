@@ -451,8 +451,15 @@ document.addEventListener('DOMContentLoaded', function () {
             // Calculate next index
             currentSlide = (n + heroSlides.length) % heroSlides.length;
 
+            // LAZY LOAD FIX: Load background image right before showing it
+            let nextSlideEl = heroSlides[currentSlide];
+            if (nextSlideEl.hasAttribute('data-bg')) {
+                nextSlideEl.style.backgroundImage = "url('" + nextSlideEl.getAttribute('data-bg') + "')";
+                nextSlideEl.removeAttribute('data-bg'); // Remove attribute so it only loads once
+            }
+
             // Add active class to new
-            heroSlides[currentSlide].classList.add('active');
+            nextSlideEl.classList.add('active');
             if (heroDots[currentSlide]) heroDots[currentSlide].classList.add('active');
         }
 

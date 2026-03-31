@@ -1635,7 +1635,7 @@ input[type="number"] {
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
-    gap: 10px;
+    gap: 20px;
 }
 .hero-dot {
    width: 12px;
@@ -1646,6 +1646,17 @@ input[type="number"] {
     cursor: pointer;
     padding: 0;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+}
+.hero-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
 }
 .hero-dot.active {
     background: white;

@@ -1,9 +1,14 @@
 <!-- Hero Section (Slideshow) -->
 <section class="hero-section hero-fixed">
     <!-- Slideshow images -->
-        <div class="hero-slide active" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash1.jpg'); background-position: center center;"></div>
-        <div class="hero-slide" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash2.jpg'); background-position: center center;"></div>
-        <div class="hero-slide" style="background-image: url('https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash-row1.jpg'); background-position: center center;"></div>
+    <div class="hero-slide active">
+    <img src="<?= BASE_URL ?>/uploads/spacejoy-unsplash1.webp" 
+         alt="Modern Living Room" 
+         fetchpriority="high"
+         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+</div>
+    <div class="hero-slide" data-bg="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash2.webp" style="background-position: center center;"></div>
+    <div class="hero-slide" data-bg="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash-row1.webp" style="background-position: center center;"></div>
 
         <div class="hero-overlay">
         <div class="hero-content fade-in-up visible">
@@ -16,9 +21,9 @@
     </div>
         <!-- 3 dot indicators -->
         <div class="hero-dots">
-            <button class="hero-dot active" data-index="0"></button>
-            <button class="hero-dot" data-index="1"></button>
-            <button class="hero-dot" data-index="2"></button>
+            <button class="hero-dot active" data-index="0" aria-label="Go to slide 1"></button>
+            <button class="hero-dot" data-index="1" aria-label="Go to slide 2"></button>
+            <button class="hero-dot" data-index="2" aria-label="Go to slide 3"></button>
         </div>
 </section>
 

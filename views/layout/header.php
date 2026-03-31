@@ -23,10 +23,13 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') . ' | EKEA' : 'EKEA — Modern Furniture'; ?></title>
 
     <!-- Fonts: Visby CF (self-hosted via @font-face in style.css) -->
-     <link rel="preload" href="<?= BASE_URL ?>/uploads/logo.png" as="image">
     <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyRegular.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyMedium.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="<?= BASE_URL ?>/fonts/VisbyBold.otf" as="font" type="font/otf" crossorigin>
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -36,8 +39,10 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo time(); ?>">
+    <!-- <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo time(); ?>"> -->
+     <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css?v=<?php echo filemtime(__DIR__ . '/../../public/css/style.css'); ?>">
     <!-- <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/dist/turbo.es2017-umd.js"></script> -->
+     <link rel="preload" href="https://storage.googleapis.com/ekea-image-bucket/spacejoy-unsplash1.webp" as="image" fetchpriority="high">
 </head>
 <body>
 
@@ -49,7 +54,7 @@ header("Referrer-Policy: strict-origin-when-cross-origin");
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand ekea-logo-box" href="<?= BASE_URL ?>/">
-                <img src="<?= BASE_URL ?>/uploads/logo.png" alt="EKEA">
+                <img src="<?= BASE_URL ?>/uploads/logo.webp" alt="EKEA" width="180" height="60">
                 <span class="brand-text" style="display: none;">EKEA</span>
             </a>
 
