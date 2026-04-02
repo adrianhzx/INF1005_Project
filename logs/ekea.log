@@ -5741,6 +5741,586 @@
 [2026-03-31 16:26:26] [DEBUG] [db_connect.php:35] Database connection established
 [2026-03-31 16:26:26] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
 [2026-03-31 16:26:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:17] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:17] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:17] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:22] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:22] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:22] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:26] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:26] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:29] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:30] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:30] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:31] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:52:57] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:52:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:52:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:53:02] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:53:02] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:53:02] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:53:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:53:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:53:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:53:05] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:53:05] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:53:05] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:53:59] [INFO] [CheckoutController.php:166] [User: aqifnoorazman@gmail.com (ID:5)] Order placed | Context: {"order_id":"44","total":144}
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:53:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:01] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:01] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:01] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:02] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:02] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:02] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:08] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:08] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:08] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:09] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:54:23] [INFO] [CheckoutController.php:166] [User: aqifnoorazman@gmail.com (ID:5)] Order placed | Context: {"order_id":"45","total":498}
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:54:23] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 13:56:25] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 13:56:25] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 13:56:25] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:04:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:04:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:04:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:01] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:01] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:01] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:02] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:02] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:02] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:08] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:08] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:08] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:09] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:30] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:30] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:05:43] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:05:43] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:05:43] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:06:47] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:06:47] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:06:47] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:08:00] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:08:00] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:08:00] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:08:18] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:08:18] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:08:18] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:08:20] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:08:20] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:08:20] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:08:21] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:08:21] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:08:21] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:08:33] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:08:33] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:08:33] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:10:41] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:10:41] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:10:41] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:10:42] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:10:42] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:10:42] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:11:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:11:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:11:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:11:04] [INFO] [CheckoutController.php:187] [User: aqifnoorazman@gmail.com (ID:5)] Order placed | Context: {"order_id":"46","total":747}
+[2026-03-31 14:11:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:11:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:11:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:32] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:32] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:32] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:40] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:40] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:40] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:41] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:44] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:45] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:45] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:45] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:46] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:12:47] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:12:47] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:12:47] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:13:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:13:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:13:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:13:06] [INFO] [CheckoutController.php:187] [User: aqifnoorazman@gmail.com (ID:5)] Order placed | Context: {"order_id":"47","total":95}
+[2026-03-31 14:13:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:13:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:13:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:13:08] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:13:08] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:13:08] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:15:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:15:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:15:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:17:10] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:17:10] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:17:10] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:25:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:25:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:25:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:27:09] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:29:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:29:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:29:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:29:47] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:29:47] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:29:47] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:30:28] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:30:28] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:30:28] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:36:25] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:36:25] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:36:25] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:38:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:06] [INFO] [AuthController.php:54] [User: admin@ekea.com (ID:1)] Login successful
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:08] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:08] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:08] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:10] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:10] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:10] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:13] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:13] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:13] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:32] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:32] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:32] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:33] [INFO] [CheckoutController.php:193] [User: admin@ekea.com (ID:1)] Order placed | Context: {"order_id":"48","total":249}
+[2026-03-31 14:39:33] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:33] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:33] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:39:45] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:39:45] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:39:45] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:43] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:43] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:43] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:47] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:47] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:47] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:48] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:48] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:48] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:55] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:55] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:55] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:56] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:56] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:56] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:57] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:57] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:57] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:42:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:16] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:16] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:16] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:43:19] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:43:19] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:43:19] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:45:25] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:45:25] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:45:25] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:48:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:48:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:48:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:48:06] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:48:06] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:48:06] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:15] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:15] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:15] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:26] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:26] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:34] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:34] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:34] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:38] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:38] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:38] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:49:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:53:02] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:53:02] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:53:02] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:54:46] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:54:46] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:54:46] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:57:10] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:57:10] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:57:10] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:18] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:19] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:19] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:19] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:24] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:24] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:24] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:25] [INFO] [AuthController.php:382] [User: aqifnoorazman@gmail.com (ID:5)] Google Login successful | Context: {"email":"aqifnoorazman@gmail.com"}
+[2026-03-31 14:59:25] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:25] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:25] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 14:59:30] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 14:59:30] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 14:59:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:20] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:22] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:22] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:22] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:29] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:29] [DEBUG] [AuthController.php:214] Password reset URL: http://ekea.duckdns.org/resetpassword?selector=xH6esjWs5QbUTOm-1N57&token=gj1qFFQZpsrKhSlNFY8k
+[2026-03-31 15:01:34] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:34] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:34] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:01:54] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:01:54] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:01:54] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:04] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:04] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:04] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:05] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:05] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:05] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:15] [INFO] [AuthController.php:54] [User: aqifnoorazman@gmail.com (ID:5)] Login successful
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:15] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:23] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:23] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:23] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:23] [ERROR] [logger.php:73] [User: aqifnoorazman@gmail.com (ID:5)] Chatbot product search failed: SQLSTATE[HY093]: Invalid parameter number | Context: {"exception":"PDOException","file":"/var/www/html/app/Controllers/ChatbotController.php:58","trace":"#0 /var/www/html/app/Controllers/ChatbotController.php(58): PDOStatement->execute()\n#1 /var/www/html/vendor/slim/slim/Slim/Handlers/Strategies/RequestResponse.php(39): App\\Controllers\\ChatbotController->handle()\n#2 /var/www/html/vendor/slim/slim/Slim/Routing/Route.php(362): Slim\\Handlers\\Strategies\\RequestResponse->__invoke()\n#3 /var/www/html/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Slim\\Routing\\Route->handle()\n#4 /var/www/html/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Slim\\MiddlewareDispatcher->handle()\n#5 /var/www/html/vendor/slim/slim/Slim/Routing/Route.php(321): Slim\\MiddlewareDispatcher->handle()\n#6 /var/www/html/vendor/slim/slim/Slim/Routing/RouteRunner.php(74): Slim\\Routing\\Route->run()\n#7 /var/www/html/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php(45): Slim\\Routing\\RouteRunner->handle()\n#8 /var/www/html/vendor/slim/slim/Slim/MiddlewareDispatcher.php(129): Slim\\Middleware\\RoutingMiddleware->process()\n#9 /var/www/html/vendor/slim/slim/Slim/Middleware/ErrorMiddleware.php(77): Psr\\Http\\Server\\RequestHandlerInterface@anonymous->handle()\n#10 /var/www/html/vendor/slim/slim/Slim/MiddlewareDispatcher.php(129): Slim\\Middleware\\ErrorMiddleware->process()\n#11 /var/www/html/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Psr\\Http\\Server\\RequestHandlerInterface@anonymous->handle()\n#12 /var/www/html/vendor/slim/slim/Slim/App.php(209): Slim\\MiddlewareDispatcher->handle()\n#13 /var/www/html/vendor/slim/slim/Slim/App.php(193): Slim\\App->handle()\n#14 /var/www/html/public/index.php(72): Slim\\App->run()\n#15 {main}"}
+[2026-03-31 15:02:25] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:25] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:25] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:27] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:29] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:30] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:38] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:38] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:38] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:40] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:40] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:40] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:48] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:48] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:48] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:55] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:55] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:55] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:02:56] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:02:56] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:02:56] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:03:14] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:03:15] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:03:15] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:06:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:06:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:06:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:00] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:00] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:00] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:16] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:16:26] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:16:26] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:16:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:25:12] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:25:12] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:25:12] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:35:39] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:35:39] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:35:39] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:45:53] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:45:54] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:45:54] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:46:07] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:46:07] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:46:07] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:55:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:55:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:55:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 15:58:37] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 15:58:37] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 15:58:37] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:05:14] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:05:14] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:05:14] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:12:59] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:12:59] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:12:59] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:16:01] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:16:01] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:16:01] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:24:32] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:24:32] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:24:32] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:25:46] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:25:46] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:25:46] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:25:46] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:25:47] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:25:47] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:25:58] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:25:58] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:25:58] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:26:01] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:26:01] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:26:01] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:26:03] [DEBUG] [db_connect.php:101] Zebra session handler initialised
+[2026-03-31 16:26:26] [DEBUG] [db_connect.php:35] Database connection established
+[2026-03-31 16:26:26] [DEBUG] [db_connect.php:72] Aligned user_sessions tracking schema
+[2026-03-31 16:26:26] [DEBUG] [db_connect.php:101] Zebra session handler initialised
 [2026-03-31 21:32:54] [DEBUG] [db_connect.php:37] Database connection established
 [2026-03-31 21:32:54] [DEBUG] [db_connect.php:74] Aligned user_sessions tracking schema
 [2026-03-31 21:32:54] [DEBUG] [db_connect.php:103] Zebra session handler initialised
