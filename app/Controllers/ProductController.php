@@ -134,6 +134,13 @@ class ProductController extends BaseController
         $product_id = (int)($args['id'] ?? 0);
         $data = $request->getParsedBody();
 
+        if (!$auth->isLoggedIn()) {
+            $_SESSION['flash_message'] = 'You must be logged in to post a review.';
+            return $response->withHeader('Location', '/login')->withStatus(302);
+        }
+
+        $userId = $auth->getUserId();
+
         if (!validate_csrf_token($data['csrf_token'] ?? '')) {
             $this->flash('Invalid form submission.', 'danger');
             return $this->redirect($response, "/products/{$product_id}");

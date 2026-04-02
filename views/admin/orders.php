@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<section class="section-padding">
+<div class="section-padding">
     <div class="container">
         <?php if ($order_detail): ?>
             <div class="mb-4">
@@ -23,7 +23,7 @@
             <div class="summary-card mb-4">
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <h4>Order #<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></h4>
+                        <h2>Order #<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></h2>
                         <p class="mb-1"><strong>Customer:</strong> <?php echo htmlspecialchars(($order_detail['first_name'] ?? 'Unknown') . ' ' . ($order_detail['last_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="mb-1"><strong>Email:</strong> <?php echo htmlspecialchars($order_detail['email'], ENT_QUOTES, 'UTF-8'); ?></p>
                         <p class="mb-1"><strong>Date:</strong> <?php echo date('d M Y, h:i A', strtotime($order_detail['created_at'])); ?></p>
@@ -60,9 +60,10 @@
                         <?php foreach ($order_items as $item): ?>
                             <tr>
                                 <td>
-                                    <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                         alt="<?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                         class="cart-item-img">
+                                    <?php $filename = basename($item['image_url']); ?>
+                                    <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_100/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                        alt="<?= htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8') ?>"
+                                        class="cart-item-img" loading="lazy">
                                 </td>
                                 <td><?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td>$<?php echo number_format($item['price'], 2); ?></td>
@@ -75,7 +76,7 @@
             </div>
 
             <div class="summary-card mt-4">
-                <h5><i class="bi bi-arrow-clockwise me-2"></i>Update Status</h5>
+                <h3><i class="bi bi-arrow-clockwise me-2"></i>Update Status</h3>
                 <form method="POST" class="d-flex gap-3 align-items-end mt-3">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="order_id" value="<?php echo (int)$order_detail['id']; ?>">
@@ -100,7 +101,7 @@
             <?php if (empty($orders)): ?>
                 <div class="empty-state">
                     <div class="empty-icon"><i class="bi bi-receipt"></i></div>
-                    <h3>No Orders Yet</h3>
+                    <h2>No Orders Yet</h2>
                     <p class="text-muted-ekea">Orders will appear here once customers start purchasing.</p>
                 </div>
             <?php else: ?>
@@ -142,4 +143,4 @@
             <?php endif; ?>
         <?php endif; ?>
     </div>
-</section>
+</div>

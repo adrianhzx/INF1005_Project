@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="summary-card">
-                    <h3 class="mb-4"><i class="bi bi-pencil-square text-accent me-2"></i>Edit Profile</h3>
+                    <h2 class="mb-4"><i class="bi bi-pencil-square text-accent me-2"></i>Edit Profile</h2>
 
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger" role="alert">
@@ -73,15 +73,15 @@
     
     <?php if (isset($_SESSION['is_google_user']) && $_SESSION['is_google_user'] === true): ?>
         
-        <h5>Authentication Method</h5>
+        <h3>Authentication Method</h3>
         <div class="alert alert-info">
-            <i class="bi bi-google me-2"></i> You log in to EKEA using your <strong>Google Account</strong>. 
-            If you wish to log in with a password instead, please use the <a href="<?= BASE_URL ?>/forgetpassword">Forgot Password</a> page.
+            <i class="bi bi-google me-2"></i> You log in to EKEA using your <strong>Google Account</strong>.
+            If you wish to log in with a password instead, please use the <a href="<?= BASE_URL ?>/forgetpassword" style="text-decoration: underline;">Forgot Password</a> page.
         </div>
         
     <?php else: ?>
         
-        <h5>Change Password <small class="text-muted-ekea">(optional)</small></h5>
+        <h3>Change Password <small class="text-muted-ekea">(optional)</small></h3>
         <div class="row g-3 mt-1 mb-2">
             <div class="col-md-12">
                 <label for="old_password" class="form-label">Current Password</label>

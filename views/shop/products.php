@@ -17,7 +17,7 @@
             <!-- Sidebar Filters -->
             <div class="col-lg-3">
                 <div class="summary-card mb-4">
-                    <h5 class="mb-3"><i class="bi bi-funnel me-2"></i>Filters</h5>
+                    <h2 class="mb-3"><i class="bi bi-funnel me-2"></i>Filters</h2>
 
                     <!-- Search & Sort Forms -->
                     <form method="GET" action="<?= BASE_URL ?>/products" class="mb-4">
@@ -49,7 +49,7 @@
                     </form>
 
                     <!-- Categories -->
-                    <h6 class="fw-semibold mb-2">Categories</h6>
+                    <h3 class="fw-semibold mb-2">Categories</h3>
                     <ul class="list-unstyled">
                         <li class="mb-1">
                             <a href="<?= BASE_URL ?>/products<?php echo $search_query ? '?search=' . urlencode($search_query) : ''; ?>"
@@ -104,15 +104,16 @@
                                 <div class="product-card">
                                     <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>">
                                         <div class="card-img-wrapper">
-                                            <img src="<?php echo htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 alt="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                                 loading="lazy">
+                                            <?php $filename = basename($product['image_url']); ?>
+                                            <img src="<?= IMAGE_CDN_URL ?>f_webp,q_auto,w_600/ekea/<?= htmlspecialchars($filename, ENT_QUOTES, 'UTF-8') ?>"
+                                                alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                                loading="lazy">
                                         </div>
                                     </a>
                                     <div class="card-body">
                                         <span class="product-category"><?php echo htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8'); ?></span>
                                         <a href="<?= BASE_URL ?>/products/<?php echo (int)$product['id']; ?>" class="text-decoration-none">
-                                            <h5 class="product-name"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                                            <h3 class="product-name"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h3>
                                         </a>
                                         <p class="small text-muted-ekea mb-2">
                                             <?php echo htmlspecialchars(substr($product['description'], 0, 80), ENT_QUOTES, 'UTF-8'); ?>...

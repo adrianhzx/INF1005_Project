@@ -14,7 +14,7 @@
 <section class="section-padding">
     <div class="container">
         <div class="auth-card">
-            <h1><i class="bi bi-envelope-lock text-accent"></i></h1>
+            <h2><i class="bi bi-envelope-lock text-accent" aria-hidden="true"></i><span class="visually-hidden">Forgot Password</span></h2>
             <p class="text-center text-muted-ekea mb-4">Enter your email and we'll send you a reset link</p>
 
             <?php if (!empty($errors)): ?>
@@ -34,7 +34,7 @@
                     <label for="email" class="form-label">Email Address <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?php echo htmlspecialchars($old_email, ENT_QUOTES, 'UTF-8'); ?>"
-                           required aria-required="true" autocomplete="email">
+                           required autocomplete="email">
                 </div>
 
                 <button type="submit" class="btn btn-primary-ekea w-100 mt-2">

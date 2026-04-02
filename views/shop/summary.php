@@ -26,7 +26,7 @@
 
                 <!-- Order Details -->
                 <div class="summary-card mb-4 fade-in-up">
-                    <h4 class="mb-3"><i class="bi bi-receipt text-accent me-2"></i>Order Details</h4>
+                    <h3 class="mb-3"><i class="bi bi-receipt text-accent me-2"></i>Order Details</h3>
                     <div class="row g-3">
                         <div class="col-md-6">
                             <p class="mb-1"><strong>Order Number:</strong></p>
@@ -55,12 +55,13 @@
 
                 <!-- Items -->
                 <div class="summary-card mb-4 fade-in-up">
-                    <h4 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Items Ordered</h4>
+                    <h3 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Items Ordered</h3>
                     <?php foreach ($items as $item): ?>
                         <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
-                            <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
-                                 alt="<?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                 class="cart-item-img">
+                            <?php $filename = basename($item['image_url']); ?>
+                            <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?php echo htmlspecialchars($filename, ENT_QUOTES, 'UTF-8'); ?>"
+                            alt="<?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?>"
+                            class="cart-item-img">
                             <div class="flex-grow-1">
                                 <strong><?php echo htmlspecialchars($item['product_name'], ENT_QUOTES, 'UTF-8'); ?></strong>
                                 <p class="mb-0 text-muted-ekea small">Qty: <?php echo (int)$item['quantity']; ?> × $<?php echo number_format($item['price'], 2); ?></p>
@@ -68,16 +69,16 @@
                             <strong>$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></strong>
                         </div>
                     <?php
-endforeach; ?>
+                    endforeach; ?>
 
                     <!-- Totals -->
                     <?php
-$items_total = 0;
-foreach ($items as $it) {
-    $items_total += $it['price'] * $it['quantity'];
-}
-$ship = $items_total >= 200 ? 0 : 15;
-?>
+                    $items_total = 0;
+                foreach ($items as $it) {
+                    $items_total += $it['price'] * $it['quantity'];
+                }
+                $ship = $items_total >= 200 ? 0 : 15;
+                ?>
                     <div class="summary-row">
                         <span>Subtotal</span>
                         <span>$<?php echo number_format($items_total, 2); ?></span>
@@ -92,7 +93,7 @@ $ship = $items_total >= 200 ? 0 : 15;
                             <span>-$<?php echo number_format($order['discount'], 2); ?></span>
                         </div>
                     <?php
-endif; ?>
+                    endif; ?>
                     <div class="summary-row summary-total">
                         <span>Total Paid</span>
                         <span>$<?php echo number_format($order['total'], 2); ?></span>

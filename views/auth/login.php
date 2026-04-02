@@ -14,7 +14,7 @@
 <section class="section-padding">
     <div class="container">
         <div class="auth-card">
-            <h1><i class="bi bi-box-arrow-in-right text-accent"></i></h1>
+            <h2><i class="bi bi-box-arrow-in-right text-accent" aria-hidden="true"></i><span class="visually-hidden">Login</span></h2>
             <p class="text-center text-muted-ekea mb-4">Log in to your EKEA account</p>
 
             <?php if (!empty($errors)): ?>
@@ -36,13 +36,13 @@
                     <label for="email" class="form-label">Email Address <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?php echo htmlspecialchars($old_email, ENT_QUOTES, 'UTF-8'); ?>"
-                           required aria-required="true" autocomplete="email">
+                           required autocomplete="email">
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="password" class="form-control" id="password" name="password"
-                           required aria-required="true" autocomplete="current-password">
+                           required autocomplete="current-password">
                 </div>
 
                 <button type="submit" class="btn btn-primary-ekea w-100 mt-2">
@@ -50,7 +50,7 @@
                 </button>
 
                 <div class="auth-separator">
-                <span>OR</span>
+                <span style="color: #767676;">OR</span>
             </div>
 
             <div class="google-login-container" style="text-align: center; margin-top: 15px;">

@@ -25,7 +25,7 @@
 
                 <!-- Quick Links -->
                 <div class="col-lg-2 col-md-6">
-                    <h6 class="footer-heading">Shop</h6>
+                    <p class="footer-heading">Shop</p>
                     <ul class="footer-links list-unstyled">
                         <li><a href="<?= BASE_URL ?>/products">All Products</a></li>
                         <li><a href="<?= BASE_URL ?>/products?category=1">Living Room</a></li>
@@ -37,7 +37,7 @@
 
                 <!-- Company Links -->
                 <div class="col-lg-2 col-md-6">
-                    <h6 class="footer-heading">Company</h6>
+                    <p class="footer-heading">Company</p>
                     <ul class="footer-links list-unstyled">
                         <li><a href="<?= BASE_URL ?>/about">About Us</a></li>
                         <li><a href="<?= BASE_URL ?>/news">Reviews</a></li>
@@ -48,7 +48,7 @@
 
                 <!-- Support Links -->
                 <div class="col-lg-2 col-md-6">
-                    <h6 class="footer-heading">Account</h6>
+                    <p class="footer-heading">Account</p>
                     <ul class="footer-links list-unstyled">
                         <?php if ($auth->isLoggedIn()): ?>
                             <li><a href="<?= BASE_URL ?>/profile">My Profile</a></li>
@@ -63,7 +63,7 @@
 
                 <!-- Contact Info -->
                 <div class="col-lg-2 col-md-6">
-                    <h6 class="footer-heading">Contact</h6>
+                    <p class="footer-heading">Contact</p>
                     <ul class="footer-links list-unstyled">
                         <li><i class="bi bi-geo-alt me-1"></i> 1 Punggol Coast Road, Singapore 828608</li>
                         <li><i class="bi bi-telephone me-1"></i> +65 6123 4567</li>
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" class="form-control" placeholder="Type a keyword..." maxlength="100" autocomplete="off">
+                <input type="text" id="chatbot-input" class="form-control" placeholder="Type a keyword..." maxlength="100" autocomplete="off" aria-label="Chat message">
                 <button id="chatbot-send" class="btn btn-primary-ekea btn-sm" aria-label="Send"><i class="bi bi-send"></i></button>
             </div>
         </div>

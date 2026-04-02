@@ -14,7 +14,7 @@
 <section class="section-padding">
     <div class="container">
         <div class="auth-card">
-            <h1><i class="bi bi-shield-lock text-accent"></i></h1>
+            <h2><i class="bi bi-shield-lock text-accent" aria-hidden="true"></i><span class="visually-hidden">Reset Password</span></h2>
             <p class="text-center text-muted-ekea mb-4">Choose a new password for your account</p>
 
             <?php if (!empty($errors)): ?>
@@ -35,14 +35,14 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">New Password <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="password" class="form-control" id="password" name="password"
-                           required aria-required="true" autocomplete="new-password" minlength="8">
+                           required autocomplete="new-password" minlength="8">
                     <div class="form-text">At least 8 characters.</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="confirm_password" class="form-label">Confirm Password <span class="text-danger" aria-hidden="true">*</span></label>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password"
-                           required aria-required="true" autocomplete="new-password">
+                           required autocomplete="new-password">
                 </div>
 
                 <button type="submit" class="btn btn-primary-ekea w-100 mt-2">

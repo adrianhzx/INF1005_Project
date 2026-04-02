@@ -48,7 +48,7 @@
                     <!-- Contact Info -->
                     <div class="col-12">
                         <div style="background: var(--color-bg-alt); border-radius: var(--border-radius-lg); padding: 2rem;">
-                            <h4 class="mb-3"><i class="bi bi-building me-2 text-accent"></i>Our Headquarters</h4>
+                            <h3 class="mb-3"><i class="bi bi-building me-2 text-accent"></i>Our Headquarters</h3>
                             <p class="mb-1"><strong>EKEA Furniture Pte Ltd</strong></p>
                             <p class="text-muted-ekea mb-1"><i class="bi bi-geo-alt me-2"></i>1 Punggol Coast Road</p>
                             <p class="text-muted-ekea mb-1" style="padding-left: 1.5rem;">Singapore 828608</p>
@@ -67,7 +67,7 @@
 </section>
 
 <!-- Leaflet CSS & JS (free, no API key) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -93,21 +93,21 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-lg-4 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-tree"></i></div>
-                    <h5>Sustainability</h5>
+                    <h3>Sustainability</h3>
                     <p class="text-muted-ekea mb-0">We use responsibly sourced materials and eco-friendly manufacturing processes to minimise our environmental impact.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-palette"></i></div>
-                    <h5>Design Excellence</h5>
+                    <h3>Design Excellence</h3>
                     <p class="text-muted-ekea mb-0">Our in-house design team draws inspiration from Scandinavian minimalism, creating pieces that are both beautiful and practical.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 fade-in-up">
                 <div class="value-card h-100">
                     <div class="value-icon"><i class="bi bi-people"></i></div>
-                    <h5>Community First</h5>
+                    <h3>Community First</h3>
                     <p class="text-muted-ekea mb-0">We believe in building lasting relationships with our customers and the communities we serve.</p>
                 </div>
             </div>
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 alt="<?php echo htmlspecialchars($member['name'], ENT_QUOTES, 'UTF-8'); ?>"
                                 style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <h5 class="mb-1"><?php echo htmlspecialchars($member['name'], ENT_QUOTES, 'UTF-8'); ?></h5>
+                        <h3 class="mb-1"><?php echo htmlspecialchars($member['name'], ENT_QUOTES, 'UTF-8'); ?></h3>
                         <p class="text-muted-ekea small mb-0">
                             <?php echo htmlspecialchars($member['role'], ENT_QUOTES, 'UTF-8'); ?></p>
                     </div>

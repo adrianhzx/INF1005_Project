@@ -11,6 +11,7 @@ use App\Middleware\AuthMiddleware;
 use App\Middleware\AdminMiddleware;
 
 define('BASE_URL', '');
+//define('IMAGE_CDN_URL', 'https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/f_auto,q_auto/ekea/');
 
 $app = AppFactory::create();
 $app->setBasePath('');
