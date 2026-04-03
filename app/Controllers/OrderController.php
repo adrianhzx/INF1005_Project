@@ -57,13 +57,72 @@ class OrderController extends BaseController
             }
         }
 
+        $stripe_checkout_url = $this->stripeCheckoutUrlForOrder($request, $order_detail);
         $page_title   = 'Order History';
         $current_page = 'history';
         $use_chartjs  = true;
 
         return $this->render($response, 'shop/history', compact(
-            'orders', 'order_detail', 'order_items',
+            'orders', 'order_detail', 'order_items', 'stripe_checkout_url',
             'spending_by_month', 'page_title', 'current_page', 'use_chartjs'
         ));
+    }
+
+    private function buildAbsoluteUrl(Request $request, string $path): string
+    {
+        $uri = $request->getUri();
+        $scheme = $uri->getScheme() ?: 'http';
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $origin = $scheme . '://' . $host;
+
+        if ($port !== null && !(($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443))) {
+            $origin .= ':' . $port;
+        }
+
+        return $origin . rtrim(BASE_URL, '/') . $path;
+    }
+
+    private function stripeCheckoutUrlForOrder(Request $request, ?array $order): ?string
+    {
+        if (empty($order) || ($order['payment_method'] ?? '') !== 'stripe_qr' || ($order['status'] ?? '') !== 'pending') {
+            return null;
+        }
+
+        require_once __DIR__ . '/../../includes/stripe_helper.php';
+        $ini = parse_ini_file(__DIR__ . '/../../includes/db_config.ini', true);
+        $secret_key = trim((string)($ini['stripe']['secret_key'] ?? ''));
+
+        if ($secret_key === '') {
+            return null;
+        }
+
+        $order_number = '#' . str_pad((string)$order['id'], 5, '0', STR_PAD_LEFT);
+        $result = stripe_create_checkout_session([
+            'mode' => 'payment',
+            'payment_method_types' => ['paynow'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'sgd',
+                    'unit_amount' => (int)round(((float)$order['total']) * 100),
+                    'product_data' => [
+                        'name' => 'EKEA Order ' . $order_number,
+                        'description' => 'Stripe QR test payment for order ' . $order_number,
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'success_url' => $this->buildAbsoluteUrl($request, '/payment/stripe/success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $this->buildAbsoluteUrl($request, '/payment/stripe/cancel?order_id=' . (int)$order['id']),
+            'metadata' => [
+                'order_id' => (string)$order['id'],
+            ],
+        ], $secret_key);
+
+        if ($result['status'] !== 200) {
+            return null;
+        }
+
+        return $result['data']['url'] ?? null;
     }
 }

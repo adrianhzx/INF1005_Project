@@ -125,11 +125,11 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="row g-4 justify-content-center">
             <?php
             $team = [
-                ['name' => 'Jacob Leow', 'role' => '25XXXXX', 'photo' => 'uploads/jacob.jpg'],
-                ['name' => 'Sylvester Soo', 'role' => '25XXXXX', 'photo' => 'uploads/sylvester.jpg'],
-                ['name' => 'Mohd. Aqif', 'role' => '25XXXXX', 'photo' => 'uploads/aqif.jpg'],
-                ['name' => 'Darren Toh', 'role' => '25XXXXX', 'photo' => 'uploads/darren.jpg'],
-                ['name' => 'Adrian Ho', 'role' => '25XXXXX', 'photo' => 'uploads/adrian.jpg'],
+                ['name' => 'Jacob Leow', 'role' => '2500239', 'photo' => 'uploads/jacob.jpg'],
+                ['name' => 'Sylvester Soo', 'role' => '2500846', 'photo' => 'uploads/sylvester.jpg'],
+                ['name' => 'Mohd. Aqif', 'role' => '2501279', 'photo' => 'uploads/aqif.jpg'],
+                ['name' => 'Darren Toh', 'role' => '2500998', 'photo' => 'uploads/darren.jpg'],
+                ['name' => 'Adrian Ho', 'role' => '2500280', 'photo' => 'uploads/adrian.jpg'],
                     ];
                 foreach ($team as $member):
                     ?>

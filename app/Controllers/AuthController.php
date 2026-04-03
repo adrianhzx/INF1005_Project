@@ -167,9 +167,15 @@ class AuthController extends BaseController
         global $auth;
         $currentUserId = $auth->isLoggedIn() ? (int) $auth->getUserId() : null;
         try {
-            clear_user_session_record($currentUserId, $_SESSION['session_token'] ?? null);
+            // Delete by user_id alone so the record is always removed regardless of token state.
+            // Also fall back to token-only delete for edge cases where userId isn't available.
+            if ($currentUserId !== null) {
+                clear_user_session_record($currentUserId, null);
+            } else {
+                clear_user_session_record(null, $_SESSION['session_token'] ?? null);
+            }
             $auth->logOut();
-            unset($_SESSION['cached_first_name']);
+            unset($_SESSION['cached_first_name'], $_SESSION['is_google_user']);
             $this->flash('You have been safely logged out. See you next time!', 'success');
         } catch (\Delight\Auth\NotLoggedInException $e) {
         }
@@ -332,7 +338,7 @@ class AuthController extends BaseController
         ]);
 
         // Generate the authorization URL and store the state
-        $authUrl = $provider->getAuthorizationUrl();
+        $authUrl = $provider->getAuthorizationUrl(['prompt' => 'select_account']);
         $_SESSION['oauth2state'] = $provider->getState();
 
         return $response->withHeader('Location', $authUrl)->withStatus(302);

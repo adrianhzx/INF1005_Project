@@ -23,3 +23,12 @@ function stripe_get(string $endpoint, string $secret_key): array {
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     return ['data' => json_decode($response, true), 'status' => $http_code];
 }
+
+
+function stripe_create_checkout_session(array $data, string $secret_key): array {
+    return stripe_post('checkout/sessions', $data, $secret_key);
+}
+
+function stripe_get_checkout_session(string $session_id, string $secret_key): array {
+    return stripe_get('checkout/sessions/' . rawurlencode($session_id), $secret_key);
+}

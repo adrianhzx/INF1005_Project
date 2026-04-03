@@ -31,13 +31,12 @@
                 <div class="col-lg-8">
 
                     <div class="summary-card mb-4">
-                        <h2 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Order Items (<?php echo count($cart); ?>)</h2>
+                        <h4 class="mb-3"><i class="bi bi-bag text-accent me-2"></i>Order Items (<?php echo count($cart); ?>)</h4>
                         <?php foreach ($cart as $item): ?>
                             <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom">
-                                <?php $filename = basename($item['image_url']); ?>
-                                <img src="<?= IMAGE_CDN_URL ?>f_auto,q_auto,w_200/ekea/<?php echo htmlspecialchars($filename, ENT_QUOTES, 'UTF-8'); ?>"
-                                    alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                    class="cart-item-img">
+                                <img src="<?php echo htmlspecialchars($item['image_url'], ENT_QUOTES, 'UTF-8'); ?>"
+                                     alt="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>"
+                                     class="cart-item-img">
                                 <div class="flex-grow-1">
                                     <strong><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></strong>
                                     <p class="mb-0 text-muted-ekea small">Qty: <?php echo (int)$item['quantity']; ?> x $<?php echo number_format($item['price'], 2); ?></p>
@@ -49,13 +48,13 @@
                     </div>
 
                     <div class="summary-card mb-4">
-                        <h2 class="mb-3"><i class="bi bi-geo-alt text-accent me-2"></i>Delivery Address</h2>
+                        <h4 class="mb-3"><i class="bi bi-geo-alt text-accent me-2"></i>Delivery Address</h4>
                         <div class="row g-3">
                             <div class="col-md-4">
                                 <label for="postal_code" class="form-label">Postal Code <span class="text-danger" aria-hidden="true">*</span></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="postal_code" name="postal_code"
-                                        maxlength="6" pattern="\d{6}" placeholder="e.g. 828608" required>
+                                        maxlength="6" pattern="\d{6}" placeholder="e.g. 828608" required aria-required="true">
                                     <button type="button" class="btn btn-dark-ekea px-3" id="lookupPostalBtn" title="Look up address" aria-label="Look up address">
                                         <i class="bi bi-search"></i>
                                     </button>
@@ -65,7 +64,7 @@
                             <div class="col-md-4">
                                 <label for="unit_number" class="form-label">Unit Number <span class="text-danger" aria-hidden="true">*</span></label>
                                 <input type="text" class="form-control" id="unit_number" name="unit_number"
-                                       placeholder="e.g. #12-345" required>
+                                       placeholder="e.g. #12-345" required aria-required="true">
                             </div>
                             <div class="col-md-4">
                                 <label for="building_name" class="form-label">Building Name</label>
@@ -76,20 +75,19 @@
                         <div class="mt-3">
                             <label for="street_address" class="form-label">Street Address <span class="text-danger" aria-hidden="true">*</span></label>
                             <input type="text" class="form-control" id="street_address" name="street_address"
-                                   placeholder="Auto-filled from postal code lookup" required>
+                                   placeholder="Auto-filled from postal code lookup" required aria-required="true">
                         </div>
                         <div id="postalLookupStatus" class="mt-2" style="display: none;"></div>
                     </div>
 
                     <div class="summary-card mb-4">
-                        <h2 class="mb-3"><i class="bi bi-credit-card text-accent me-2"></i>Payment Method</h2>
+                        <h4 class="mb-3"><i class="bi bi-credit-card text-accent me-2"></i>Payment Method</h4>
                         <div class="mb-3">
                             <label for="payment_method" class="form-label">Select Payment <span class="text-danger" aria-hidden="true">*</span></label>
-                            <select class="form-select" id="payment_method" name="payment_method" required>
+                            <select class="form-select" id="payment_method" name="payment_method" required aria-required="true">
                                 <option value="">Choose payment method...</option>
-                                <option value="credit_card">Credit / Debit Card (Stripe Test)</option>
-                                <option value="paypal">PayPal</option>
-                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="credit_card">Credit / Debit Card</option>
+                                <option value="stripe_qr">Stripe PayNow QR Payment (Test Mode)</option>
                             </select>
                         </div>
 
@@ -104,7 +102,7 @@
                     </div>
 
                     <div class="summary-card mb-4">
-                        <h2 class="mb-3"><i class="bi bi-tag text-accent me-2"></i>Discount Coupon</h2>
+                        <h4 class="mb-3"><i class="bi bi-tag text-accent me-2"></i>Discount Coupon</h4>
                         <div class="row g-2 align-items-end">
                             <div class="col">
                                 <label for="coupon_code" class="form-label">Coupon Code</label>
@@ -123,7 +121,7 @@
 
                 <div class="col-lg-4">
                     <div class="summary-card" style="position: sticky; top: 90px;">
-                        <h2 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h2>
+                        <h4 class="mb-3"><i class="bi bi-receipt me-2"></i>Order Summary</h4>
                         <div class="summary-row">
                             <span>Subtotal</span>
                             <span>$<?php echo number_format($subtotal, 2); ?></span>
@@ -164,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var stripe = Stripe('pk_test_51TCFUWLMsORLAKthAmU0BHpiKozLmKCYpqLinOGJjQme2ZESzvxop2HeqVW1RG1vYnviXCSfQUANUJIiVU7nPbIg00TxXOXM2L');
     var elements = stripe.elements();
     var cardElement = elements.create('card', {
+        hidePostalCode: true,
         style: {
             base: {
                 fontSize: '16px',

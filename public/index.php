@@ -6,7 +6,12 @@ require_once __DIR__ . '/../includes/auth_guard.php';
 require_once __DIR__ . '/../includes/logger.php';
 require_once __DIR__ . '/../includes/mailer.php';
 
+use App\Controllers\BaseController;
 use Slim\Factory\AppFactory;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpForbiddenException;
+use Slim\Exception\HttpMethodNotAllowedException;
+use Slim\Exception\HttpNotFoundException;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\AdminMiddleware;
 
@@ -16,7 +21,130 @@ define('BASE_URL', '');
 $app = AppFactory::create();
 $app->setBasePath('');
 $app->addRoutingMiddleware();
-$app->addErrorMiddleware(true, true, true);
+$errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$errorMiddleware->setDefaultErrorHandler(
+    function (
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Throwable $exception,
+        bool $displayErrorDetails,
+        bool $logErrors,
+        bool $logErrorDetails
+    ) use ($app) {
+        ekea_log('UNCAUGHT EXCEPTION: ' . $exception->getMessage(), 'CRITICAL', [
+            'file' => $exception->getFile() . ':' . $exception->getLine(),
+            'trace' => $exception->getTraceAsString(),
+        ]);
+
+        $response = $app->getResponseFactory()->createResponse(500);
+
+        $renderer = new class extends BaseController {
+            public function page(\Psr\Http\Message\ResponseInterface $response): \Psr\Http\Message\ResponseInterface
+            {
+                $page_title = 'Server Error';
+                $current_page = '';
+                return $this->render($response, 'pages/500', compact('page_title', 'current_page'));
+            }
+        };
+
+        return $renderer->page($response);
+    }
+);
+
+$errorMiddleware->setErrorHandler(
+    HttpBadRequestException::class,
+    function (
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Throwable $exception,
+        bool $displayErrorDetails,
+        bool $logErrors,
+        bool $logErrorDetails
+    ) use ($app) {
+        $response = $app->getResponseFactory()->createResponse(400);
+
+        $renderer = new class extends BaseController {
+            public function page(\Psr\Http\Message\ResponseInterface $response): \Psr\Http\Message\ResponseInterface
+            {
+                $page_title = 'Bad Request';
+                $current_page = '';
+                return $this->render($response, 'pages/400', compact('page_title', 'current_page'));
+            }
+        };
+
+        return $renderer->page($response);
+    }
+);
+
+$errorMiddleware->setErrorHandler(
+    HttpNotFoundException::class,
+    function (
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Throwable $exception,
+        bool $displayErrorDetails,
+        bool $logErrors,
+        bool $logErrorDetails
+    ) use ($app) {
+        $response = $app->getResponseFactory()->createResponse(404);
+
+        $renderer = new class extends BaseController {
+            public function page(\Psr\Http\Message\ResponseInterface $response): \Psr\Http\Message\ResponseInterface
+            {
+                $page_title = 'Page Not Found';
+                $current_page = '';
+                return $this->render($response, 'pages/404', compact('page_title', 'current_page'));
+            }
+        };
+
+        return $renderer->page($response);
+    }
+);
+$errorMiddleware->setErrorHandler(
+    HttpForbiddenException::class,
+    function (
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Throwable $exception,
+        bool $displayErrorDetails,
+        bool $logErrors,
+        bool $logErrorDetails
+    ) use ($app) {
+        $response = $app->getResponseFactory()->createResponse(403);
+
+        $renderer = new class extends BaseController {
+            public function page(\Psr\Http\Message\ResponseInterface $response): \Psr\Http\Message\ResponseInterface
+            {
+                $page_title = 'Access Forbidden';
+                $current_page = '';
+                return $this->render($response, 'pages/403', compact('page_title', 'current_page'));
+            }
+        };
+
+        return $renderer->page($response);
+    }
+);
+
+$errorMiddleware->setErrorHandler(
+    HttpMethodNotAllowedException::class,
+    function (
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Throwable $exception,
+        bool $displayErrorDetails,
+        bool $logErrors,
+        bool $logErrorDetails
+    ) use ($app) {
+        $response = $app->getResponseFactory()->createResponse(405);
+
+        $renderer = new class extends BaseController {
+            public function page(\Psr\Http\Message\ResponseInterface $response): \Psr\Http\Message\ResponseInterface
+            {
+                $page_title = 'Method Not Allowed';
+                $current_page = '';
+                return $this->render($response, 'pages/405', compact('page_title', 'current_page'));
+            }
+        };
+
+        return $renderer->page($response);
+    }
+);
 
 $app->get('/',               [\App\Controllers\HomeController::class,    'index']);
 $app->post('/',              [\App\Controllers\HomeController::class,    'newsletter']);
@@ -46,6 +174,8 @@ $app->post('/cart/remove', [\App\Controllers\CartController::class, 'remove']);
 $app->post('/cart/clear',  [\App\Controllers\CartController::class, 'clear']);
 
 $app->post('/chatbot', [\App\Controllers\ChatbotController::class, 'handle']);
+$app->get('/payment/stripe/success', [\App\Controllers\CheckoutController::class, 'stripeSuccess']);
+$app->get('/payment/stripe/cancel', [\App\Controllers\CheckoutController::class, 'stripeCancel']);
 
 $app->group('', function ($group) {
     $group->get('/checkout',         [\App\Controllers\CheckoutController::class, 'index']);

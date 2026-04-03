@@ -46,38 +46,43 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     );
 
-    $sessionUserColumn = strtolower((string) $pdo->query(
-        "SELECT COLUMN_TYPE
-         FROM information_schema.COLUMNS
-         WHERE TABLE_SCHEMA = DATABASE()
-           AND TABLE_NAME = 'user_sessions'
-           AND COLUMN_NAME = 'user_id'"
-    )->fetchColumn());
+    // Schema alignment for user_sessions (wrapped in try-catch for safety)
+    try {
+        $sessionUserColumn = strtolower((string) $pdo->query(
+            "SELECT COLUMN_TYPE
+             FROM information_schema.COLUMNS
+             WHERE TABLE_SCHEMA = DATABASE()
+               AND TABLE_NAME = 'user_sessions'
+               AND COLUMN_NAME = 'user_id'"
+        )->fetchColumn());
 
-    $sessionForeignKey = $pdo->query(
-        "SELECT CONSTRAINT_NAME
-         FROM information_schema.KEY_COLUMN_USAGE
-         WHERE TABLE_SCHEMA = DATABASE()
-           AND TABLE_NAME = 'user_sessions'
-           AND COLUMN_NAME = 'user_id'
-           AND REFERENCED_TABLE_NAME IS NOT NULL
-         LIMIT 1"
-    )->fetchColumn();
+        $sessionForeignKey = $pdo->query(
+            "SELECT CONSTRAINT_NAME
+             FROM information_schema.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = DATABASE()
+               AND TABLE_NAME = 'user_sessions'
+               AND COLUMN_NAME = 'user_id'
+               AND REFERENCED_TABLE_NAME IS NOT NULL
+             LIMIT 1"
+        )->fetchColumn();
 
-    if ($sessionUserColumn !== 'int(10) unsigned' || $sessionForeignKey) {
-        if ($sessionForeignKey) {
-            $constraintName = str_replace('`', '``', $sessionForeignKey);
-            $pdo->exec("ALTER TABLE `user_sessions` DROP FOREIGN KEY `{$constraintName}`");
+        if ($sessionUserColumn !== '' && ($sessionUserColumn !== 'int(10) unsigned' || $sessionForeignKey)) {
+            if ($sessionForeignKey) {
+                $constraintName = str_replace('`', '``', $sessionForeignKey);
+                $pdo->exec("ALTER TABLE `user_sessions` DROP FOREIGN KEY `{$constraintName}`");
+            }
+
+            $pdo->exec('ALTER TABLE `user_sessions` MODIFY `user_id` int(10) UNSIGNED NOT NULL');
+            ekea_log('Aligned user_sessions tracking schema', 'DEBUG');
         }
-
-        $pdo->exec('ALTER TABLE `user_sessions` MODIFY `user_id` int(10) UNSIGNED NOT NULL');
-        ekea_log('Aligned user_sessions tracking schema', 'DEBUG');
+    } catch (\Throwable $e) {
+        ekea_log('Schema alignment skipped: ' . $e->getMessage(), 'WARNING');
     }
 
     if (session_status() === PHP_SESSION_NONE) {
         require_once __DIR__ . '/Zebra_Session.php';
 
-        ini_set('session.cookie_samesite', 'Strict');
+        ini_set('session.cookie_samesite', 'Lax');
         ini_set('session.use_strict_mode', 1);
 
         $session_security_code = trim((string) ($config['session']['security_code'] ?? ''));

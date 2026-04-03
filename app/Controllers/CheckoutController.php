@@ -45,6 +45,11 @@ class CheckoutController extends BaseController
     {
         global $pdo;
         $data = $request->getParsedBody();
+
+        if (!validate_csrf_token($data['csrf_token'] ?? '')) {
+            return $this->json($response, ['valid' => false, 'message' => 'Invalid form submission.'], 400);
+        }
+
         $code = strtoupper(trim($data['coupon_code'] ?? ''));
 
         if (empty($code)) {
@@ -161,15 +166,24 @@ class CheckoutController extends BaseController
                             throw new \Exception('Payment token missing. Please try again.');
                         }
                         $charge = stripe_post('charges', [
-                            'amount'      => (int) round($total * 100),
-                            'currency'    => 'sgd',
-                            'source'      => $stripe_token,
+                            'amount' => (int) round($total * 100),
+                            'currency' => 'sgd',
+                            'source' => $stripe_token,
                             'description' => 'Ekea Order #' . $order_id,
+                            'receipt_email' => $auth->getEmail(),
+                            'metadata' => [
+                                'invoice' => 'INV-' . $order_id,
+                                'customer_email' => $auth->getEmail(),
+                                'customer_address' => $shipping_address,
+                            ],
                         ], $ini['stripe']['secret_key'] ?? '');
 
                         if ($charge['status'] !== 200 || ($charge['data']['status'] ?? '') !== 'succeeded') {
                             throw new \Exception($charge['data']['error']['message'] ?? 'Payment failed. Please try again.');
                         }
+
+                         $pdo->prepare('UPDATE orders SET status = :status WHERE id = :id')
+                        ->execute([':status' => 'processing', ':id' => $order_id]);
                     }
 
                     // 3. Insert Items & Deduct Stock
@@ -197,7 +211,7 @@ class CheckoutController extends BaseController
                     $_SESSION['last_order_id'] = $order_id;
 
                     // *OPTIONAL*: Send Email Confirmation Here if you want to use your Mailer!
-                    // send_order_email($auth->getEmail(), $order_id);
+                    //send_order_email($auth->getEmail(), $order_id);
 
                     return $this->redirect($response, '/summary');
 
@@ -251,9 +265,118 @@ class CheckoutController extends BaseController
         $stmt->execute([':oid' => $order_id]);
         $items = $stmt->fetchAll();
 
+        $stripe_checkout_url = $this->stripeCheckoutUrlForOrder($request, $order);
         $page_title = 'Order Confirmed';
         $current_page = '';
 
-        return $this->render($response, 'shop/summary', compact('order', 'items', 'page_title', 'current_page'));
+        return $this->render($response, 'shop/summary', compact('order', 'items', 'stripe_checkout_url', 'page_title', 'current_page'));
+    }
+
+    public function stripeSuccess(Request $request, Response $response): Response
+    {
+        global $pdo;
+
+        require_once __DIR__ . '/../../includes/stripe_helper.php';
+        $ini = parse_ini_file(__DIR__ . '/../../includes/db_config.ini', true);
+        $secret_key = trim((string)($ini['stripe']['secret_key'] ?? ''));
+        $session_id = trim((string)($request->getQueryParams()['session_id'] ?? ''));
+
+        if ($session_id === '' || $secret_key === '') {
+            $this->flash('Unable to verify the Stripe payment session.', 'danger');
+            return $this->redirect($response, '/');
+        }
+
+        $result = stripe_get_checkout_session($session_id, $secret_key);
+        $session = $result['data'] ?? [];
+        $order_id = (int)($session['metadata']['order_id'] ?? 0);
+
+        if ($result['status'] !== 200 || $order_id <= 0) {
+            $this->flash('Stripe payment verification failed.', 'danger');
+            return $this->redirect($response, '/');
+        }
+
+        $checkout_complete = (($session['status'] ?? '') === 'complete');
+        $payment_paid = in_array(($session['payment_status'] ?? ''), ['paid', 'no_payment_required'], true);
+
+        if ($checkout_complete || $payment_paid) {
+            $pdo->prepare("UPDATE orders SET status = CASE WHEN status = 'pending' THEN 'processing' ELSE status END WHERE id = :id AND payment_method = :method")
+                ->execute([':id' => $order_id, ':method' => 'stripe_qr']);
+            $_SESSION['last_order_id'] = $order_id;
+            $this->flash('Stripe payment received for order #' . str_pad((string)$order_id, 5, '0', STR_PAD_LEFT) . '.', 'success');
+        } else {
+            $this->flash('Payment has not been completed yet.', 'warning');
+        }
+
+        return $this->redirect($response, '/history?id=' . $order_id);
+    }
+
+    public function stripeCancel(Request $request, Response $response): Response
+    {
+        $order_id = (int)($request->getQueryParams()['order_id'] ?? 0);
+        $this->flash('Stripe Checkout was cancelled. The order is still pending payment.', 'warning');
+
+        if ($order_id > 0) {
+            return $this->redirect($response, '/history?id=' . $order_id);
+        }
+
+        return $this->redirect($response, '/history');
+    }
+
+    private function buildAbsoluteUrl(Request $request, string $path): string
+    {
+        $uri = $request->getUri();
+        $scheme = $uri->getScheme() ?: 'http';
+        $host = $uri->getHost();
+        $port = $uri->getPort();
+        $origin = $scheme . '://' . $host;
+
+        if ($port !== null && !(($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443))) {
+            $origin .= ':' . $port;
+        }
+
+        return $origin . rtrim(BASE_URL, '/') . $path;
+    }
+
+    private function stripeCheckoutUrlForOrder(Request $request, array $order): ?string
+    {
+        if (($order['payment_method'] ?? '') !== 'stripe_qr' || ($order['status'] ?? '') !== 'pending') {
+            return null;
+        }
+
+        require_once __DIR__ . '/../../includes/stripe_helper.php';
+        $ini = parse_ini_file(__DIR__ . '/../../includes/db_config.ini', true);
+        $secret_key = trim((string)($ini['stripe']['secret_key'] ?? ''));
+
+        if ($secret_key === '') {
+            return null;
+        }
+
+        $order_number = '#' . str_pad((string)$order['id'], 5, '0', STR_PAD_LEFT);
+        $result = stripe_create_checkout_session([
+            'mode' => 'payment',
+            'payment_method_types' => ['paynow'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'sgd',
+                    'unit_amount' => (int)round(((float)$order['total']) * 100),
+                    'product_data' => [
+                        'name' => 'EKEA Order ' . $order_number,
+                        'description' => 'Stripe QR test payment for order ' . $order_number,
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'success_url' => $this->buildAbsoluteUrl($request, '/payment/stripe/success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $this->buildAbsoluteUrl($request, '/payment/stripe/cancel?order_id=' . (int)$order['id']),
+            'metadata' => [
+                'order_id' => (string)$order['id'],
+            ],
+        ], $secret_key);
+
+        if ($result['status'] !== 200) {
+            return null;
+        }
+
+        return $result['data']['url'] ?? null;
     }
 }

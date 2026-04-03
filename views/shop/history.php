@@ -39,6 +39,59 @@
                         </div>
                     </div>
 
+                    <?php if ($order_detail['payment_method'] === 'stripe_qr' && $order_detail['status'] === 'pending' && !empty($stripe_checkout_url)): ?>
+                        <div class="summary-card mb-4" style="border-left: 4px solid var(--color-primary);">
+                            <h3 class="mb-3"><i class="bi bi-qr-code-scan text-accent me-2"></i>Stripe PayNow QR Payment (Test Mode)</h3>
+                            <p class="text-muted-ekea mb-3">This order is awaiting payment. Open Stripe PayNow Checkout and select PayNow to generate Stripe's test QR code for this order.</p>
+                            <div class="text-center">
+                                <canvas id="stripeHistoryQrCanvas" width="180" height="180" aria-label="Stripe payment QR code"></canvas>
+                                <p class="text-muted-ekea small mt-2 mb-3">Test card: <code>4242 4242 4242 4242</code>, any future expiry, any CVC</p>
+                                <a href="<?php echo htmlspecialchars($stripe_checkout_url, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-dark-ekea">
+                                    <i class="bi bi-box-arrow-up-right me-2"></i>Open Stripe PayNow Checkout
+                                </a>
+                            </div>
+                            <div class="alert alert-warning mt-3 mb-0">
+                                <i class="bi bi-exclamation-triangle me-2"></i>This test order will remain pending until the Stripe PayNow payment succeeds.
+                            </div>
+                        </div>
+                    <?php elseif ($order_detail['payment_method'] === 'bank_transfer' && $order_detail['status'] === 'pending'): ?>
+                        <div class="summary-card mb-4" style="border-left: 4px solid var(--color-primary);">
+                            <h3 class="mb-3"><i class="bi bi-bank text-accent me-2"></i>Payment Pending</h3>
+                            <p class="text-muted-ekea mb-3">This order is still awaiting payment. Please transfer the exact amount below and use the order number as the reference.</p>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Bank Name:</strong></p>
+                                    <p>DBS Bank</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Account Name:</strong></p>
+                                    <p>Ekea Pte Ltd</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Bank Account Number:</strong></p>
+                                    <p class="fw-bold">003-916221-9</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><strong>Amount to Transfer:</strong></p>
+                                    <p class="fw-bold text-accent">$<?php echo number_format($order_detail['total'], 2); ?></p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="mb-1"><strong>Reference:</strong></p>
+                                    <p class="fw-bold text-accent fs-5">#<?php echo str_pad($order_detail['id'], 5, '0', STR_PAD_LEFT); ?></p>
+                                </div>
+                                <div class="col-12 text-center mt-2">
+                                    <p class="mb-2"><strong>Or PayNow via QR Code:</strong></p>
+                                    <img src="<?= BASE_URL ?>/uploads/paynow_qr.jpg" alt="PayNow QR Code"
+                                        style="width: 180px; height: 180px; object-fit: contain; border: 1px solid #ddd; border-radius: 8px; padding: 8px;">
+                                    <p class="text-muted-ekea small mt-2">Scan with your banking app</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning mt-3 mb-0">
+                                <i class="bi bi-exclamation-triangle me-2"></i>This order will remain pending until payment is received.
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead>
@@ -208,3 +261,14 @@
         <?php endif; ?>
     </div>
 </section>
+<?php if (!empty($stripe_checkout_url)): ?>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var canvas = document.getElementById('stripeHistoryQrCanvas');
+    if (canvas && window.QRCode) {
+        QRCode.toCanvas(canvas, <?php echo json_encode($stripe_checkout_url); ?>, { width: 180, margin: 1 });
+    }
+});
+</script>
+<?php endif; ?>
